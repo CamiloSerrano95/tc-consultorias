@@ -1,6 +1,5 @@
 <?php
     require_once 'help/helps.php';
-    require_once '../app/utils/Conexion.php';
     
     define("APP_RUTA",RUTA_BASE."app/");
     define("VISTA_RUTA",RUTA_BASE."view/");
@@ -10,7 +9,8 @@
     define("MODELS",APP_RUTA."model/");
 
     //configuraciones
-    require_once 'RUTA_BASE."config/config.php';
+    require_once RUTA_BASE."config/config.php";
+    require_once  APP_RUTA."utils/Conexion.php";
 
     //librerias
     require_once 'vendor/Redirecciona.php';
