@@ -4,11 +4,11 @@
     class UsuarioController {
 
         public function index() {
-            return Vista::crear("admin.usuario.listado");
+            return Vista::crear("usuario.listado");
         }
 
         public function nuevo() {
-            return Vista::crear("admin.usuario.crear");
+            return Vista::crear("usuario.crear");
         }
 
         public function agregar() {
