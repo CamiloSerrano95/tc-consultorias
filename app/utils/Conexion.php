@@ -2,9 +2,9 @@
     class Conexion{	
 		public function get_conexion(){
 			$user = "root";
-			$pass = "1067943114";
+			$pass = "Alex*10*";
 			$host = "localhost";
-            $db = "shop";
+            $db = "TC_Consultorias";
             
 			try {
 				$connection = new PDO("mysql:host=$host; dbname=$db", $user, $pass);

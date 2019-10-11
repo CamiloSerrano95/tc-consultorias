@@ -97,8 +97,8 @@ class Ruta
     }
     public function incluirControlador($controlador) {
 
-        if (file_exists(APP_RUTA . "controller/" . $controlador . ".php")) {
-            include APP_RUTA . "controller/" . $controlador . ".php";
+        if (file_exists(APP_RUTA . "Controllers/" . $controlador . ".php")) {
+            include APP_RUTA . "Controllers/" . $controlador . ".php";
         } else {
             die("error al encontrar el archivo de controlador");
         }
