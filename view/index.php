@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo ASSETS_URL."images/favicon.png"?>">
     <title>TC - CONSULTORIAS</title>
     <!-- Custom CSS -->
-    <link href="../assets/dist/css/style.min.css" rel="stylesheet">
+    <link href="<?php echo ASSETS_URL."dist/css/style.min.css"?>" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -42,10 +42,10 @@
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
-                        <span class="db"><img src="../assets/images/logo1.png" width="80%" alt="logo" /></span>
+                        <span class="db"><img src="<?php echo ASSETS_URL."images/logo1.png"?>" width="80%" alt="logo" /></span>
                     </div>
                     <!-- Form -->
-                    <form class="form-horizontal m-t-20" id="loginform" action="../../Controllers/LoginController/LoginController.php" method="POST">
+                    <form class="form-horizontal m-t-20" id="loginform" action="<?php echo ABS_PATH."usuario/signin"?>" method="POST">
                         <div class="row p-b-30">
                             <div class="col-12">
                                 <div class="input-group mb-3">
@@ -127,10 +127,10 @@
     <!-- ============================================================== -->
     <!-- All Required js -->
     <!-- ============================================================== -->
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo ASSETS_URL."libs/jquery/dist/jquery.min.js"?>"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo ASSETS_URL."libs/popper.js/dist/umd/popper.min.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."libs/bootstrap/dist/js/bootstrap.min.js"?>"></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
