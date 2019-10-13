@@ -23,9 +23,9 @@
             echo $id;
         }
         
-        public function Login(){
+        public function signin(){
             
-            $identidad->setUser($_POST['user']);
+            /*$identidad->setUser($_POST['user']);
             $identidad->setPasswd($_POST['pass']);
                     
             $data = $identidad->login();
@@ -34,7 +34,9 @@
                 if (password_verify($identidad->getPasswd(), $data['usuario']['contrasena'])) {
                     header("Location: ../../View/Inicio/index.php");
                 }
-            }
+            }*/
+
+            echo $_POST['user'] . " -- " . $_POST['pass']; 
 
         }
 
