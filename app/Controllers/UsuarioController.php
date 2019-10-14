@@ -24,19 +24,13 @@
         }
         
         public function signin(){
+        
             
-            /*$identidad->setUser($_POST['user']);
-            $identidad->setPasswd($_POST['pass']);
-                    
-            $data = $identidad->login();
-                    
-            if($data['usuario']['usuario'] == $identidad->getUser()){
-                if (password_verify($identidad->getPasswd(), $data['usuario']['contrasena'])) {
-                    header("Location: ../../View/Inicio/index.php");
-                }
-            }*/
+             echo $_POST['user'] . " -- " . $_POST['pass']; 
+            return Vista::crear("Inicio.index");
 
-            echo $_POST['user'] . " -- " . $_POST['pass']; 
+       
+         
 
         }
 
