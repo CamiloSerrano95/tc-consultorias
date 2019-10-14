@@ -24,14 +24,10 @@
         }
         
         public function signin(){
-        
-            
-             echo $_POST['user'] . " -- " . $_POST['pass']; 
-            return Vista::crear("Inicio.index");
-
-       
-         
-
+            if ($_POST['user'] == 'root' && $_POST['pass'] == "1067943114") {
+                Redirecciona::LetsGoTo('usuario');
+            } else {
+                echo "Datos malos";
+            }
         }
-
     }
