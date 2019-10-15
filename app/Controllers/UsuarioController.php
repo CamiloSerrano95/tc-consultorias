@@ -22,7 +22,7 @@
             $data = $usuario->RegistroUser();
         
             if ($data['status'] == 1) {
-                Redirecciona::LetsGoTo('usuario/home');
+                Redirecciona::LetsGoTo('home');
                 echo $data['msg']; 
             } else {
                 echo $data['error'];
@@ -37,20 +37,11 @@
         public function eliminar($id) {
             echo $id;
         }
-        
-        public function home(){
-            return Vista::crear("inicio.index");
-        }
 
         public function signin(){
-            
-
             $usuario = new UsuarioModel();
             $usuario->setUser($_POST['user']);
-
             $res = $usuario->login();
-
-            Redirecciona::LetsGoTo('usuario/home');
-          
+            Redirecciona::LetsGoTo('home');
         }
     }
