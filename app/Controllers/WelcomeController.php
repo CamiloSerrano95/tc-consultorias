@@ -7,5 +7,4 @@
         public function index(){
             return Vista::crear("index");
         }
-
     }

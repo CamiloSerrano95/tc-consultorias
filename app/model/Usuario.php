@@ -44,7 +44,7 @@
         {
           
             try {
-                $sql = "SELECT * FROM $this->Table usuario WHERE usuario = ?";
+                $sql = "SELECT * FROM usuarios WHERE usuario = ?";
                 $query = $this->DataBase->prepare($sql);
                 $data = [$this->getUser()];
                 $query->execute($data);
@@ -54,6 +54,22 @@
                 $response = ['status' => 0, 'Error'=>$e];
             }
 
+            return $response;
+        }
+        public function RegistroUser () {
+            
+            try {
+                $sql = "INSERT INTO usuario (nombres,usuario,contrasena,rol) VALUES (?,?,?,?)";
+                $query = $this->DataBase->prepare($sql);
+                $data = [$this->getNombres(),
+                         $this->getUser(),
+                         $this->getPasswd(),
+                         $this->getRol()];
+                $query->execute($data);
+                $response = ['status' => 1, 'msg' => "Usuario guardado exitosamente"];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'error' => $e];
+            }
             return $response;
         }
     }

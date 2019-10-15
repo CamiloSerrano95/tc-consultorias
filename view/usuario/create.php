@@ -1,4 +1,4 @@
-<?php require '../Home/Header.html'; ?>
+<?php require dirname(__FILE__).'/../home/header.php'?>
 
 <div class="page-wrapper">
     <div class="container-fluid">
@@ -9,10 +9,10 @@
                     <div class="auth-box bg-link ">  <!-- border-top border-secondary -->
                         <div>
                             <div class="text-center p-t-20 p-b-20">
-                                <span class="db"><img src="../../assets/images/logo1.png" width="80%" alt="logo" /></span>                                
+                                <span class="db"><img src="<?php echo ASSETS_URL."images/logo1.png"?>" width="80%" alt="logo" /></span>                                
                             </div>
                             <!-- Form -->
-                            <form class="form-horizontal m-t-20" action="../../Controllers/LoginController/RegistroController.php" method="POST">
+                            <form class="form-horizontal m-t-20" action="<?php echo ABS_PATH."usuario/"?>" method="POST">
                                 <div class="row p-b-30">
                                     <div class="col-12">
                                         <div class="input-group mb-3">
@@ -53,7 +53,7 @@
     </div>
 </div>
 
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>
 
 <script>
     $('[data-toggle="tooltip"]').tooltip();

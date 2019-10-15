@@ -1,4 +1,4 @@
 <?php
-    define("ABS_PATH", "http://localhost/mini-framework/");
-    define("ASSETS_URL", "http://localhost/mini-framework/assets/");
+    define("ABS_PATH", "http://localhost/native-php/");
+    define("ASSETS_URL", "http://localhost/native-php/assets/");
 ?>

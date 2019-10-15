@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Listar usuarios</h1>
-    <a href="<?php echo ABS_PATH ?>">Inicio</a>
+    Mostrar todos los usurarios
 </body>
 </html>
+
