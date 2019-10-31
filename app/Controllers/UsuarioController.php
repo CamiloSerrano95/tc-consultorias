@@ -14,6 +14,9 @@
 
         // OJO para que esto pueda funcionar, cada controlador debe ser registrado en el archivo rutas.php 
         //que se encuentra en la siguiente ruta app/rutas/rutas.php
+
+        // Se pueden crear otros metodos, los metodos anteriores son los estandares para los CRUDs de cada
+        // pero en un modelo se pueden necesitar realizar diversas consultas.
         
         public function index() {
             return Vista::crear("inicio.index");
