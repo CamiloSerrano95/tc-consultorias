@@ -12,7 +12,9 @@
 
     <div class="container-fluid">
         <div class="card">
-            <form action="../../Controllers/EmpresaController/SavedEmpresaController.php" method="POST" class="form-horizontal">
+            <form action="<?php echo ABS_PATH."empresa/agregar"?>"
+            <!-- ../../Controllers/EmpresaController/SavedEmpresaController.php
+                    method="POST" class="form-horizontal">
                 <div class="card-body">
                     <h4 class="card-title">Agregar Nueva Empresa</h4>
                     <div class="form-group row mt-5">

@@ -1,6 +1,6 @@
 <?php 
-    require_once '../../Controllers/EvaluacionController/Revision.php';
-    require '../Home/Header.html'; 
+    // require_once '../../Controllers/EvaluacionController/Revision.php';
+    require dirname(__FILE__).'/../home/header.php';
     $empresa = new Revision();
     $id = $_GET['id'];
     $vectorcito = $empresa->filtroUnoyDos($id);
@@ -45,7 +45,9 @@
                                                     echo $vectorcito[$i+1];
                                                 echo "</td>";                                            
                                                 echo "<td>";?>                                            
-                                                <a href="../../Controllers/EvaluacionController/Revision.php" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                <a href="<?php echo ABS_PATH."evaluacion/agregar"?>"
+                                                ../../Controllers/EvaluacionController/Revision.php
+                                                class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                 <?php echo "</td>";                                                                                            
                                             }
                                         }
@@ -61,4 +63,4 @@
     </div>
 </div>
 
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>
