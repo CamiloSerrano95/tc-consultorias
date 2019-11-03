@@ -1,6 +1,6 @@
 <?php 
-    require '../Home/Header.html';  
-    require '../../Models/ServiciosModel.php';
+    require dirname(__FILE__).'/../home/header.php';
+    // require '../../Models/ServiciosModel.php';
 
     $Servicio = new ServicioModel();
     $Servicios = $Servicio->EveryThings();
@@ -41,4 +41,4 @@
     </div>
 </div>
 
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/header.php';?>

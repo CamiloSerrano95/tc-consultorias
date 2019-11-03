@@ -1,6 +1,6 @@
 <?php 
-    require_once '../Home/Header.html'; 
-    require_once '../../Models/EmpresaModel.php';
+    require dirname(__FILE__).'/../home/header.php'; 
+    // require_once '../../Models/EmpresaModel.php';
 
     $Empresa = new EmpresaModel();
     
@@ -98,4 +98,4 @@
     </div>
 </div>
 
-<?php require_once '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/header.php';?>

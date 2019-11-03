@@ -1,6 +1,6 @@
 <?php 
-    require_once '../../Models/ObjetosModel.php';
-    require_once '../../Models/EmpresaModel.php';
+    // require_once '../../Models/ObjetosModel.php';
+    // require_once '../../Models/EmpresaModel.php';
 
     $busqueda = new ObjetoModel();
     if (isset($_GET['buscar'])) {
@@ -110,14 +110,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    "libs/flot/css/float-chart.css"?>"
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo ASSETS_URL."images/favicon.png"?>">
     <title>Cumplimiento</title>
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="../../assets/extra-libs/multicheck/multicheck.css">
-    <link href="../../assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
-    <link href="../../assets/libs/jquery-steps/steps.css" rel="stylesheet">
-    <link href="../../assets/dist/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL."extra-libs/multicheck/multicheck.css"?>">
+    <link href="<?php echo ASSETS_URL."libs/jquery-steps/jquery.steps.css"?>" rel="stylesheet">
+    <link href="<?php echo ASSETS_URL."libs/jquery-steps/steps.css"?>" rel="stylesheet">
+    <link href="<?php echo ASSETS_URL."dist/css/style.min.css"?>" rel="stylesheet">
 </head>
 
 <body>
@@ -324,24 +325,24 @@
             </div>
         </div>
     </div>
-    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo ASSETS_URL."libs/jquery/dist/jquery.min.js"?>"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo ASSETS_URL."libs/popper.js/dist/umd/popper.min.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."libs/bootstrap/dist/js/bootstrap.min.js"?>"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="<?php echo ASSETS_URL."libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."extra-libs/sparkline/sparkline.js"?>"></script>
     <!--Wave Effects -->
-    <script src="../../assets/dist/js/waves.js"></script>
+    <script src="<?php echo ASSETS_URL."dist/js/waves.js"?>"></script>
     <!--Menu sidebar -->
-    <script src="../../assets/dist/js/sidebarmenu.js"></script>
+    <script src="<?php echo ASSETS_URL."dist/js/sidebarmenu.js"?>"></script>
     <!--Custom JavaScript -->
-    <script src="../../assets/dist/js/custom.min.js"></script>
-    <script src="../../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-    <script src="../../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="<?php echo ASSETS_URL."dist/js/custom.min.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."extra-libs/multicheck/datatable-checkbox-init.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."extra-libs/multicheck/jquery.multicheck.js"?>"></script>
     <!-- this page js -->
-    <script src="../../assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
-    <script src="../../assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="<?php echo ASSETS_URL."libs/jquery-steps/build/jquery.steps.min.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."libs/jquery-validation/dist/jquery.validate.min.js"?>"></script>
     <script>
         // Basic Example with form
         var form = $("#example-form");

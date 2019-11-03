@@ -1,6 +1,5 @@
 <?php 
-    require_once '../Home/Header.html'; 
-    require_once '../../Models/EmpresaModel.php';
+     require dirname(__FILE__).'/../home/header.php';
 
     $Empresa = new EmpresaModel();
     $nit = $_GET["id"];
@@ -180,4 +179,4 @@
     </div>
 </div>
 
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>

@@ -1,7 +1,7 @@
 <?php 
     //require_once '../../Controllers/EvaluacionController/Revision.php';
-    require_once ('../../Models/AprobadosModel.php');
-    require '../Home/Header.html'; 
+    require dirname(__FILE__).'/../home/header.php';
+    //require_once '../../Model/AprobadosModel.php'
     $instancia = new AprobadosModel();
     $variable = $instancia->obtenerLicitacionesSolas();
 ?>
@@ -51,4 +51,4 @@
     </div>
 </div>
 
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>
