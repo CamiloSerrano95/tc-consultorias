@@ -11,19 +11,25 @@
 
     <div class="container-fluid">
         <div class="card">
-            <form action="../../Controllers/ServiciosController/SavedServiceController.php" method="POST" class="form-horizontal">
+            <form class="form-horizontal">
                 <div class="card-body">
-                    <h4 class="card-title">Agregar Codigos Globales</h4>
+                    <h4 class="card-title">Consulta de Profesionales</h4>
                     <div class="form-group row mt-5">
-                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Codigo UNSPSC</label>
+                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">PROFESION</label>
                         <div class="col-sm-9">
-                            <input type="text" name="codigo" class="form-control" id="fname" placeholder="codigo">
+                            <input type="text" class="form-control" id="fname" placeholder="profesion">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">Descripcion</label>
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">ESPECIALIZACION</label>
                         <div class="col-sm-9">
-                            <input type="text" name="descripcion" class="form-control" id="lname" placeholder="descripcion">
+                            <input type="text" class="form-control" id="lname" placeholder="especialización">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">AÑOS DE EXPERIENCIA PROFESIONAL</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="lname" placeholder="años">
                         </div>
                     </div>
                 </div>
@@ -32,7 +38,7 @@
                         <div class="col-9"></div>
                         <div class="col-3">
                             <div class="card-body">
-                                <button type="submit" class="btn btn-primary">GUARDAR</button>
+                                <button type="button" class="btn btn-primary">BUSCAR</button>
                             </div>
                         </div>
                     </div>
