@@ -2,11 +2,23 @@
 //todas las rutas disponibles en nuestra aplicación
 $ruta = new Ruta();
 $ruta->controladores(array(
-    "/"         => "WelcomeController",
     "/login"    => "AuthController",
     "/usuario"  => "UsuarioController",
-    "/venta"    => "VentaController",
+    "/service" => "ServiceController",
     "/producto" => "ProductoController",
     "/admin"    => "AdminController",
-    "/home"     => "HomeController"
+    "/home"     => "HomeController",
+    "/busqueda" => "BusquedaPalabra",
+    "/code" => "controllercode",
+    "/empresa" => "controllercompany",
+    "/evaluacion" => "controllerevaluacion",
+    "/experiencia" => "controllerexperience",
+    "/cumplimientos" => "CumplimientosController",
+    "/cumplimientos1_2" => "UnoyDosController",  
+    "/UnspscyExperiencia" => "UnspscyExperienciaController",
+    "/FinancieroyOrganizacional" => "FinancieroyOrganizacionalController",
+    "/Experiencias" => "ExperienciasController",
+    "/Unspsc" => "UnspController",
+    "/Allempresas" => "AllEmpresasController",
+
 ));

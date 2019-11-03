@@ -4,7 +4,7 @@ use \vista\Vista;
 class ControllerCompany {
 
     public function index(){
-        return Vista::crear("inicio.index");
+        return Vista::crear("Empresa.AgregarEmpresa");
     }
 
     public function nuevo(){
