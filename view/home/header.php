@@ -74,7 +74,7 @@
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-barcode"></i><span class="hide-menu"> Codigos Globales </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="../Codigos/Codigos.php" class="sidebar-link"><i class="mdi mdi-barcode-scan"></i><span class="hide-menu"> Agregar Codigos </span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo RUTA_BASE."Codigos/Codigos"?>" class="sidebar-link"><i class="mdi mdi-barcode-scan"></i><span class="hide-menu"> Agregar Codigos </span></a></li>
                                 <li class="sidebar-item"><a href="../Codigos/MostrarCodigosGenerales.php" class="sidebar-link"><i class="mdi mdi-barcode-scan"></i><span class="hide-menu"> Mostrar Codigos </span></a></li>
                             </ul>
                         </li>
