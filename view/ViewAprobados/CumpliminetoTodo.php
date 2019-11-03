@@ -1,4 +1,4 @@
-<?php require '../Home/Header.html'; ?>
+<?php require dirname(__FILE__).'/../home/header.php'?>
 
 <div class="page-wrapper">
     <div class="page-breadcrumb">
@@ -53,5 +53,4 @@
         </div>
     </div>
 </div>
-
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>

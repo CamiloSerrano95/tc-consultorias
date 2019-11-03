@@ -135,7 +135,7 @@
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" href="../Inicio/index.php">
                         <b class="logo-icon p-l-10">
-                            <img src="../../assets/images/logo1.png" width="90%" alt="homepage" class="light-logo" />
+                            <img src="<?php echo ASSETS_URL."images/logo1.png"?>" width="90%" alt="homepage" class="light-logo" />
                         </b>
                     </a>
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
@@ -210,7 +210,9 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body wizard-content">
-                        <form id="example-form" action="../../Controllers/EvaluacionController/Evaluacion.php"  method="POST" class="m-t-40">
+                        <form id="example-form" action="<?php echo ABS_PATH."evaluacion/agregar"?>"
+                        <!-- ../../Controllers/EvaluacionController/Evaluacion.php   
+                        method="POST" class="m-t-40">
                             <div>
 
                                 <h3>Cumplimiento UNSPSC</h3>

@@ -1,6 +1,6 @@
 <?php 
-    require_once '../../Controllers/EvaluacionController/Revision.php';
-    require '../Home/Header.html'; 
+    // require_once '../../Controllers/EvaluacionController/Revision.php';
+    require dirname(__FILE__).'/../home/header.php';
     $empresa = new Revision();
     $id = $_GET['id'];
     $vectorcito = $empresa->filtroUno($id);
@@ -56,5 +56,4 @@
         </div>
     </div>
 </div>
-
-<?php require '../Home/Footer.html'; ?>
+<?php require dirname(__FILE__).'/../home/header.php'?>
