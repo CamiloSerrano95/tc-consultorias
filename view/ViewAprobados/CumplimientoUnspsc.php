@@ -1,9 +1,7 @@
 <?php 
     // require_once '../../Controllers/EvaluacionController/Revision.php';
     require dirname(__FILE__).'/../home/header.php';
-    $empresa = new Revision();
-    $id = $_GET['id'];
-    $vectorcito = $empresa->filtroUno($id);
+    $vectorcito = $key;
 ?>
 
 <div class="page-wrapper">

@@ -32,7 +32,7 @@
                                 <tbody>
                                     <?php 
                                         foreach ($variable['empresas'] as $value) {
-                                            echo $http = ABS_PATH."evaluacion/agregar/id"; // mirar si si el metodo revisar esta en agragar en el controlador
+                                            $http = ABS_PATH."revision/filtroUno/".$value['id']; // mirar si si el metodo revisar esta en agragar en el controlador
 
                                             // $http = "../../View/ViewAprobados/CumplimientoUnspsc.php?id=".$value['id'];
                                     ?>

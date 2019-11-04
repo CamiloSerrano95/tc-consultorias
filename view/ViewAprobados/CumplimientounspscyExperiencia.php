@@ -1,9 +1,7 @@
 <?php 
     // require_once '../../Controllers/EvaluacionController/Revision.php';
     require dirname(__FILE__).'/../home/header.php';
-    $empresa = new Revision();
-    $id = $_GET['id'];
-    $vectorcito = $empresa->filtroUnoyDos($id);
+    $vectorcito = $key;
 ?>
 
 <div class="page-wrapper">
@@ -35,6 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                 <?php for ($i=0; $i <sizeof($vectorcito) ; $i++) {  
                                         echo "<tr>";
                                             if (!($i%2)){
@@ -46,7 +45,7 @@
                                                 echo "</td>";                                            
                                                 echo "<td>";?>                                            
                                                 <a href="<?php echo ABS_PATH."evaluacion/agregar"?>"
-                                                ../../Controllers/EvaluacionController/Revision.php
+                                                
                                                 class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                 <?php echo "</td>";                                                                                            
                                             }

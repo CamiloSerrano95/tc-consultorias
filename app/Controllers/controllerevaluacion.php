@@ -80,14 +80,14 @@
     $empresas->AddCumplimientoObjeto(json_encode($objetos), json_encode($nit), $rolo);
     //------------------------ FILTRO entre 1 y 2---------------------------------------------------
     $primeroysegundo = [];
-    $veneno =0;
     for ($i=0; $i < sizeof($variableReal); $i++) { 
+        $veneno =0;
         for ($j=0; $j < sizeof($nit); $j++) { 
             if($variableReal[$i] == $nit[$j]){
                 $veneno = $veneno +1;
             }
         }
-        if($veneno >0){
+        if($veneno >0 && $veneno < 2){
             array_push($primeroysegundo, $variableReal[$i]);
         }
     }
@@ -142,7 +142,7 @@
         }
     }   
     //var_dump($parteTres);
-    $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $ficticia, json_encode($parteTres), $rolo);
+    $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $ficticia, json_encode($parteTres), $rolo);
     //------------------------------all final section--------------------------------------------
     $auxiliar = [];
     for ($i=0; $i < sizeof($parteTres); $i++) { 
