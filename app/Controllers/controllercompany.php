@@ -1,14 +1,14 @@
 <?php 
 use \vista\Vista;
 
-class ControllerCompany {
+class controllercompany {
 
     public function index(){
-        return Vista::crear("Empresa.AgregarEmpresa");
+        return Vista::crear("Empresa.MostrarEmpresa");
     }
 
     public function nuevo(){
-        return Vista::crear("company.create");
+        return Vista::crear("Empresa.AgregarEmpresa");
     }
 
     public function agregar() {
