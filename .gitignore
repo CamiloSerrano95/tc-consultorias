@@ -1,2 +1,5 @@
 /app/utils/Conexion.php
 /config/config.php
+\.htaccess
+
+app/rutas/rutas\.php
