@@ -1,14 +1,14 @@
 <?php
 
 use \vista\Vista;
-    class ControllerCode {
+    class controllercode {
 
         public function index() {
-            return Vista::crear("Codigos.Codigos");
+            return Vista::crear("Codigos.MostrarCodigosGenerales");
         }
 
         public function nuevo() {
-            return Vista::crear("codigo.create"); // no tengo model para codigo, el modelo de los codigos es servicios
+            return Vista::crear("Codigos.Codigos"); // no tengo model para codigo, el modelo de los codigos es servicios
         }
 
         public function agregar() {
