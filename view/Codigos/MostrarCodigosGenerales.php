@@ -5,7 +5,6 @@
     $Servicio = new ServicioModel();
     $Servicios = $Servicio->EveryThings();
 
-    
 ?>
 
 <div class="page-wrapper">

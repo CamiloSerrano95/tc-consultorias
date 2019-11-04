@@ -4,7 +4,7 @@ use \vista\Vista;
     class ControllerCode {
 
         public function index() {
-            return Vista::crear("inicio.index");
+            return Vista::crear("Codigos.Codigos");
         }
 
         public function nuevo() {

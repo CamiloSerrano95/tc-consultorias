@@ -1,5 +1,6 @@
 <?php require dirname(__FILE__).'/../home/header.php'?>
 
+
 <div class="page-wrapper">
     <div class="page-breadcrumb">
         <div class="row">
@@ -11,7 +12,7 @@
 
     <div class="container-fluid">
         <div class="card">
-            <form action="<?php echo ABS_PATH."service/agregar"?>"
+            <form action="<?php echo ABS_PATH."code/agregar"?>"
              <!-- /../Controllers/ServiciosController/SavedServiceController.php
                   method="POST" class="form-horizontal"> 
                 <div class="card-body">
@@ -44,4 +45,4 @@
     </div>
 </div>
 
-<?php require dirname(__FILE__).'/../home/header.php'?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>
