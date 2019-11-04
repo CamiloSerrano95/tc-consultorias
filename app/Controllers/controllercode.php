@@ -8,7 +8,7 @@ use \vista\Vista;
         }
 
         public function nuevo() {
-            return Vista::crear("codigo.create"); // no tengo model para codigo
+            return Vista::crear("codigo.create"); // no tengo model para codigo, el modelo de los codigos es servicios
         }
 
         public function agregar() {

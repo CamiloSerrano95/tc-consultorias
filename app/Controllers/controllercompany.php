@@ -13,7 +13,7 @@ class ControllerCompany {
 
     public function agregar() {
 
-    $Empresa = new CompanyModel();
+    $Empresa = new EmpresaModel();
 
     $Empresa->setNombreEmpresa(strtoupper($_POST['nombre']));
     $Empresa->setNit(strtoupper($_POST['nit']));
@@ -56,15 +56,13 @@ class ControllerCompany {
             $Empresa->setTamañoEmpresa(strtoupper($_POST['tam_empresa']));    
         }
 
-
-
-
         $data = $Empresa->RegistroEmpresa();
 
         if ($data['status'] == 1) {
-            header('Location: ../../View/Empresa/AgregarEmpresa.php'); 
+            Redirecciona::LetsGoTo('empresa');
+            /* header('Location: ../../View/Empresa/AgregarEmpresa.php');  */
         } else {
-            echo "Error en el Servidor";
+            echo $data['error'];
         }
     
     }
