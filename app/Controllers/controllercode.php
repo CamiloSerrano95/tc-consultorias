@@ -12,23 +12,16 @@ use \vista\Vista;
         }
 
         public function agregar() {
-           
+
             $Servicio = new ServicioModel();
-            $Empresa = new EmpresaModel();
-        
-            $nit = $_POST['nit'];
-            $codigos = $_POST["codigos"];  
-        
-            for ($i=0; $i < sizeof($codigos); $i++) {
-                $Empresa->setNit($nit);
-                $results = $Empresa->RegistroCodigos($codigos[$i]);
-            }
-        
-            if ($results['status']) {
-                header('Location: ../../View/Empresa/AgregarCodigos.php?id='.$nit); 
-                /* echo $results['msg']; */
+            $Servicio->setCodigo($_POST['codigo']);
+            $Servicio->setNombreServicio($_POST['descripcion']);
+            $data = $Servicio->Saved();
+
+            if ($data['status'] == 1) {
+                Redirecciona::LetsGoTo('code');
             } else {
-                echo $results['msg'];
+                echo $data['error'];
             }
             
         }
