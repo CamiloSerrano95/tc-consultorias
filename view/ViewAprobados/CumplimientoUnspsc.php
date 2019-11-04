@@ -56,4 +56,4 @@
         </div>
     </div>
 </div>
-<?php require dirname(__FILE__).'/../home/header.php'?>
+<?php require dirname(__FILE__).'/../home/footer.php'?>
