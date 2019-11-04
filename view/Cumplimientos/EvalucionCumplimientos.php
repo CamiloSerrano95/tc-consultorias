@@ -165,20 +165,20 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../Cumplimientos/EvalucionCumplimientos.php" aria-expanded="false"><i class="fas fa-tasks"></i><span class="hide-menu">Evaluacion de Cumplimientos</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo ABS_PATH."cumplimientos"?>" aria-expanded="false"><i class="fas fa-tasks"></i><span class="hide-menu">Evaluacion de Cumplimientos</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-check-circle"></i><span class="hide-menu">Tabla de Cumplimiento </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="../Cumplimientos/Cumplimiento1y2.php" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Cumplientos</span></a></li>
-                                <li class="sidebar-item"><a href="../CumplimientosAprobados/UnspscyExperiencia.php" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Unspsc-Experiencias</span></a></li>
-                                <li class="sidebar-item"><a href="../CumplimientosAprobados/Unspsc.php" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Unspsc</span></a></li>
-                                <li class="sidebar-item"><a href="../CumplimientosAprobados/Experiencias.php" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Experiencia</span></a></li>
-                                <li class="sidebar-item"><a href="../CumplimientosAprobados/FinancieroyOrganizacional.php" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Financiero y Organizacional</span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."cumplimientos1_2"?>" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Cumplientos</span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."UnspscyExperiencia"?>" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Unspsc-Experiencias</span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."Unspsc"?>" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Unspsc</span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."Experiencias"?>" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Experiencia</span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."FinancieroyOrganizacional"?>" class="sidebar-link"><i class="mdi mdi-checkbox-multiple-marked"></i><span class="hide-menu">Financiero y Organizacional</span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-building"></i><span class="hide-menu"> Gestionar Empresas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="../Empresa/AgregarEmpresa.php" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Agregar Empresa </span></a></li>
-                                <li class="sidebar-item"><a href="../Empresa/MostrarEmpresa.php" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Mostrar Empresas </span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."empresa"?>" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Agregar Empresa </span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."Allempresas"?>" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Mostrar Empresas </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-barcode"></i><span class="hide-menu"> Codigos Globales </span></a>
