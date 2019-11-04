@@ -110,7 +110,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    "libs/flot/css/float-chart.css"?>"
+    <!-- "libs/flot/css/float-chart.css"?>" -->
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo ASSETS_URL."images/favicon.png"?>">
     <title>Cumplimiento</title>
@@ -146,11 +146,11 @@
                     </ul>
                     <ul class="navbar-nav float-right ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo ASSETS_URL."images/users/1.jpg"?>" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../Login/Login.php"><i class="fa fa-power-off m-r-5 m-l-5"></i>Cerrar Sesion</a>
-                                <a class="dropdown-item" href="../Login/RegistrarUsuario.php"><i class="mdi mdi-account-key m-r-5 m-l-5"></i>Registrar Usuario</a>
+                                <a class="dropdown-item" href="<?php echo ABS_PATH.""?>"><i class="fa fa-power-off m-r-5 m-l-5"></i>Cerrar Sesion</a>
+                                <a class="dropdown-item" href="<?php echo ABS_PATH."usuario/nuevo"?>"><i class="mdi mdi-account-key m-r-5 m-l-5"></i>Registrar Usuario</a>
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>

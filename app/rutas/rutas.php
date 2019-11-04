@@ -2,6 +2,7 @@
 //todas las rutas disponibles en nuestra aplicación
 $ruta = new Ruta();
 $ruta->controladores(array(
+    "/" => "welcomeController",
     "/login"    => "AuthController",
     "/usuario"  => "UsuarioController",
     "/service" => "ServiceController",
