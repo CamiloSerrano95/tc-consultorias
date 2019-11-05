@@ -18,5 +18,6 @@ $ruta->controladores(array(
     "/vistaresults" => "ResultsController",  
     "/revision" => "RevisionController",
     "/Allempresas" => "AllEmpresasController",
+    "/codecompany" => "CodeCompanyController"
 
 ));

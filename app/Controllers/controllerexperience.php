@@ -5,6 +5,7 @@
 
         public function index() {
             // return Vista::crear("company.$_POST['nit']"); // redireccionamiento a nit
+            /* return Vista::crear("Empresa.AgregarEmpresa");  */
         }
 
         public function nuevo() {
