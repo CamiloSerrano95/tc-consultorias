@@ -24,11 +24,8 @@ use \vista\Vista;
                 Redirecciona::LetsGoTo('code');
             } else {
                 echo $results['error'];
-            }
-            
+            }   
         }
-
-
 
     }
 
