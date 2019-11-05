@@ -1,6 +1,6 @@
 <?php
 use \vista\Vista;
-    class ControllerObjetive {
+    class BusquedaPalabra {
 
         public function index() {
             return Vista::crear("inicio.index");
@@ -11,7 +11,7 @@ use \vista\Vista;
         }
    
         public function agregar() {
-         $palabrita = new ObjetoModel();
+         $palabrita = new ObjetosModel();
 
          $datos = $_POST['palabras'];
          $palabras = explode(" ", trim($datos));

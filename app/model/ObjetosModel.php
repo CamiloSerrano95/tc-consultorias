@@ -1,9 +1,9 @@
 <?php
     
-    class ObjetoModel {
+    class ObjetosModel {
         
         private $DataBase;
-        private $Table = 'objetos';
+        //private $Table = 'objetos';
 
 
         public function __construct(){

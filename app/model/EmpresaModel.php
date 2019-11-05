@@ -256,7 +256,7 @@
             
             try {
                 /* $sql = "SELECT experiencias.* FROM experiencias, empresa WHERE experiencias.id_empresa_experiencia = empresa.nit AND experiencias.id_empresa_experiencia = ?"; */
-                $sql = "SELECT experiencias.* , objetos.* FROM experiencias, empresa, objetos WHERE experiencias.id_empresa_experiencia = empresa.nit AND experiencias.id_empresa_experiencia = ? AND  experiencias.id_obj_experiencia=objetos.id_objeto";
+                $sql = "SELECT experiencias.*  FROM experiencias, empresa WHERE experiencias.id_empresa_experiencia = empresa.nit AND experiencias.id_empresa_experiencia = ? ";
                 $query = $this->DataBase->prepare($sql);
                 $data = [$nit];
                 $query->execute($data);

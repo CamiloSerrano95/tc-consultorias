@@ -64,11 +64,11 @@
                     <?php } ?>
                     </div>
                     <div class="card-body">
-                        <form action="<?php echo ABS_PATH."empresa/agregar"?>"
+                        <form action="<?php echo ABS_PATH."mostrarCodigos/agregar"?>"
                             
                               method="POST" class="form-horizontal">
                             <div class="row mt-3">
-                            <input type="hidden" name="nit" value="<?php  echo $nit; ?>">
+                            <input type="hidden" name="nit" value="<?php  echo $key; ?>">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">

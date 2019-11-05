@@ -2,7 +2,7 @@
     // require_once '../../Models/ObjetosModel.php';
     // require_once '../../Models/EmpresaModel.php';
 
-    $busqueda = new ObjetoModel();
+    $busqueda = new ObjetosModel();
     if (isset($_GET['buscar'])) {
         $data = $busqueda->search($_GET['buscar']);
     }
@@ -51,7 +51,7 @@
 
             $.ajax({
                 data: param,
-                url: "../../Controllers/ObjetosController/BusquedaPalabra.php",
+                url: "<?php echo ABS_PATH."busqueda/agregar";?>",
                 method: "post",
                 success: function(data) {
                     
@@ -178,7 +178,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-building"></i><span class="hide-menu"> Gestionar Empresas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="<?php echo ABS_PATH."empresa"?>" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Agregar Empresa </span></a></li>
-                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."Allempresas"?>" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Mostrar Empresas </span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo ABS_PATH."koto"?>" class="sidebar-link"><i class="mdi mdi-book-plus"></i><span class="hide-menu"> Mostrar Empresas </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-barcode"></i><span class="hide-menu"> Codigos Globales </span></a>

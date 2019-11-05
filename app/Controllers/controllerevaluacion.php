@@ -1,11 +1,11 @@
 <?php
     use \vista\Vista;
 
-    class ControllerEvaluacion {
+    class controllerevaluacion {
 
 
     public function index(){
-        return Vista::crear("inicio.index");
+        return Vista::crear("Cumplimientos.EvalucionCumplimientos");
     }
 
     public function nuevo(){
@@ -148,7 +148,7 @@
     for ($i=0; $i < sizeof($parteTres); $i++) { 
         for ($h=0; $h < sizeof($mientes); $h++) { 
             if($parteTres[$i]== $mientes[$h]['empresas'][0]['nit']){
-                if($Liquidez <= $mientes[$h]['empresas'][0]['indice_liquidez'] && $Endeudamiento <= $mientes[$h]['empresas'][0]['indice_endeudamento'] && $RentabilidadPatrimonio <= $mientes[$h]['empresas'][0]['rentabilidad_patrimonio'] && $RentabilidadActivos <= $mientes[$h]['empresas'][0]['rentabilidad_del_activo']){
+                if($Liquidez <= $mientes[$h]['empresas'][0]['indice_liquidez'] && $Endeudamiento >= $mientes[$h]['empresas'][0]['indice_endeudamento'] && $RentabilidadPatrimonio <= $mientes[$h]['empresas'][0]['rentabilidad_patrimonio'] && $RentabilidadActivos <= $mientes[$h]['empresas'][0]['rentabilidad_del_activo']){
                     if($CoberturaInteres >= 0 && $CoberturaInteres <= $mientes[$h]['empresas'][0]['razon_cobertura_interes']){
                         array_push($auxiliar, $mientes[$h]['empresas'][0]['nit']);
                     }
@@ -158,7 +158,7 @@
     }
     //var_dump($auxiliar);
     $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos,json_encode($auxiliar), $rolo);
-
+    Redirecciona::LetsGoTo('evaluacion');
     }
 
     public function editar($id) {

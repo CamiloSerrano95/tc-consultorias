@@ -45,10 +45,9 @@
                                 </thead>
                                 <tbody>
                                 <?php foreach ($Empresas['empresas'] as $data) { 
-                                    //$view = "InformacionEmpresa.php?id=".$data['nit'];
-                                    /* $ViewCodigos = "AgregarCodigos.php?id=".$data['nit']; */
+                                    $view = ABS_PATH."koto/viewcompany/".$data['nit'];
                                     $ViewCodigos = ABS_PATH."mostrarCodigos/ViewCodigos/".$data['nit'];
-                                    //$viewExperiencia = "AgregarExperiencias.php?id=".$data['nit'];
+                                    $viewExperiencia = ABS_PATH."experiencia/nuevo/".$data['nit'];
                                 ?>
                                     
                                     

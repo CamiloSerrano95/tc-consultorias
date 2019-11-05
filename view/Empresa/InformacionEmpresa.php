@@ -2,7 +2,7 @@
      require dirname(__FILE__).'/../home/header.php';
 
     $Empresa = new EmpresaModel();
-    $nit = $_GET["id"];
+    $nit = $key;
     $Empresas = $Empresa->ObtenerEmpresa($nit);
     $codigosEmpresa = $Empresa->AllCodigos($nit);
     $ExperienciaEmpresa = $Empresa->AllExperiencias($nit);
@@ -162,7 +162,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php foreach ($ExperienciaEmpresa['experiencias'] as $exp) { ?>
+                                                    <?php 
+                                                        foreach ($ExperienciaEmpresa['experiencias'] as $exp) { ?>
                                                         <tr>
                                                             <td><?php echo $exp['id'] ?></td>
                                                             <td><?php echo $exp['numero_experiencia'] ?></td>
@@ -174,7 +175,7 @@
                                                             <td><?php echo $exp['fecha_obj_inicio'] ?></td>
                                                             <td><?php echo $exp['fecha_obj_final'] ?></td>
                                                             <td><?php echo $exp['descripcion'] ?></td>
-                                                            <td><?php echo $exp['tipo_obj_actividad'] ?></td>
+                                                            <td><?php echo $exp['tipo_objeto_actividad'] ?></td>
                                                             <td>
                                                                 <button type="button" class="btn btn-link mt-2" data-toggle="modal" data-target="#exampleModal-<?php echo $exp['id'] ?>" data-whatever="@fat"><span style="font-size: 2rem; color: green;"><i class="mdi mdi-barcode-scan"></i></button>
                                                                 <div class="modal fade" id="exampleModal-<?php echo $exp['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

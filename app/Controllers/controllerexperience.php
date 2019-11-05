@@ -1,15 +1,10 @@
 <?php
     use \vista\Vista;
     
-    class Controllerexperence {
+    class controllerexperience {
 
-        public function index() {
-            // return Vista::crear("company.$_POST['nit']"); // redireccionamiento a nit
-            /* return Vista::crear("Empresa.AgregarEmpresa");  */
-        }
-
-        public function nuevo() {
-            return Vista::crear("experencia.create"); 
+        public function nuevo($dato) {
+            return Vista::crear("Empresa.AgregarExperiencias",$dato); 
         }
 
         public function agregar() {
@@ -44,6 +39,7 @@
         
             if ($data['status'] == 1) {
                 header('Location: ../../View/Empresa/AgregarExperiencias.php?id='.$nit); 
+                Redirecciona::LetsGoTo('experiencia/nuevo/'.$nit);
              } else {
                  echo $data['error'];
              }

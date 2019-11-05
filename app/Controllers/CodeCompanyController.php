@@ -11,8 +11,6 @@
             return Vista::crear("Empresa.AgregarCodigos", $id);
         }
         public function agregar() {
-
-            $Servicio = new ServicioModel();
             $Empresa = new EmpresaModel();
 
             $nit = $_POST['nit'];
@@ -24,7 +22,7 @@
             }
 
             if ($results['status'] == 1) {
-                Redirecciona::LetsGoTo('code');
+                Redirecciona::LetsGoTo('mostrarCodigos/ViewCodigos/'.$nit);
             } else {
                 echo $results['error'];
             }   

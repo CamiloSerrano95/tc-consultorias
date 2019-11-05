@@ -2,7 +2,7 @@
      require dirname(__FILE__).'/../home/header.php';
 
     $Empresa = new EmpresaModel();
-    $nit = $_GET["id"];
+    $nit = $key;
     
     $Empresas = $Empresa->ObtenerEmpresa($nit);
     $Servicios = array($Empresa->ObtenerServicios());
@@ -68,8 +68,7 @@
                     </div>
 
                     <div class="card-body text-center">
-                        <form action="<?php echo ABS_PATH."empresa/agregar"?>"
-                        <!-- ../../Controllers/EmpresaController/SavedExperienciaController.php 
+                        <form action="<?php echo ABS_PATH."experiencia/agregar"?>" 
                         method="POST" class="form-horizontal">
                             <div class="row mt-5">
                             <input type="hidden" name="nit" value="<?php  echo $nit; ?>">
