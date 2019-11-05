@@ -1,11 +1,11 @@
 <?php 
      //require_once '../../Models/EmpresaModel.php'
+     echo "-------------------------------------->";
     require dirname(__FILE__).'/../home/header.php';
 
     $Empresa = new EmpresaModel();
-    $nit = $_GET["id"];
     
-    $Empresas = $Empresa->ObtenerEmpresa($nit);
+    $Empresas = $Empresa->ObtenerEmpresa($key);
     $servicio = $Empresa->ObtenerServicios();
 ?> 
 

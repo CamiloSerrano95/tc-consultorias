@@ -47,31 +47,31 @@
                                 <?php foreach ($Empresas['empresas'] as $data) { 
                                     //$view = "InformacionEmpresa.php?id=".$data['nit'];
                                     /* $ViewCodigos = "AgregarCodigos.php?id=".$data['nit']; */
-                                     $ViewCodigos =  ABS_PATH."codecompany/ver/".$data['nit'];
+                                    $ViewCodigos = ABS_PATH."codecompany.ViewCodigos.".$data['nit'];
                                     //$viewExperiencia = "AgregarExperiencias.php?id=".$data['nit'];
                                 ?>
                                     
                                     
                                     <tr>
-                                        <td><?php echo $data['nombre_empresa'] ?></td>
-                                        <td><?php echo $data['nit'] ?></td>                                        
-                                        <td><?php echo $data['matricula_mercantil'] ?></td>                                        
-                                        <td><?php echo $data['registro_lucro'] ?></td>                                        
-                                        <td><?php echo $data['organizacion'] ?></td>                                        
-                                        <td><?php echo $data['tamano_empresa'] ?></td>
-                                        <td><?php echo $data['numero_proponente'] ?></td>                                        
-                                        <td><?php echo $data['fecha_inscripcion_registro_prop'] ?></td>                                        
-                                        <td><?php echo $data['fecha_ultima_renov_prop'] ?></td>                                        
-                                        <td><?php echo $data['indice_liquidez'] ?></td>                                        
-                                        <td><?php echo $data['indice_endeudamento'] ?></td>                                        
+                                        <td><?php echo $data['nombre_empresa']; ?></td>
+                                        <td><?php echo $data['nit']; ?></td>                                        
+                                        <td><?php echo $data['matricula_mercantil']; ?></td>                                        
+                                        <td><?php echo $data['registro_lucro']; ?></td>                                        
+                                        <td><?php echo $data['organizacion']; ?></td>                                        
+                                        <td><?php echo $data['tamano_empresa']; ?></td>
+                                        <td><?php echo $data['numero_proponente']; ?></td>                                        
+                                        <td><?php echo $data['fecha_inscripcion_registro_prop']; ?></td>                                        
+                                        <td><?php echo $data['fecha_ultima_renov_prop']; ?></td>                                        
+                                        <td><?php echo $data['indice_liquidez'] ;?></td>                                        
+                                        <td><?php echo $data['indice_endeudamento'] ;?></td>                                        
                                         <td><?php if ($data['razon_cobertura_interes'] == 0) {
                                                 echo 'INDETERMINADO';
                                             }else{
                                                 echo $data['razon_cobertura_interes'];
                                             }?>
                                         </td>                                        
-                                        <td><?php echo $data['rentabilidad_patrimonio'] ?></td>                                        
-                                        <td><?php echo $data['rentabilidad_del_activo'] ?></td>
+                                        <td><?php echo $data['rentabilidad_patrimonio']; ?></td>                                        
+                                        <td><?php echo $data['rentabilidad_del_activo']; ?></td>
                                         <td>
                                             <a href="<?php echo $ViewCodigos; ?>" class="btn btn-link"><span style="font-size: 2em; color: green;"><i class="far fa-plus-square"></i></span></a>
                                         </td>

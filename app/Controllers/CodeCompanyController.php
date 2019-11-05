@@ -1,16 +1,16 @@
 <?php
+    use \vista\Vista;
 
-use \vista\Vista;
     class CodeCompanyController {
 
-        /* public function index(){
-            return Vista::crear("Empresa.AgregarCodigos");
-        } */
-        public function ver($id) {
+        public function __construct()
+        {
+            
+        } 
+        public function ViewCodigos($id) {
             echo $id;
             return Vista::crear("Empresa.AgregarCodigos", $id);
         }
-
         public function agregar() {
 
             $Servicio = new ServicioModel();
