@@ -67,7 +67,7 @@
                     </div>
                     <div class="card-body">
                         <form action="<?php echo ABS_PATH."empresa/agregar"?>"
-                            <!-- ../../Controllers/EmpresaController/SavedCodigosController.php  
+                            
                               method="POST" class="form-horizontal">
                             <div class="row mt-3">
                             <input type="hidden" name="nit" value="<?php  echo $nit; ?>">

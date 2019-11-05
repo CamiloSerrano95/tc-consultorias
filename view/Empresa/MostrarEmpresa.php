@@ -45,10 +45,10 @@
                                 </thead>
                                 <tbody>
                                 <?php foreach ($Empresas['empresas'] as $data) { 
-                                    $view = "InformacionEmpresa.php?id=".$data['nit'];
+                                    //$view = "InformacionEmpresa.php?id=".$data['nit'];
                                     /* $ViewCodigos = "AgregarCodigos.php?id=".$data['nit']; */
-                                     $ViewCodigos =  ABS_PATH."codecompany/index".$data['nit'];
-                                    $viewExperiencia = "AgregarExperiencias.php?id=".$data['nit'];
+                                     $ViewCodigos =  ABS_PATH."codecompany/index/".$data['nit'];
+                                    //$viewExperiencia = "AgregarExperiencias.php?id=".$data['nit'];
                                 ?>
                                     
                                     

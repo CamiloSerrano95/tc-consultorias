@@ -1,9 +1,10 @@
 <?php
 
 use \vista\Vista;
-    class controllercode {
+    class CodeCompanyController {
 
-        public function index() {
+        public function index($id) {
+            echo $id;
             return Vista::crear("Empresa.AgregarCodigos");
         }
 
