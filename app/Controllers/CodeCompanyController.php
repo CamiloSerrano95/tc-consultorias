@@ -3,9 +3,12 @@
 use \vista\Vista;
     class CodeCompanyController {
 
-        public function index($id) {
-            echo $id;
+        /* public function index(){
             return Vista::crear("Empresa.AgregarCodigos");
+        } */
+        public function ver($id) {
+            echo $id;
+            return Vista::crear("Empresa.AgregarCodigos", $id);
         }
 
         public function agregar() {
