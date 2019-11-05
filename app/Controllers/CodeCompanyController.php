@@ -8,7 +8,6 @@
             
         } 
         public function ViewCodigos($id) {
-            echo $id;
             return Vista::crear("Empresa.AgregarCodigos", $id);
         }
         public function agregar() {

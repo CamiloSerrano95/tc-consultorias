@@ -47,7 +47,7 @@
                                 <?php foreach ($Empresas['empresas'] as $data) { 
                                     //$view = "InformacionEmpresa.php?id=".$data['nit'];
                                     /* $ViewCodigos = "AgregarCodigos.php?id=".$data['nit']; */
-                                    $ViewCodigos = ABS_PATH."codecompany.ViewCodigos.".$data['nit'];
+                                    $ViewCodigos = ABS_PATH."mostrarCodigos/ViewCodigos/".$data['nit'];
                                     //$viewExperiencia = "AgregarExperiencias.php?id=".$data['nit'];
                                 ?>
                                     

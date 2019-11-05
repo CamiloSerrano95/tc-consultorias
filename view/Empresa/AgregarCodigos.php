@@ -1,10 +1,8 @@
 <?php 
      //require_once '../../Models/EmpresaModel.php'
-     echo "-------------------------------------->";
     require dirname(__FILE__).'/../home/header.php';
 
-    $Empresa = new EmpresaModel();
-    
+    $Empresa = new EmpresaModel();    
     $Empresas = $Empresa->ObtenerEmpresa($key);
     $servicio = $Empresa->ObtenerServicios();
 ?> 
