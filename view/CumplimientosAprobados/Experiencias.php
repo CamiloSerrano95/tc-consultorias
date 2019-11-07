@@ -1,9 +1,9 @@
 <?php 
     //require_once '../../Controllers/EvaluacionController/Revision.php';
     require dirname(__FILE__).'/../home/header.php';
-    //require_once '../../Model/AprobadosModel.php'
     $instancia = new AprobadosModel();
     $variable = $instancia->obtenerLicitacionesSolas();
+    echo "---------------------------------------------------->";var_dump($variable['empresas'][0]['id']);
 ?>
 
 <div class="page-wrapper">
@@ -32,7 +32,7 @@
                                 <tbody>
                                     <?php 
                                         foreach ($variable['empresas'] as $value) {
-                                             echo $http = ABS_PATH."evaluacion/agregar/id"; // mirar si si el metodo revisar esta en agragar en el controlador
+                                            $http = ABS_PATH."revision/viewExperiences/".$value['id']; // mirar si si el metodo revisar esta en agragar en el controlador
                                             // $http = "../../Controllers/EvaluacionController/Revision.php?id=".$value['id'];
                                     ?>
                                     <tr>

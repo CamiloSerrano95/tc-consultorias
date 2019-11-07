@@ -7,9 +7,51 @@
             $this->DataBase = $connection->get_conexion();
         }
 
+        public function obtenerExperiencias($id){
+            try {
+                $sql = "SELECT * FROM cumplimiento_exp WHERE objeto_licitacion = ?";
+                $query = $this->DataBase->prepare($sql);            
+                $data = [$id];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
+
         public function obtenerFiltroUno($id) {
             try {
                 $sql = "SELECT * FROM cumplimiento_un WHERE objeto_licitacion = ?";
+                $query = $this->DataBase->prepare($sql);            
+                $data = [$id];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
+
+        public function obtengoExperiencia($id){
+            try {
+                $sql = "SELECT * FROM experiencias WHERE id = ?";
+                $query = $this->DataBase->prepare($sql);            
+                $data = [$id];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
+
+        public function obtenerpedidosExperiencia($id){
+            try {
+                $sql = "SELECT * FROM cumplimiento_exp WHERE objeto_licitacion = ?";
                 $query = $this->DataBase->prepare($sql);            
                 $data = [$id];
                 $query->execute($data);

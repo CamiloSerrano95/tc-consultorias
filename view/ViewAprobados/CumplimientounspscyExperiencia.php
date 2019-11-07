@@ -29,26 +29,44 @@
                                         <th>Minimo de codigos Requeridos</th>
                                         <th>Presupuesto oficial exigido en SMMLV</th>
                                         <th>Porcentaje de presupuesto exigido</th>
+                                        <th>Total de presupuesto exigido</th>
                                         <th>Cumplimiento Experiencia</th>
+                                        <th>Alianza</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                 <?php for ($i=0; $i <sizeof($vectorcito) ; $i++) {  
                                         echo "<tr>";
-                                            if (!($i%2)){
                                                 echo "<td>";
-                                                    echo $vectorcito[$i];
+                                                    echo $vectorcito[$i][0];
                                                 echo "</td>";
                                                 echo "<td>";
-                                                    echo $vectorcito[$i+1];
+                                                    echo $vectorcito[$i][1];
                                                 echo "</td>";                                            
-                                                echo "<td>";?>                                            
-                                                <a href="<?php echo ABS_PATH."evaluacion/agregar"?>"
-                                                
-                                                class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                echo "<td>";
+                                                echo $vectorcito[$i][2];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                echo $vectorcito[$i][3];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                echo $vectorcito[$i][4];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                echo $vectorcito[$i][5];
+                                                echo "</td>"; 
+                                                echo "<td>";
+                                                echo $vectorcito[$i][6];
+                                                echo "</td>";                                             
+                                                echo "<td>";
+                                                ?>                                            
+                                                <a href="<?php echo ABS_PATH."revision/viewExperiences/".$vectorcito[$i][8];?>" class="btn btn-link"><span style="font-size: 3em; color: orange;"><i class="mdi mdi-certificate"></i></span></a>
+                                                <td>
+                                                    <a href="" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                </td>
                                                 <?php echo "</td>";                                                                                            
-                                            }
+                                            
                                         }
                                         echo "</tr>"
                                     ?>          
