@@ -63,7 +63,7 @@
                                                 ?>                                            
                                                 <a href="<?php echo ABS_PATH."revision/viewExperiences/".$vectorcito[$i][8];?>" class="btn btn-link"><span style="font-size: 3em; color: orange;"><i class="mdi mdi-certificate"></i></span></a>
                                                 <td>
-                                                    <a href="" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                    <a href="<?php echo ABS_PATH."revision/finanmet/".$vectorcito[$i][8]."/".$vectorcito[$i][9];?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                 </td>
                                                 <?php echo "</td>";                                                                                            
                                             

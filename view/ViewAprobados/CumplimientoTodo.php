@@ -1,4 +1,4 @@
-<?php require dirname(__FILE__).'/../home/header.php'?>
+<?php require dirname(__FILE__).'/../home/header.php'; ?>
 
 <div class="page-wrapper">
     <div class="page-breadcrumb">
@@ -18,35 +18,17 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>CODIGOS : </strong> AQUI VA EL DATO </label>
+                                        <label class="col-form-label"><strong>CODIGOS : </strong> <?php echo $key['unspsc']; ?> </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>OBJETOS : </strong> </label>
+                                        <label class="col-form-label"><strong>No. CONTRATO : </strong> <?php echo $key['experiencia']['nro_contratos'];?> </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>No. CONTRATO : </strong> </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-3">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="col-form-label"><strong>MINIMO DE CODIGOS REQUERIDOS : </strong> </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="col-form-label"><strong>PRESUPUESTO OFICIAL EXIGIDO : </strong> </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="col-form-label"><strong>PORCENTAJE DEL PRESUPUESTO EXIGIDO : </strong> </label>
+                                        <label class="col-form-label"><strong>MINIMO DE CODIGOS REQUERIDOS : </strong>  <?php echo $key['experiencia']['min_cod_req'];?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -54,17 +36,17 @@
                             <div class="row mt-3">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>INDICE DE LIQUIDEZ : </strong> </label>
+                                        <label class="col-form-label"><strong>PRESUPUESTO OFICIAL EXIGIDO : </strong>  <?php echo $key['experiencia']['presupuesto_exigido'];?> </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>INDICE DE ENDEUDAMIENTO : </strong> </label>
+                                        <label class="col-form-label"><strong>PORCENTAJE DEL PRESUPUESTO EXIGIDO : </strong>  <?php echo $key['experiencia']['porcentaje_of_exigido'];?> </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>RAZON COBERTURA DE INTERES : </strong> </label>
+                                        <label class="col-form-label"><strong>INDICE DE LIQUIDEZ : </strong> <?php echo $key['financiero']['empresas'][0]['ind_liquidez'];?></label>
                                     </div>
                                 </div>
                             </div>
@@ -72,12 +54,36 @@
                             <div class="row mt-3">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>RENTABILIDAD SOBRE EL PATRIMONIO : </strong> </label>
+                                        <label class="col-form-label"><strong>INDICE DE ENDEUDAMIENTO : </strong> <?php echo $key['financiero']['empresas'][0]['endeudamiento'];?> </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="col-form-label"><strong>RENTABILIDAD SOBRE LOS ACTIVOS : </strong> </label>
+                                        <label class="col-form-label"><strong>RAZON COBERTURA DE INTERES : </strong> <?php echo $key['financiero']['empresas'][0]['raz_cobertura_int'];?> </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><strong>RENTABILIDAD SOBRE EL PATRIMONIO : </strong> <?php echo $key['financiero']['empresas'][0]['rent_patrimonio'];?> </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><strong>RENTABILIDAD SOBRE LOS ACTIVOS : </strong> <?php echo $key['financiero']['empresas'][0]['rent_activos'];?> </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><strong>OBJETOS : </strong> <?php for ($h=0; $h < sizeof($key['objetos']); $h++) { 
+                                                echo $key['objetos'][$h];
+                                                echo "<br>";
+                                                echo "<br>";
+                                        } ?></label>
                                     </div>
                                 </div>
                             </div>
@@ -108,6 +114,53 @@
                                     <tr>
 
                                     </tr>
+                                    <?php for ($i=0; $i <sizeof($key['empresas']) ; $i++) {  
+                                            echo "<tr>";
+                                                echo "<td>";
+                                                    echo $key['empresas'][$i][0];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][1];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][2];
+                                                    echo "</td>";                                                                                         
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][3];
+                                                    echo "</td>";                                                                                         
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][4];
+                                                    echo "</td>";                                                                                         
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][5];
+                                                    echo "</td>";                                                                                         
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][6];
+                                                    echo "</td>";                                                                                         
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][7];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][8];
+                                                    echo "</td>";                                                                                         
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][9];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][10];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][11];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][12];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][13];
+                                                    echo "</td>";                                                                                                                                                         
+                                                }
+                                            echo "</tr>"
+                                        ?>
                                 </tbody>
                             </table>
                         </div>

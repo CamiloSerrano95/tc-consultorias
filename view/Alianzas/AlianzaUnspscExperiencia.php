@@ -1,10 +1,9 @@
 <?php 
     require dirname(__FILE__).'/../home/header.php'; 
     // require_once '../../Models/EmpresaModel.php';
-
     $Empresa = new EmpresaModel();
-    
     $Empresas = $Empresa->EveryThings();
+    $data = $key['aprobaron'];
 ?> 
 
 
@@ -63,14 +62,22 @@
                 <div class="card">
                     <div class="card-body">
                         <form action="#" method="POST" class="form-horizontal">
+                            <div class="form-group row mt-5">
+                                <div class="col-sm-10">
+                                    <input type="text" value ="<?php echo $key['nombre']; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" name="nombre" id="fname" placeholder="Porcentaje %" required>
+                                </div>
+                            </div>
                             <div class="row mt-3">
                             <input type="hidden" name="nit" value="<?php  echo $nit; ?>">
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
-                                        <?php  foreach($Empresas['empresas'] as $data) { ?>
-                                            <option value="<?php echo $data['nit']." ".$data['nombre_empresa'];  ?>"><?php echo $data['nombre_empresa'];?></option>
-                                        <?php } ?>
+                                            <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
+                                            <option value="<?php  echo $data[$i][0]; ?>"><?php echo $data[$i][0];} ?></option>
+                                        
                                         </select>
                                     </div>
                                 </div>
@@ -79,6 +86,7 @@
                                     <button type="button" onclick="EliminarInput ('selec1','selecsito')" class="btn btn-primary">Eliminar Empresa</button>
                                 </div>
                             </div>
+                            
                             <div id="joker">
                                 <div class="row">
                                     <div id="contenedor" class="form-group col-sm-9">

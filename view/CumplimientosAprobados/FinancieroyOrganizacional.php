@@ -32,7 +32,7 @@
                                 <tbody>
                                     <?php 
                                         foreach ($variable['empresas'] as $value) {
-                                            $http = ABS_PATH."revision/finanmet/".$value['id']; // mirar si si el metodo revisar esta en agragar en el controlador
+                                            $http = ABS_PATH."revision/redirect/".$value['id']; // mirar si si el metodo revisar esta en agragar en el controlador
                                             // $http = "../../Controllers/EvaluacionController/Revision.php?id=".$value['id'];
                                     ?>
                                     <tr>

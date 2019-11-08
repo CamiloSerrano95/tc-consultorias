@@ -53,25 +53,25 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            for ($i=0; $i < sizeof($key['empresas']); $i++) { 
+                                            for ($i=0; $i < sizeof($key['datos']); $i++) { 
                                                 echo "<tr>";
                                                     echo "<td>";
-                                                        echo $key['empresas'][$i][0];
+                                                        echo $key['datos'][$i][0];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['empresas'][$i][1];
+                                                        echo $key['datos'][$i][1];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['empresas'][$i][2];
+                                                        echo $key['datos'][$i][2];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['empresas'][$i][3];
+                                                        echo $key['datos'][$i][3];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['empresas'][$i][4];
+                                                        echo $key['datos'][$i][4];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['empresas'][$i][5];
+                                                        echo $key['datos'][$i][5];
                                                     echo"</td>";
                                                 echo "</tr>";
                                             }

@@ -118,6 +118,19 @@
             return $response;
         }
 
+        public function AllEmpresa() {
+            try {
+                $sql = "SELECT * FROM empresa ";
+                $query = $this->DataBase->prepare($sql);   
+                $query->execute();
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
+
         public function obtenerEmpresa($nit) {
             try {
                 $sql = "SELECT * FROM empresa WHERE nit = ?";
