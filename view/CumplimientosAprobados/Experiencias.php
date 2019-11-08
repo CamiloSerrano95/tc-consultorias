@@ -3,7 +3,7 @@
     require dirname(__FILE__).'/../home/header.php';
     $instancia = new AprobadosModel();
     $variable = $instancia->obtenerLicitacionesSolas();
-    echo "---------------------------------------------------->";var_dump($variable['empresas'][0]['id']);
+    /* echo "---------------------------------------------------->";var_dump($variable['empresas'][0]['id']); */
 ?>
 
 <div class="page-wrapper">

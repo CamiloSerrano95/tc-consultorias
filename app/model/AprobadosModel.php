@@ -91,6 +91,20 @@
             return $response;
         }
 
+        public function obtenerfinanciero($id){
+            try {
+                $sql = "SELECT * FROM cumplimiento_financiero WHERE objeto_licitacion =?";
+                $query = $this->DataBase->prepare($sql);        
+                $data = [$id];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
+
         public function obtenerLicitacionesSolas(){
             try {
                 $sql = "SELECT * FROM licitacion";

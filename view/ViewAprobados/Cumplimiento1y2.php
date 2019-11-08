@@ -32,7 +32,7 @@
                                 <tbody>
                                     <?php 
                                         foreach ($variable['empresas'] as $value) {
-                                            $http = "../../Controllers/EvaluacionController/Revision.php?id=".$value['id'];
+                                            $http = ABS_PATH."revision/TodoCumple/".$value['id'];
                                     ?>
                                     <tr>
                                         <td><?php echo $value['nombre']; ?></td>

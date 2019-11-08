@@ -4,8 +4,16 @@
         public function __construct(){
         }
 
-        public function finanmet(){
-            return Vista::crear('ViewAprobados.CumplimientoFyO');
+        public function finanmet($id){
+            $empresas = new AprobadosModel();
+            $object = $empresas->obtenerfinanciero($id);
+            $idempresa = json_decode($object['empresas'][0]['result']);
+            $arrayDeEmpresas = [];
+            for ($i=0; $i < sizeof($idempresa); $i++) { 
+                $pibot = $empresas->obtenerEmpresa($idempresa[$i]);
+                array_push($arrayDeEmpresas, array ($pibot['empresas'][0]['nombre_empresa'], $pibot['empresas'][0]['indice_liquidez'], $pibot['empresas'][0]['indice_endeudamento'], $pibot['empresas'][0]['razon_cobertura_interes'], $pibot['empresas'][0]['rentabilidad_patrimonio'], $pibot['empresas'][0]['rentabilidad_del_activo']));
+            }
+            return Vista::crear('ViewAprobados.CumplimientoFyO', array("requridos"=> $object['empresas'][0], "empresas" => $arrayDeEmpresas));
         }
         
         public function viewExperiences($id){
@@ -82,6 +90,10 @@
                 }
             }
             return Vista::crear("ViewAprobados.CumplimientounspscyExperiencia", $vectorDePaso);
+        }
+
+        public function TodoCumple(){
+            Vista::crear("ViewAprobados.CumplimientoTodo");
         }
     }
 

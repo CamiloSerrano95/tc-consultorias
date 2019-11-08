@@ -1,6 +1,4 @@
-<?php require dirname(__FILE__).'/../home/header.php'; 
-    echo "------------------------------>".$key;
-?>
+<?php require dirname(__FILE__).'/../home/header.php'; ?>
 
 <div class="page-wrapper">
     <div class="page-breadcrumb">
@@ -16,12 +14,35 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <h5 class="card-title mt-5">DATOS REQUERIDOS</h5>
+                        <div class="table-responsive text-center mt-3">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>INDICE DE LIQUIDEZ</td>
+                                            <td>INDICE DE ENDEUDAMIENTO</td>
+                                            <td>RAZON COBERTURA DE INTERES</td>
+                                            <td>RENTABILIDAD SOBRE EL PATRIMONIO</td>
+                                            <td>RENTABILIDAD DEL ACTIVO</td>
+                                        </tr>
+                                        <tr>                                            
+                                            <td><?php echo $key['requridos']['ind_liquidez'];?></td>
+                                            <td><?php echo $key['requridos']['endeudamiento'];?></td>
+                                            <td><?php echo $key['requridos']['raz_cobertura_int'];?></td>
+                                            <td><?php echo $key['requridos']['rent_patrimonio'];?></td>
+                                            <td><?php echo $key['requridos']['rent_activos'];?></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                        </div>
+                    </div>
+                    <div class="card-body mt-3">
                         <!-- <h5 class="card-title"></h5> -->
                         <div>
                             <div class="table-responsive text-center">
                                 <table id="zero_config" class="table table-bordered">
                                     <thead class="thead-dark">
-                                        <tr>
+                                        <tr>                                            
                                             <th>NOMBRE EMPRESA</th>
                                             <th>INDICE DE LIQUIDEZ</th>
                                             <th>INDICE DE ENDEUDAMIENTO</th>
@@ -31,9 +52,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-
-                                        </tr>
+                                        <?php
+                                            for ($i=0; $i < sizeof($key['empresas']); $i++) { 
+                                                echo "<tr>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][0];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][1];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][2];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][3];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][4];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['empresas'][$i][5];
+                                                    echo"</td>";
+                                                echo "</tr>";
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
 
