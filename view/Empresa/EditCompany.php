@@ -17,16 +17,36 @@
                   method="POST" class="form-horizontal"> 
                 <div class="card-body">
                     <h4 class="card-title">Editar Empresa</h4>
-                    <div class="form-group row mt-5">
-                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Codigo UNSPSC</label>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">INDICE DE LIQUIDEZ</label>
                         <div class="col-sm-9">
-                            <input type="text" name="codigo" class="form-control" id="fname" placeholder="codigo">
+                            <input type="text" class="form-control" name="indice_liquidez" id="lname" placeholder="Liquidez" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">Descripcion</label>
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">INDICE DE ENDEUDAMIENTO</label>
                         <div class="col-sm-9">
-                            <input type="text" name="descripcion" class="form-control" id="lname" placeholder="descripcion">
+                            <input type="text" class="form-control" name="indice_endeudamiento" id="lname" placeholder="Endeudamiento" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">RAZÒN DE COBERTURA DE INTERES</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="cobertura_interes" id="lname" placeholder="INDETERMINADO = 0" required>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4 class="card-title mt-4">Capacidad Organizacional</h4>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">RENTABILIDAD DEL PATRIMONIO</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="rentabilidad_patrimonio" id="lname" placeholder="Patrimonio" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">RENTABILIDAD DEL ACTIVO</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="rentabilidad_activo" id="lname" placeholder="Activo" required>
                         </div>
                     </div>
                 </div>
