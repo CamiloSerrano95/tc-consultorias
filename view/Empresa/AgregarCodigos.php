@@ -25,7 +25,7 @@
             contenedor.appendChild(x);
 
             var a = document.createElement('input');
-            a.setAttribute("class", "form-control mt-3");
+            a.setAttribute("class", "form-control mt-3 charizard");
             a.setAttribute("id" , "selec1");
             a.setAttribute("value", partes[1]);
             charizard.appendChild(a);
@@ -79,8 +79,9 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mt-2">
-                                    <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Codigo</button>
+                                    <button type="button" id="crearInput" onclick="crearInput()" class="btn btn-primary">Agregar Codigo</button>
                                     <button type="button" onclick="EliminarInput ('selec1','selecsito')" class="btn btn-primary">Eliminar Codigo</button>
+                                    <button type="button" id="obtener" class="btn btn-primary">Obtener</button>
                                 </div>
                             </div>
                             <div id="joker">
@@ -101,4 +102,16 @@
         </div>
     </div>
 </div>
+<script>
+
+    var crearInput = document.getElementById('crearInput');
+    var obtener = document.getElementById('obtener');
+    var contador = 0;
+        
+    crearInput.onclick = () => {
+        contador++;
+        console.log("ok");
+        console.log(contador);
+    }
+</script>
 <?php require dirname(__FILE__).'/../home/footer.php'?>
