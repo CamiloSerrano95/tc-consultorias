@@ -49,6 +49,7 @@
                                             <th>RAZON DE COBERTURA</th>
                                             <th>RENTABILIDAD DEL PATRIMONIO</th>
                                             <th>RENTABILIDAD DEL ACTIVO</th>
+                                            <th>ALIANZAS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,8 +74,12 @@
                                                     echo "<td>";
                                                         echo $key['datos'][$i][5];
                                                     echo"</td>";
+                                                    echo "<td>";?>
+                                                        <a href="../Alianzas/AlianzaUnspsc.php" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                    <?php echo"</td>";
                                                 echo "</tr>";
                                             }
+
                                         ?>
                                     </tbody>
                                 </table>
