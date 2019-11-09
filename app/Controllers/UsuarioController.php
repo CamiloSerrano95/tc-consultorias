@@ -2,7 +2,6 @@
     use \vista\Vista;
 
     class UsuarioController {
-
         // Los controladores deben ir estructurados con los siguientes 5 metodos
         // index = es el metodo que renderiza el select from de una consulta sql
         // show = es el metodo que renderiza la informacion de una consulta en especifico recibe como parametro la llave primaria
@@ -42,7 +41,6 @@
             } else {
                 echo $data['error'];
             }
-            
         }
 
         public function editar($id) {
@@ -55,8 +53,49 @@
 
         public function signin(){
             $usuario = new UsuarioModel();
+            $session = new SessionModel();
             $usuario->setUser($_POST['user']);
-            $res = $usuario->login();
-            Redirecciona::LetsGoTo('home');
+            $usuario->setPasswd($_POST['pass']);
+            $data = $usuario->login();
+
+            if ($data['usuario']['usuario'] == $usuario->getUser()) {
+                if (password_verify($usuario->getPasswd(), $data['usuario']['contrasena'])) {
+                    @session_start();
+                    $session->CreateSession('usuario', $data['usuario']['nombres']);
+                    Redirecciona::LetsGoTo('home');
+                } else {
+                    echo "Contraseña incorrecta";  
+                }
+            } else {
+                echo "Usuario incorrecto";
+            }
+            
+        }
+
+        public function logout() {
+            $session = new SessionModel();
+            $session->DestroySession();
+        }
+
+        public function recoverypass() {
+            $usuario = new UsuarioModel();
+            $usuario->setUser($_POST['user']);
+            $usuario->setEmail($_POST['email']);
+            $newpass = $_POST['newpass'];
+            $retrynewpass = $_POST['retrynewpass'];
+
+            if ($newpass == $retrynewpass) {
+                $usuario->setPasswd(password_hash($newpass, PASSWORD_BCRYPT));
+                $data = $usuario->CambiarContrasena();
+
+                if($data['status'] == 1) {
+                    echo $data['msg'];
+                    Redirecciona::LetsGoTo('');
+                } else {
+                    echo "Usuario incorrecto";
+                }
+            } else {
+                echo "Las contraseñas no coinciden";
+            }
         }
     }
