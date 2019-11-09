@@ -44,7 +44,7 @@
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo ASSETS_URL."images/users/1.jpg"?>" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo ABS_PATH.""?>"><i class="fa fa-power-off m-r-5 m-l-5"></i>Cerrar Sesion</a>
+                                <a class="dropdown-item" href="<?php echo ABS_PATH."usuario/logout"?>"><i class="fa fa-power-off m-r-5 m-l-5"></i>Cerrar Sesion</a>
                                 <a class="dropdown-item" href="<?php echo ABS_PATH."usuario/nuevo"?>"><i class="mdi mdi-account-key m-r-5 m-l-5"></i>Registrar Usuario</a>
                                 <div class="dropdown-divider"></div>
                             </div>
