@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2019 a las 23:06:01
+-- Tiempo de generación: 10-11-2019 a las 00:07:53
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -44,8 +44,7 @@ CREATE TABLE `cumplimiento_exp` (
 --
 
 INSERT INTO `cumplimiento_exp` (`id`, `nro_contratos`, `min_cod_req`, `porcentaje_of_exigido`, `presupuesto_exigido`, `result_presupuesto`, `result`, `objeto_licitacion`) VALUES
-(32, 1, 1, 10, 1000, 100, '[\"900262944-6\"]', '22'),
-(33, 2, 3, 100, 500, 500, '[]', '23');
+(35, 1, 1, 10, 1000, 100, '[\"900262944-6\"]', '25');
 
 -- --------------------------------------------------------
 
@@ -69,8 +68,7 @@ CREATE TABLE `cumplimiento_financiero` (
 --
 
 INSERT INTO `cumplimiento_financiero` (`id`, `ind_liquidez`, `endeudamiento`, `raz_cobertura_int`, `rent_patrimonio`, `rent_activos`, `result`, `objeto_licitacion`) VALUES
-(32, 0.5, 0.48, 11.14, 0.11, 0.09, '[\"900854721-1\"]', 22),
-(33, 0.5, 0.3, 11.14, 0.03, 0.02, '[]', 23);
+(35, 1, 0.49, 0, 0.03, 0.02, '[\"900262944-6\"]', 25);
 
 -- --------------------------------------------------------
 
@@ -90,8 +88,7 @@ CREATE TABLE `cumplimiento_objeto` (
 --
 
 INSERT INTO `cumplimiento_objeto` (`id`, `objetos`, `result`, `objeto_licitacion`) VALUES
-(32, '[\"14\",\"16\",\"15\"]', '[\"900854721-1\",\"900854721-1\",\"900262944-6\"]', 22),
-(33, '[\"21\",\"24\"]', '[\"802003229-2\",\"802003229-2\"]', 23);
+(35, '[\"16\",\"14\",\"15\"]', '[\"900854721-1\",\"900854721-1\",\"900262944-6\"]', 25);
 
 -- --------------------------------------------------------
 
@@ -111,8 +108,7 @@ CREATE TABLE `cumplimiento_un` (
 --
 
 INSERT INTO `cumplimiento_un` (`id`, `objetos`, `result`, `objeto_licitacion`) VALUES
-(32, '[\"10151500\",\"10151600\",\"10152000\"]', '[\"900262944-6\",\"900854721-1\"]', 22),
-(33, '[\"10151500\",\"10151600\",\"10152000\"]', '[\"900262944-6\",\"900854721-1\"]', 23);
+(35, '[\"10151500\",\"10151600\",\"10152000\"]', '[\"900262944-6\",\"900854721-1\"]', 25);
 
 -- --------------------------------------------------------
 
@@ -137,17 +133,18 @@ CREATE TABLE `empresa` (
   `rentabilidad_del_activo` float NOT NULL,
   `activo_corriente` float NOT NULL,
   `pasivo_corriente` float NOT NULL,
-  `capital_de_trabajo` float NOT NULL
+  `capital_de_trabajo` float NOT NULL,
+  `patrimonio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `empresa`
 --
 
-INSERT INTO `empresa` (`nombre_empresa`, `nit`, `matricula_mercantil`, `registro_lucro`, `organizacion`, `tamano_empresa`, `numero_proponente`, `fecha_inscripcion_registro_prop`, `fecha_ultima_renov_prop`, `indice_liquidez`, `indice_endeudamento`, `razon_cobertura_interes`, `rentabilidad_patrimonio`, `rentabilidad_del_activo`, `activo_corriente`, `pasivo_corriente`, `capital_de_trabajo`) VALUES
-('CONTROL DE CONTAMINACION LIMITADA', '802003229-2', '213.013', 'NO REGISTRA', 'LIMITADA', 'MICROEMPRESA', 12, '2017-07-27', '2019-04-03', 4.36, 0.16, 9.23, 0.17, 0.14, 0, 0, 0),
-('FUNDACION PARA EL DESARROLLO SOSTENIBLE DE LAS REGIONES COLOMBIANAS', '900262944-6', 'NO REGISTRA', 'S0504492', 'ENTIDAD SIN ANIMO DE LUCRO', 'MICROEMPRESA', 5626, '2009-04-06', '2019-05-29', 1.16, 0.47, 0, 0.05, 0.03, 0, 0, 0),
-('TECE PROYECTOS Y CONSULTORIAS S.A.S.', '900854721-1', '141183', 'NO REGISTRA', 'SOCIEDAD POR ACCIONES SIMPLIFICADA', 'MICROEMPRESA', 5066, '2015-04-06', '2019-05-27', 3.97, 0.48, 0, 0.24, 0.12, 0, 0, 0);
+INSERT INTO `empresa` (`nombre_empresa`, `nit`, `matricula_mercantil`, `registro_lucro`, `organizacion`, `tamano_empresa`, `numero_proponente`, `fecha_inscripcion_registro_prop`, `fecha_ultima_renov_prop`, `indice_liquidez`, `indice_endeudamento`, `razon_cobertura_interes`, `rentabilidad_patrimonio`, `rentabilidad_del_activo`, `activo_corriente`, `pasivo_corriente`, `capital_de_trabajo`, `patrimonio`) VALUES
+('CONTROL DE CONTAMINACION LIMITADA', '802003229-2', '213.013', 'NO REGISTRA', 'LIMITADA', 'MICROEMPRESA', 12, '2017-07-27', '2019-04-03', 4.36, 0.16, 9.23, 0.17, 0.14, 0, 0, 0, 0),
+('FUNDACION PARA EL DESARROLLO SOSTENIBLE DE LAS REGIONES COLOMBIANAS', '900262944-6', 'NO REGISTRA', 'S0504492', 'ENTIDAD SIN ANIMO DE LUCRO', 'MICROEMPRESA', 5626, '2009-04-06', '2019-05-29', 1.16, 0.47, 0, 0.05, 0.03, 0, 0, 0, 0),
+('TECE PROYECTOS Y CONSULTORIAS S.A.S.', '900854721-1', '141183', 'NO REGISTRA', 'SOCIEDAD POR ACCIONES SIMPLIFICADA', 'MICROEMPRESA', 5066, '2015-04-06', '2019-05-27', 3.97, 0.48, 0, 0.24, 0.12, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -270,8 +267,7 @@ CREATE TABLE `licitacion` (
 --
 
 INSERT INTO `licitacion` (`id`, `nombre`) VALUES
-(22, 'CONSTRUCION DE UN CENTRO DE INTEGRACION CIUDADANA EN EL MUNICIPIO DE CHIMA DEPARTAMENTO DE CORDOBA'),
-(23, 'ESTUDIO DE CALIDAD DE AIRE EN EL ALTO SAN JORGE');
+(25, 'Licitacion para el cachon del stiven');
 
 -- --------------------------------------------------------
 
@@ -481,25 +477,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cumplimiento_exp`
 --
 ALTER TABLE `cumplimiento_exp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `cumplimiento_financiero`
 --
 ALTER TABLE `cumplimiento_financiero`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `cumplimiento_objeto`
 --
 ALTER TABLE `cumplimiento_objeto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `cumplimiento_un`
 --
 ALTER TABLE `cumplimiento_un`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `experiencias`
@@ -511,7 +507,7 @@ ALTER TABLE `experiencias`
 -- AUTO_INCREMENT de la tabla `licitacion`
 --
 ALTER TABLE `licitacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio_empresa`
