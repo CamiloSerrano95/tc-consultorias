@@ -1,8 +1,14 @@
 <?php
     class UsuarioModel {
+        private $nombres;
+        private $user;
+        private $passwd;
+        private $rol;
+        private $DataBase;
+
         public function __construct() {
 			$connection = new Conexion();
-            $this->DataBase = $connection::get_conexion();
+            $this->DataBase = $connection->get_conexion();
         }
 
         public function setNombres ($nombres) {
@@ -69,6 +75,20 @@
                 $response = ['status' => 1, 'msg' => "Usuario guardado exitosamente"];
             } catch (Exception $e) {
                 $response = ['status' => 0, 'error' => $e];
+            }
+            return $response;
+        }
+
+        public function CambiarContrasena() {
+            try {
+                
+                $sql = "UPDATE usuario SET contrasena = ? WHERE usuario = ? and email = ?";
+                $query = $this->DataBase->prepare($sql);
+                $data = [$this->getPasswd(), $this->getUser(), $this->getEmail()];
+                $query->execute($data);
+                $response = ['status' => 1, 'msg' => "Se ha actualizado la contraseña correctamente"];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'Error'=>$e];
             }
             return $response;
         }
