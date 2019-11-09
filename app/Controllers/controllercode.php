@@ -19,7 +19,7 @@ use \vista\Vista;
             $data = $Servicio->Saved();
 
             if ($data['status'] == 1) {
-                Redirecciona::LetsGoTo('code');
+                Redirecciona::LetsGoTo('code/nuevo');
             } else {
                 echo $data['error'];
             }

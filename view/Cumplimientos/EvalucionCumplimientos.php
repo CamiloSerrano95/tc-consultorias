@@ -318,6 +318,9 @@
 
                                         <label class="mt-3">Rentabilidad sobre Activos</label>
                                         <input type="text" class="form-control" name="activos" placeholder="Ej: 0.03">
+
+                                        <label class="mt-3">Capital de Trabajo</label>
+                                        <input type="text" class="form-control" name="capital" placeholder="Ej: digite el valor en smmlv">
                                     </div>
                                 </section>
                             </div>

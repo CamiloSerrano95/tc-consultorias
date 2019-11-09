@@ -25,26 +25,22 @@
                                     <tr>
                                         <th>Empresa</th>
                                         <th>Codigos</th>
-                                        <th>AlianzaEmpresas</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php for ($i=0; $i <sizeof($vectorcito) ; $i++) {  
-                                        echo "<tr>";
-                                            if (!($i%2)){
-                                                echo "<td>";
-                                                    echo $vectorcito[$i];
-                                                echo "</td>";
-                                                echo "<td>";
-                                                    echo $vectorcito[$i+1];
-                                                echo "</td>";                                            
-                                                echo "<td>";?>                                            
-                                                    <a href="../Alianzas/AlianzaUnspsc.php" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
-                                                <?php echo "</td>";                                                                                            
-                                            }
-                                        }
-                                        echo "</tr>"
-                                    ?>             
+                                            echo "<tr>";
+                                                if (!($i%2)){
+                                                    echo "<td>";
+                                                        echo $vectorcito[$i];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                        echo $vectorcito[$i+1];
+                                                    echo "</td>";
+                                                }
+                                            echo "</tr>";
+                                        } 
+                                    ?>                                            
                                 </tbody>
                             </table>
                         </div>

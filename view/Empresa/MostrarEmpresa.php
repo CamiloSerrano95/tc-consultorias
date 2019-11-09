@@ -41,6 +41,7 @@
                                         <th>AGREGAR CODIGOS</th>
                                         <th>AGREGAR EXPERIENCIAS</th>
                                         <th>VER</th>
+                                        <th>EDITAR</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,6 +49,7 @@
                                     $view = ABS_PATH."koto/viewcompany/".$data['nit'];
                                     $ViewCodigos = ABS_PATH."mostrarCodigos/ViewCodigos/".$data['nit'];
                                     $viewExperiencia = ABS_PATH."experiencia/nuevo/".$data['nit'];
+                                    $viewEdit = ABS_PATH."empresa/editar/".$data['nit'];
                                 ?>
                                     
                                     
@@ -79,6 +81,9 @@
                                         </td>
                                         <td>
                                             <a href="<?php echo $view; ?>" class="btn btn-link"><span style="font-size: 2em; color: orange;"><i class="fas fa-eye"></i></span></button>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo $viewEdit; ?>" class="btn btn-link"><span style="font-size: 2em; color: blue;"><i class="fas fa-pen-square"></i></span></button>
                                         </td>
                                         
                                     </tr>

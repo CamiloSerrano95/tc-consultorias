@@ -68,7 +68,7 @@ class controllercompany {
     }
 
     public function editar($id) {
-        echo $id;
+        return Vista::crear("Empresa.EditCompany",$id); 
     }
 
     public function eliminar($id) {
