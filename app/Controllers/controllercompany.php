@@ -95,6 +95,14 @@ class controllercompany {
 
     public function editar($id) {
         $Empresita = new EmpresaModel();
+        $abajito = $Empresita->info($id);
+        return Vista::crear("Empresa.EditCompany",$abajito['empresa']);
+        
+    }
+
+    public function Update(){
+        $Empresita = new EmpresaModel();
+        $id = $_POST['id'];
         $Empresita->setFechaUltimaRenovacionProponente($_POST['fecha']);
         $Empresita->setIndiceLiquidez($_POST['indice_liquidez']);
         $Empresita->setIndiceEndeudamiento($_POST['indice_endeudamiento']);
@@ -110,8 +118,6 @@ class controllercompany {
         $Empresita->setCapitaldeTrabajo($Capital);
 
         $Empresita->Actualizar($id);
-
-        /* return Vista::crear("Empresa.EditCompany",$id); */ 
     }
 
     public function eliminar($id) {
