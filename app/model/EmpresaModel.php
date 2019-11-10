@@ -18,6 +18,10 @@
         private $rentabilidad_del_activo;
         private $codigo_servicio;
         private $experiencia;
+        private $patrimonio;
+        private $activo_corriente;
+        private $pasivo_corriente;
+        private $capital_de_trabajo;
         private $DataBase;
         private $Table = 'empresa';
 
@@ -40,6 +44,10 @@
             $this->codigo_servicio ="";
             $this->experiencia = "";
             $this->nitempresa = "";
+            $this->patrimonio="";
+            $this->activo_corriente="";
+            $this->pasivo_corriente="";
+            $this->capital_de_trabajo="";
             $connection = new Conexion();
             $this->DataBase = $connection->get_conexion();
         }
@@ -106,6 +114,22 @@
             $this->experiencia = $experiencia;
         }
 
+        public function setPatrimonio ($patrimonio) {
+            $this->patrimonio = $patrimonio;
+        }
+
+        public function setActivoCorriente ($activo_corriente) {
+            $this->activo_corriente = $activo_corriente;
+        }
+
+        public function setPasivoCorriente ($pasivo_corriente) {
+            $this->pasivo_corriente = $pasivo_corriente;
+        }
+
+        public function setCapitaldeTrabajo ($capital_de_trabajo) {
+            $this->capital_de_trabajo = $capital_de_trabajo;
+        }
+
 
         /* ---------------------------------GET----------------------------------- */
 
@@ -169,14 +193,30 @@
             return $this->experiencia;
         }
 
+        public function getPatrimonio () {
+            return $this->patrimonio;
+        }
+
+        public function getActivoCorriente () {
+            return $this->activo_corriente;
+        }
+
+        public function getPasivoCorriente () {
+            return $this->pasivo_corriente;
+        }
+
+        public function getCapitaldeTrabajo () {
+            return $this->capital_de_trabajo;
+        }
+
 
         
 
         public function RegistroEmpresa () {
             try {
-                $sql = "INSERT INTO $this->Table (nombre_empresa, nit, matricula_mercantil, registro_lucro, organizacion, tamano_empresa, numero_proponente, fecha_inscripcion_registro_prop, fecha_ultima_renov_prop, indice_liquidez, indice_endeudamento, razon_cobertura_interes, rentabilidad_patrimonio, rentabilidad_del_activo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $sql = "INSERT INTO $this->Table (nombre_empresa, nit, matricula_mercantil, registro_lucro, organizacion, tamano_empresa, numero_proponente, fecha_inscripcion_registro_prop, fecha_ultima_renov_prop, indice_liquidez, indice_endeudamento, razon_cobertura_interes, rentabilidad_patrimonio, rentabilidad_del_activo, activo_corriente, pasivo_corriente, capital_de_trabajo, patrimonio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $query = $this->DataBase->prepare($sql);
-                $data = [$this->getNombreEmpresa(),$this->getNit(),$this->getMatriculaMercantil(),$this->getRegistroLucro(), $this->getOrganizacion(), $this->getTamañoEmpresa(), $this->getNumeroProponente(), $this->getFechaInscripcionProponente(),$this->getFechaUltimaRenovacionProponente(),$this->getIndiceLiquidez(), $this->getIndiceEndeudamiento(), $this->getRazonCoberturaInteres(), $this->getRentabilidadPatrimonio(), $this->getRentabilidadActivo()];
+                $data = [$this->getNombreEmpresa(),$this->getNit(),$this->getMatriculaMercantil(),$this->getRegistroLucro(), $this->getOrganizacion(), $this->getTamañoEmpresa(), $this->getNumeroProponente(), $this->getFechaInscripcionProponente(),$this->getFechaUltimaRenovacionProponente(),$this->getIndiceLiquidez(), $this->getIndiceEndeudamiento(), $this->getRazonCoberturaInteres(), $this->getRentabilidadPatrimonio(), $this->getRentabilidadActivo(),$this->getActivoCorriente(), $this->getPasivoCorriente(), $this->getCapitaldeTrabajo(), $this->getPatrimonio()];
                 $query->execute($data);
                 $response = ['status' => 1, 'msg' => "Usuario guardado exitosamente"];
             } catch (Exception $e) {

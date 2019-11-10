@@ -96,13 +96,31 @@
                     <div class="form-group row">
                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">RENTABILIDAD DEL PATRIMONIO</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="rentabilidad_patrimonio" id="lname" placeholder="Patrimonio" required>
+                            <input type="text" class="form-control" name="rentabilidad_patrimonio" id="lname" placeholder="Rentabilidad Patrimonio" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">RENTABILIDAD DEL ACTIVO</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="rentabilidad_activo" id="lname" placeholder="Activo" required>
+                            <input type="text" class="form-control" name="rentabilidad_activo" id="lname" placeholder="Rentabilidad Activo" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">PATRIMONIO</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="patrimonio" placeholder="Patrimonio" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">ACTIVO CORRIENTE</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="activo_corriente" placeholder="Activo Corriente"  required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">PASIVO CORRIENTE</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="pasivo_corriente" placeholder="Pasivo Corriente" required>
                         </div>
                     </div>
                 </div>

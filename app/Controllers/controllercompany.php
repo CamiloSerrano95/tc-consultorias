@@ -25,6 +25,8 @@ class controllercompany {
     $Empresa->setRentabilidadPatrimonio($_POST['rentabilidad_patrimonio']);
     $Empresa->setRentabilidadActivo($_POST['rentabilidad_activo']);
 
+    $Capital = (($_POST['activo_corriente']) - ($_POST['pasivo_corriente']));
+    
 
         if ($_POST['matricula'] === "") {
             $Empresa->setMatriculaMercantil(strtoupper("no registra"));
@@ -54,6 +56,30 @@ class controllercompany {
             $Empresa->setTamañoEmpresa(strtoupper("no registra"));
         }else{
             $Empresa->setTamañoEmpresa(strtoupper($_POST['tam_empresa']));    
+        }
+
+        if ($_POST['patrimonio'] === 0) {
+            $Empresa->setPatrimonio(strtoupper("no registra"));
+        }else{
+            $Empresa->setPatrimonio($_POST['patrimonio']);  
+        }
+
+        if ($_POST['activo_corriente'] === 0) {
+            $Empresa->setActivoCorriente(strtoupper("no registra"));
+        }else{
+            $Empresa->setActivoCorriente($_POST['activo_corriente']);
+        }
+
+        if ($_POST['pasivo_corriente'] === 0) {
+            $Empresa->setPasivoCorriente(strtoupper("no registra"));
+        }else{
+            $Empresa->setPasivoCorriente($_POST['pasivo_corriente']);
+        }
+
+        if ($Capital == 0) {
+            $Empresa->setCapitaldeTrabajo(strtoupper("no registra"));
+        }else{
+            $Empresa->setCapitaldeTrabajo($Capital);
         }
 
         $data = $Empresa->RegistroEmpresa();
