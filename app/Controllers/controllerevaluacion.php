@@ -56,18 +56,23 @@
     public function codigosObjetos($variableReal, $nit, $Licitacion){
         $empresas = new CumplimientosModel();
         $primeroysegundo = [];
-        for ($i=0; $i < sizeof($variableReal); $i++) { 
-            $veneno =0;
-            for ($j=0; $j < sizeof($nit); $j++) { 
-                if($variableReal[$i] == $nit[$j]){
-                    $veneno = $veneno +1;
+        $request = [];
+        if($variableReal != NULL && $nit != NULL){
+            for ($i=0; $i < sizeof($variableReal); $i++) { 
+                $veneno =0;
+                for ($j=0; $j < sizeof($nit); $j++) { 
+                    if($variableReal[$i] == $nit[$j]){
+                        $veneno = $veneno +1;
+                    }
+                }
+                if($veneno >0 && $veneno < 2){
+                    array_push($primeroysegundo, $variableReal[$i]);
                 }
             }
-            if($veneno >0 && $veneno < 2){
-                array_push($primeroysegundo, $variableReal[$i]);
-            }
+            $request = ["pasaron"=>$primeroysegundo, "licitacion" => $Licitacion];
+        }else{
+            echo "error";
         }
-        $request = ["pasaron"=>$primeroysegundo, "licitacion" => $Licitacion];
         return $request;
     }
 
@@ -125,7 +130,6 @@
                 }
             }
         }   
-        //var_dump($parteTres)
         $request =["pedidos" => array ($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $ficticia), "pasaron" =>$parteTres, "licitacion" => $Licitacion];
         return $request;
     }
@@ -135,7 +139,7 @@
         
         $auxiliar = [];
         for ($i=0; $i < sizeof($nitempresa); $i++) { 
-            $empresa = $objeto->ObtenerEmpresa($nitempresa);
+            $empresa = $objeto->ObtenerEmpresa($nitempresa[$i]);
             $aux = ($empresa['empresas'][0]['capital_de_trabajo'])*0.5;
             if($Liquidez <= $empresa['empresas'][0]['indice_liquidez'] && $Endeudamiento >= $empresa['empresas'][0]['indice_endeudamento'] && $RentabilidadPatrimonio <= $empresa['empresas'][0]['rentabilidad_patrimonio'] && $RentabilidadActivos <= $empresa['empresas'][0]['rentabilidad_del_activo'] && $patrimonio <= $empresa['empresas'][0]['patrimonio'] && $aux >= $capitalTrabajo){
                 if($CoberturaInteres >= 0 && $CoberturaInteres <= $empresa['empresas'][0]['razon_cobertura_interes']){
@@ -165,24 +169,29 @@
         $id=$empresas->AddLicitacion($Licitacion);
         $patrimonio = $_POST['patrimonio'];
         $capitalTrabajo = $_POST['capital'];
+        //var_dump($id['id']);
 
         //-------------------------Primer filtro Servicio Empresas ---------------------------------------------------
         $variableReal = $this->filtroUnspsc($id['id'], $codigos);
-        $empresas->AddCumplimientoUNSPSC(json_encode($codigos), json_encode($variableReal['pasaron']), $Licitacion);
+        $empresas->AddCumplimientoUNSPSC(json_encode($codigos), json_encode($variableReal['pasaron']), $id['id']);
         //-----------------Segundo Filtro Objetos-Experiencias --------------------------------------
         $nit = $this->filtroObjetos($id['id'],$objetos);
-        $empresas->AddCumplimientoObjeto(json_encode($objetos), json_encode($nit['pasaron']), $Licitacion);
+        $empresas->AddCumplimientoObjeto(json_encode($objetos), json_encode($nit['pasaron']), $id['id']);
         // Se obtiene un array llamado objetos que trae todos los nit de los objetos a buscar por el solicitante
         
         //------------------------ FILTRO entre 1 y 2---------------------------------------------------
-        $primeroysegundo = $this->codigosObjetos($variableReal,$nit,$id['id']);
+        $primeroysegundo = $this->codigosObjetos($variableReal['pasaron'],$nit['pasaron'],$id['id']);
         $empresas->AddFiltroUnoDos(json_encode($primeroysegundo['pasaron']), $Licitacion);
         //-----------------------------TERCER FILTRO-----------------------------------------
-        $parteTres = $this->filtroExperiencia($primeroysegundo,$objetos,$Contratos,$codigos, $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $Licitacion);
-        $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][0][4], json_encode($parteTres['pasaron']), $Licitacion);
+        $parteTres = $this->filtroExperiencia($primeroysegundo['pasaron'],$objetos,$Contratos,$codigos, $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $Licitacion);
+        $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][0], json_encode($parteTres['pasaron']), $Licitacion);
         //------------------------------all final section--------------------------------------------
-        $ultimo = $this->filtroFinanciero($parteTres,$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$Licitacion,$patrimonio,$capitalTrabajo);
-        $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos,json_encode($ultimo['pasaron']),$Licitacion);
-        Redirecciona::LetsGoTo('evaluacion');
+        $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$Licitacion,$patrimonio,$capitalTrabajo);
+        
+        if(($empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos,json_encode($ultimo['pasaron']),$Licitacion))['status'] == 1){
+            Redirecciona::LetsGoTo('evaluacion');
+        }else{
+            echo "error";
+        }
     }
 }
