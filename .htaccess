@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /mini-framework/
+RewriteBase /Framework-MVC-PHP-Native/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ index.php?uri=$1 [QSA,L]
