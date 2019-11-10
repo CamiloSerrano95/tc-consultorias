@@ -164,9 +164,7 @@
         $objetos = $_POST['objetos'];
         $id=$empresas->AddLicitacion($Licitacion);
         $patrimonio = $_POST['patrimonio'];
-        $activoCorriente = $_POST['activo_corriente'];
-        $pasivoCorriente = $_POST['pasivo_corriente'];
-        $capitalTrabajo = $activoCorriente - $pasivoCorriente;
+        $capitalTrabajo = $_POST['capital'];
 
         //-------------------------Primer filtro Servicio Empresas ---------------------------------------------------
         $variableReal = $this->filtroUnspsc($id['id'], $codigos);
