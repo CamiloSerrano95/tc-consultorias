@@ -12,7 +12,7 @@
         return Vista::crear("evaluacion.create");
     }
 
-    public function filtoUnspsc($Licitacion,$codigos){
+    public function filtroUnspsc($Licitacion,$codigos){
         $empresas = new CumplimientosModel();
         $prrr= [];
         $uaa = [];
