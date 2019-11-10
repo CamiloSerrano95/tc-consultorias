@@ -46,15 +46,14 @@
                             </div>
                             <div id="joker">
                                 <div class="row">
-                                    <div id="contenedor" class="form-group col-sm-4">
+                                    <div id="contenedor" class="form-group col-sm-3">
                                         <!-- input1 -->
                                     </div>
-                                    <div id="charizard" class="form-group col-sm-4">
+                                    <div id="charizard" class="form-group col-sm-6">
                                         <!-- input2 -->
                                     </div>
-                                    <div id="erase" class="form-group col-sm-4">
+                                    <div id="erase" class="form-group col-sm-3">
                                         <!-- button -->
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +92,8 @@
         charizard.appendChild(a);
 
         var b = document.createElement('button');
-        b.setAttribute("class", "");
+        b.innerHTML = "Eliminar";
+        b.setAttribute("class", "mt-3 ml-2 btn btn-danger");
         b.setAttribute("id" , `${contador}`);
         b.setAttribute("onclick", "obtenerId(this)");
         b.setAttribute("type" , "button");

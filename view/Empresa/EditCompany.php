@@ -1,4 +1,4 @@
-<?php require dirname(__FILE__).'/../home/header.php'?>
+<?php require dirname(__FILE__).'/../home/header.php' ?>
 
 
 <div class="page-wrapper">
@@ -16,7 +16,6 @@
              <!-- /../Controllers/ServiciosController/SavedServiceController.php
                   method="POST" class="form-horizontal"> 
                 <div class="card-body">
-                    
                     <h4 class="card-title">Editar Empresa</h4>
 
                     <div class="form-group row mt-4">

@@ -94,7 +94,24 @@ class controllercompany {
     }
 
     public function editar($id) {
-        return Vista::crear("Empresa.EditCompany",$id); 
+        $Empresita = new EmpresaModel();
+        $Empresita->setFechaUltimaRenovacionProponente($_POST['fecha']);
+        $Empresita->setIndiceLiquidez($_POST['indice_liquidez']);
+        $Empresita->setIndiceEndeudamiento($_POST['indice_endeudamiento']);
+        $Empresita->setRazonCoberturaInteres($_POST['cobertura_interes']);
+        $Empresita->setRentabilidadPatrimonio($_POST['rentabilidad_patrimonio']);
+        $Empresita->setRentabilidadActivo($_POST['rentabilidad_activo']);
+        $Empresita->setPatrimonio($_POST['patrimonio']);
+        $Empresita->setActivoCorriente($_POST['activo_corriente']);
+        $Empresita->setPasivoCorriente($_POST['pasivo_corriente']);
+
+        $Capital = (($_POST['activo_corriente']) - ($_POST['pasivo_corriente']));
+
+        $Empresita->setCapitaldeTrabajo($Capital);
+
+        $Empresita->Actualizar($id);
+
+        /* return Vista::crear("Empresa.EditCompany",$id); */ 
     }
 
     public function eliminar($id) {
