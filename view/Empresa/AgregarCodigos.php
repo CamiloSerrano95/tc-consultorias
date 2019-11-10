@@ -93,7 +93,7 @@
 
         var b = document.createElement('button');
         b.innerHTML = "Eliminar";
-        b.setAttribute("class", "mt-3 ml-2 btn btn-danger");
+        b.setAttribute("class", "mt-3 ml-2 btn btn-danger col-sm-12");
         b.setAttribute("id" , `${contador}`);
         b.setAttribute("onclick", "obtenerId(this)");
         b.setAttribute("type" , "button");
