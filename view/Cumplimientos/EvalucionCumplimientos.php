@@ -314,13 +314,16 @@
                                         <input type="text" class="form-control" name="cobertura" placeholder="INDETERMINADO = 0">
 
                                         <label class="mt-3">Rentabilidad sobre el Patrimonio</label>
-                                        <input type="text" class="form-control" name="patrimonio" placeholder="Ej: 0.06">
+                                        <input type="text" class="form-control" name="rentabilidad_patrimonio" placeholder="Ej: 0.06">
 
                                         <label class="mt-3">Rentabilidad sobre Activos</label>
                                         <input type="text" class="form-control" name="activos" placeholder="Ej: 0.03">
 
                                         <label class="mt-3">Capital de Trabajo</label>
                                         <input type="text" class="form-control" name="capital" placeholder="Ej: digite el valor en smmlv">
+
+                                        <label class="mt-3">Patrimonio</label>
+                                        <input type="text" class="form-control" name="patrimonio" placeholder="Ej: digite el valor en smmlv">
                                     </div>
                                 </section>
                             </div>

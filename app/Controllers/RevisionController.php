@@ -150,7 +150,17 @@
             }
             Vista::crear("ViewAprobados.CumplimientoTodo", array("financiero" => $object, "unspsc" => $servicios1, "experiencia" => $cumplex['empresas'][0], "empresas" => $arrayDeEmpresas, "objetos" => $arrayDescrip));
         }
+
+
+        public function eliminar($id) {
+
+            $Licitacion = new CumplimientosModel();
+            $Licitacion->Eliminar($id);
+
+            Vista::crear("ViewAprobados.Cumplimiento1y2");
+        }
     }
+
 
     
 ?>

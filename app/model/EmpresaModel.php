@@ -209,9 +209,6 @@
             return $this->capital_de_trabajo;
         }
 
-
-        
-
         public function RegistroEmpresa () {
             try {
                 $sql = "INSERT INTO $this->Table (nombre_empresa, nit, matricula_mercantil, registro_lucro, organizacion, tamano_empresa, numero_proponente, fecha_inscripcion_registro_prop, fecha_ultima_renov_prop, indice_liquidez, indice_endeudamento, razon_cobertura_interes, rentabilidad_patrimonio, rentabilidad_del_activo, activo_corriente, pasivo_corriente, capital_de_trabajo, patrimonio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -333,6 +330,33 @@
                 $response = ['status' => 0, 'error' => $e];
             }
             return $response;
+        }
+
+        public function info($id){
+	    	try {
+	    		$sql = "SELECT * FROM usuario WHERE id=?";
+	    		$query = $this->DataBase->prepare($sql);
+	    		$data = [$id];
+	    		$query->execute($data);
+	    		$infousuario = $query->fetch();
+	    		$response = ['status' => 1, 'usuarios' => $infousuario];
+	    	} catch (Exception $e) {
+				$response = ['status' => 0, 'error' => $e];	    		
+	    	}
+	    	return $response;
+	    }
+
+	    public function Actualizar($id){
+	    	try {
+	    		$sql = "UPDATE empresa SET fecha_ultima_renov_prop=?, indice_liquidez=?, indice_endeudamento=?, razon_cobertura_interes=?, rentabilidad_patrimonio=?, rentabilidad_del_activo=?, activo_corriente=?, pasivo_corriente=?, patrimonio=?, capital_de_trabajo=? WHERE nit=?";
+	    		$query = $this->DataBase->prepare($sql);
+	    		$data = [$this->getNombres(), $this->getApellidos(), $this->getCedula(), $this->getCorreo(), $this->getRol(), $this->getEstado(), $id];
+	    		$query->execute($data);
+	    		$response = ['status' => 1, 'msg' => "Usuario actulizado correctamente"];
+	    	} catch (Exception $e) {
+	    		$response = ['status' => 0, 'error' => $e];	   
+	    	}
+	    	return $response;
         }
     }
 ?>

@@ -160,6 +160,19 @@
             return $response;
         }
 
+        public function Eliminar($id){
+	    	try { 
+	    		$sql = "DELETE FROM licitacion WHERE id=?";
+	    		$query = $this->DataBase->prepare($sql);
+	    		$data = [$id];
+	    		$query->execute($data);
+	    		$response = ['status' => 1, 'msg' => "Dato eliminado exitosamente"];	
+	    	} catch (Exception $e) {
+	    		$response = ['status' => 0, 'error' => $e];
+	    	}
+	    	return $response;
+        }
+
     }
 ?>
 
