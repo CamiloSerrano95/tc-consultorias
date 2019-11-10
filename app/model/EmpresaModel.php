@@ -334,12 +334,12 @@
 
         public function info($id){
 	    	try {
-	    		$sql = "SELECT * FROM usuario WHERE id=?";
+	    		$sql = "SELECT * FROM empresa WHERE nit=?";
 	    		$query = $this->DataBase->prepare($sql);
 	    		$data = [$id];
 	    		$query->execute($data);
 	    		$infousuario = $query->fetch();
-	    		$response = ['status' => 1, 'usuarios' => $infousuario];
+	    		$response = ['status' => 1, 'empresa' => $infousuario];
 	    	} catch (Exception $e) {
 				$response = ['status' => 0, 'error' => $e];	    		
 	    	}
@@ -352,7 +352,7 @@
 	    		$query = $this->DataBase->prepare($sql);
 	    		$data = [$this->getNombres(), $this->getApellidos(), $this->getCedula(), $this->getCorreo(), $this->getRol(), $this->getEstado(), $id];
 	    		$query->execute($data);
-	    		$response = ['status' => 1, 'msg' => "Usuario actulizado correctamente"];
+	    		$response = ['status' => 1, 'msg' => "empresa actulizada correctamente"];
 	    	} catch (Exception $e) {
 	    		$response = ['status' => 0, 'error' => $e];	   
 	    	}
