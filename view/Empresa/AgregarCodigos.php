@@ -5,46 +5,8 @@
     $Empresa = new EmpresaModel();    
     $Empresas = $Empresa->ObtenerEmpresa($key);
     $servicio = $Empresa->ObtenerServicios();
-?> 
-
-
-    <script>
-        function crearInput() {
-            
-            var DatosSelect = document.getElementById('DatosSelect').value;
-        
-            var contenedor = document.getElementById('contenedor');
-            var charizard = document.getElementById('charizard');
-            var partes = DatosSelect.split('-');
-            
-            var x = document.createElement('input');
-            x.setAttribute("class", "form-control mt-3");
-            x.setAttribute("id" , "selecsito");
-            x.setAttribute("name" , "codigos[]");
-            x.setAttribute("value", partes[0]);
-            contenedor.appendChild(x);
-
-            var a = document.createElement('input');
-            a.setAttribute("class", "form-control mt-3 charizard");
-            a.setAttribute("id" , "selec1");
-            a.setAttribute("value", partes[1]);
-            charizard.appendChild(a);
-        }
-
-        function EliminarInput (id,od) {
-        
-            var x = document.getElementById(id);
-            var y = document.getElementById(od);
-            if (!x){
-                alert("elemento no definido");
-            }else{
-                x.parentNode.removeChild(x);
-                y.parentNode.removeChild(y);
-            }
-        }
-
-    </script>
-
+?>
+    
 <div class="page-wrapper">
     <div class="page-breadcrumb">
         <div class="row">
@@ -79,18 +41,20 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mt-2">
-                                    <button type="button" id="crearInput" onclick="crearInput()" class="btn btn-primary">Agregar Codigo</button>
-                                    <button type="button" onclick="EliminarInput ('selec1','selecsito')" class="btn btn-primary">Eliminar Codigo</button>
-                                    <button type="button" id="obtener" class="btn btn-primary">Obtener</button>
+                                    <button type="button" id="crearInput" class="btn btn-primary">Agregar Codigo</button>
                                 </div>
                             </div>
                             <div id="joker">
                                 <div class="row">
-                                    <div id="contenedor" class="form-group col-sm-6">
+                                    <div id="contenedor" class="form-group col-sm-4">
                                         <!-- input1 -->
                                     </div>
-                                    <div id="charizard" class="form-group col-sm-6">
+                                    <div id="charizard" class="form-group col-sm-4">
                                         <!-- input2 -->
+                                    </div>
+                                    <div id="erase" class="form-group col-sm-4">
+                                        <!-- button -->
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -106,12 +70,47 @@
 
     var crearInput = document.getElementById('crearInput');
     var obtener = document.getElementById('obtener');
+    var erase = document.getElementById('erase');
     var contador = 0;
         
     crearInput.onclick = () => {
+        var DatosSelect = document.getElementById('DatosSelect').value;
+        var contenedor = document.getElementById('contenedor');
+        var charizard = document.getElementById('charizard');
+        var partes = DatosSelect.split('-');
+        
+        var x = document.createElement('input');
+        x.setAttribute("class", "form-control mt-3");
+        x.setAttribute("id" , `eraseCode-${contador}`);
+        x.setAttribute("name" , "codigos[]");
+        x.setAttribute("value", partes[0]);
+        contenedor.appendChild(x);
+
+        var a = document.createElement('input');
+        a.setAttribute("class", "form-control mt-3 charizard");
+        a.setAttribute("id" , `eraseName-${contador}`);
+        a.setAttribute("value", partes[1]);
+        charizard.appendChild(a);
+
+        var b = document.createElement('button');
+        b.setAttribute("class", "");
+        b.setAttribute("id" , `${contador}`);
+        b.setAttribute("onclick", "obtenerId(this)");
+        b.setAttribute("type" , "button");
+        b.setAttribute("value", "Borrar");
+        erase.appendChild(b);
+
         contador++;
-        console.log("ok");
-        console.log(contador);
+    }
+
+    function obtenerId(path) {
+        var id = path.getAttribute("id")
+        var eraseCode = document.getElementById(`eraseCode-${id}`);
+        var eraseName = document.getElementById(`eraseName-${id}`);
+        var eraseButton = document.getElementById(id);
+        eraseCode.remove();
+        eraseName.remove();
+        eraseButton.remove();
     }
 </script>
 <?php require dirname(__FILE__).'/../home/footer.php'?>
