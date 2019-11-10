@@ -4,9 +4,10 @@ class SessionModel {
     public function ValidateSession() {
         
         if(isset($_SESSION['usuario'])){
-            require dirname(__FILE__).'/../../home/header.php';
+            require dirname(__FILE__).'/../../view/home/header.php';
         }else{
             Redirecciona::LetsGoTo('');
+            exit;
         }
     }
 
