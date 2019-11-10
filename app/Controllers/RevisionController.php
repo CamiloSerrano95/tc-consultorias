@@ -106,14 +106,11 @@
             $datos = $empresas->AllEmpresa();
             $object = $empresas->obtenerfinanciero($dat); //se obtiene uno a uno.
             $vectorCumple = [];
-            /* var_dump($datos['empresas'][0]);
-            echo "<br>";
-            echo "<br>";
-            echo "<br>"; */
             $pib = $object['empresas'][0];
             for ($i=0; $i < sizeof($datos['empresas']); $i++) { 
                 $aux = $datos['empresas'][$i];
-                if($pib['ind_liquidez'] <= $aux['indice_liquidez'] && $pib['endeudamiento'] >= $aux['indice_endeudamento'] && $pib['rent_patrimonio'] <= $aux['rentabilidad_patrimonio'] && $pib['rent_activos'] <= $aux['rentabilidad_del_activo']){
+                $porcent = ($aux['capital_de_trabajo'])*0.5;
+                if($pib['ind_liquidez'] <= $aux['indice_liquidez'] && $pib['endeudamiento'] >= $aux['indice_endeudamento'] && $pib['rent_patrimonio'] <= $aux['rentabilidad_patrimonio'] && $pib['rent_activos'] <= $aux['rentabilidad_del_activo'] && $pib['patrimonio'] <= $aux['patrimonio'] && $porcent >= $pib['capital_trabajo']){
                     if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $aux['razon_cobertura_interes']){
                         array_push($vectorCumple, array($aux['nombre_empresa'], $aux['indice_liquidez'],$aux['indice_endeudamento'], $aux['razon_cobertura_interes'] ,$aux['rentabilidad_patrimonio'], $aux['rentabilidad_del_activo'],$datos['empresas'][$i]['nit']));
                     }
