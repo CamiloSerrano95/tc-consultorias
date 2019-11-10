@@ -1,3 +1,3 @@
 ##/app/utils/Conexion.php
-##/config/config.php
-##.htaccess
+config/*
+.htaccess
