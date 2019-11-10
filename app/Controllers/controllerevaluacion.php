@@ -181,17 +181,13 @@
         
         //------------------------ FILTRO entre 1 y 2---------------------------------------------------
         $primeroysegundo = $this->codigosObjetos($variableReal['pasaron'],$nit['pasaron'],$id['id']);
-        $empresas->AddFiltroUnoDos(json_encode($primeroysegundo['pasaron']), $Licitacion);
+        $empresas->AddFiltroUnoDos(json_encode($primeroysegundo['pasaron']),$id['id']);
         //-----------------------------TERCER FILTRO-----------------------------------------
-        $parteTres = $this->filtroExperiencia($primeroysegundo['pasaron'],$objetos,$Contratos,$codigos, $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $Licitacion);
-        $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][0], json_encode($parteTres['pasaron']), $Licitacion);
+        $parteTres = $this->filtroExperiencia($primeroysegundo['pasaron'],$objetos,$Contratos,$codigos, $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $id['id']);
+        $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][0], json_encode($parteTres['pasaron']), $id['id']);
         //------------------------------all final section--------------------------------------------
-        $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$Licitacion,$patrimonio,$capitalTrabajo);
-        
-        if(($empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos,json_encode($ultimo['pasaron']),$Licitacion))['status'] == 1){
-            Redirecciona::LetsGoTo('evaluacion');
-        }else{
-            echo "error";
-        }
+        $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$id['id'],$patrimonio,$capitalTrabajo);
+        $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos,json_encode($ultimo['pasaron']),$id['id']);
+        Redirecciona::LetsGoTo('evaluacion');
     }
 }
