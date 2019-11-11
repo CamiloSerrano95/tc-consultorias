@@ -107,11 +107,11 @@
             return $response;
         }
 
-        public function AddCumplimientoFinanciero($ind, $endeu, $raz, $rent, $rentact, $resultado, $licitacion){
+        public function AddCumplimientoFinanciero($ind, $endeu, $raz, $rent, $rentact, $patr, $capi, $resultado, $licitacion){
             try{
-                $sql = "INSERT INTO cumplimiento_financiero (ind_liquidez,endeudamiento,raz_cobertura_int,rent_patrimonio,rent_activos,result, objeto_licitacion) VALUES (?,?,?,?,?,?,?)";
+                $sql = "INSERT INTO cumplimiento_financiero (ind_liquidez,endeudamiento,raz_cobertura_int,rent_patrimonio,rent_activos,patrimonio, capital_trabajo,result, objeto_licitacion) VALUES (?,?,?,?,?,?,?,?,?)";
                 $query = $this->DataBase->prepare($sql);
-                $data = [$ind, $endeu, $raz, $rent, $rentact, $resultado, $licitacion];
+                $data = [$ind, $endeu, $raz, $rent, $rentact, $patr,$capi,$resultado, $licitacion];
                 $query->execute($data);
                 $response = ['status' => 1, 'msg' => "Datos guardados"];
             }catch (Exception $e){

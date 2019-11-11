@@ -2,8 +2,8 @@
     require dirname(__FILE__).'/../home/header.php'; 
     // require_once '../../Models/EmpresaModel.php';
     $Empresa = new EmpresaModel();
-    $Empresas = $Empresa->EveryThings();
     $data = $key['aprobaron'];
+    echo "---------------------------------->"; var_dump($key);
 ?> 
 
 
