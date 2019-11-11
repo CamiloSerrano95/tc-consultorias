@@ -1,6 +1,15 @@
 <?php 
     require dirname(__FILE__).'/../home/header.php'; 
-    $data = $key['aprobaron'];
+    $data ="";
+    if(isset($key['datos'])){
+        $data = $key['datos'][7]['aprobaron'];
+        $var = $key['datos'][7]['nombre'];
+        $licit = $key['datos'][7]['licitacion'];
+    }else{
+        $var = $key['nombre'];
+        $data = $key['aprobaron'];
+        $licit = $key['licitacion'];
+    }
 ?> 
 
 
@@ -62,11 +71,11 @@
                         <form action="<?php echo ABS_PATH."revision/alianzaUnsExperiencia";?>" method="POST" class="form-horizontal">
                             <div class="form-group row mt-5">
                                 <div class="col-sm-10">
-                                    <input type="text" value ="<?php echo $key['nombre']; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
+                                    <input type="text" value ="<?php echo $var; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control" name="porcentajeEmpresa" id="fname" placeholder="Porcentaje %" required>
-                                    <input type="hidden" name="licitacion" value="<?php echo $key['licitacion']; ?>">
+                                    <input type="hidden" name="licitacion" value="<?php echo $licit; ?>">
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -97,12 +106,43 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Comparar</button>
 
-                             <div class="card">
+                            <div class="card mt-5">
+                                <h5 class="card-title">DATOS REQUERIDOS</h5>
+                                <div class="table-responsive text-center mt-5">
+                                    <table  class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Indice de liquidez</th>
+                                                <th>Indice de endeudamiento</th>
+                                                <th>Razon de cobertura</th>
+                                                <th>Rentabilidad de patrimonio</th>
+                                                <th>Rentabilidad del activo</th>
+                                                <th>Capital de trabajo</th>
+                                                <th>Patrimonio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <td><?php echo $key['financiero'][0];?></td>
+                                            <td><?php echo $key['financiero'][1];?></td>
+                                            <td><?php echo $key['financiero'][2];?></td>
+                                            <td><?php echo $key['financiero'][3];?></td>
+                                            <td><?php echo $key['financiero'][4];?></td>
+                                            <td><?php echo $key['financiero'][5];?></td>
+                                            <td><?php echo $key['financiero'][6];?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                             <div class="card mt-5">
+                             <h5 class="card-title">RESULTADO</h5>
                                  <?php if(isset($key['status'])){ if($key['status'] == 'aprueba'){?>
                                     <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
                                  <?php }?>
                                 <div class="table-responsive text-center mt-5">
-                                    <table id="zero_config" class="table table-bordered">
+                                    <table  class="table table-bordered">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>Indice de liquidez</th>

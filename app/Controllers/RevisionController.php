@@ -48,22 +48,28 @@
             $requeridos = $empre->obtenerfinanciero($licitacion);
             $pib = $requeridos['empresas'][0];        
             $validation = [];
+            $datosFinancieros =[];
+            $reingreso = $this->pibotFinanciero($licitacion,$titular['empresas'][0]['nit']);
             if($pib['ind_liquidez'] <= $totalindiceL && $pib['endeudamiento'] >= $totalindice_endeudamento && $pib['rent_patrimonio'] <= $totalrentabilidad_patrimonio && $pib['rent_activos'] <= $totalrentabilidad_del_activo && $pib['patrimonio'] <= $totalpatrimonio && $totalcapital_de_trabajo >= $pib['capital_trabajo']){
                 if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $totalrazon_cobertura_interes){
-                    array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio);
-                    $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "nombre" => $nombreEmpresaT];
+                    array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio,$reingreso);
+                    array_push($datosFinancieros,$pib['ind_liquidez'],$pib['endeudamiento'], $pib['raz_cobertura_int'],$pib['rent_patrimonio'], $pib['rent_activos'],$pib['patrimonio'], $pib['capital_trabajo']);
+                    $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "nombre" => $nombreEmpresaT, "financiero"=>$datosFinancieros];
                 }
             }else{
-                array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio);
-                $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple , "nombre" => $nombreEmpresaT];
+                array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio,$reingreso);
+                $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple , "nombre" => $nombreEmpresaT, "financiero"=>$datosFinancieros];
             }
             //var_dump($validation);
-            //$reingreso = $this->finanmet($licitacion,$titular['empresas'][0]['nit']);
             return Vista::crear('Alianzas.AlianzaUnspscExperiencia',$validation);
         }
 
-
         public function finanmet($dato1, $dato2){
+            $datos = $this->pibotFinanciero($dato1,$dato2);
+            return Vista::crear('Alianzas.AlianzaUnspscExperiencia', $datos);
+        }
+
+        public function pibotFinanciero($dato1, $dato2){
             $datos = $this->soloFinanciero($dato1);
             $idEmpresa =($datos['datos'][0][6]); 
             $vect = [];
@@ -76,7 +82,7 @@
                 }
             }
             if($nombre != ""){
-                return Vista::crear('Alianzas.AlianzaUnspscExperiencia', array("aprobaron" => $vect, "nombre"=>$nombre, "licitacion"=>$dato1));
+                return array("aprobaron" => $vect, "nombre"=>$nombre, "licitacion"=>$dato1);
             }
         }
         
