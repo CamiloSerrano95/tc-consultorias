@@ -1,4 +1,7 @@
-<?php require dirname(__FILE__).'/../home/header.php'?>
+<?php //require dirname(__FILE__).'/../home/header.php'
+    $session = new SessionModel();
+    $session->ValidateSession();
+?>
 
 <div class="page-wrapper mt-3">
     <div class="container-fluid">
