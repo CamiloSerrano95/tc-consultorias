@@ -18,31 +18,10 @@
         var servicio = arrayConvert.servicios;
         var datos=[];
 
-            for(var j=0; j< servicio.length; j++){
-                datos.push(servicio[j].nombre_servicio);
-            }
-               
-        function crearInput() {
-            
-            var DatosSelect = document.getElementById('DatosSelect').value;
-        
-            var contenedor = document.getElementById('contenedor');
-            var charizard = document.getElementById('charizard');
-            var partes = DatosSelect.split('-');
-            
-            var x = document.createElement('input');
-            x.setAttribute("class", "form-control mt-3");
-            x.setAttribute("id" , "selecsito");
-            x.setAttribute("name" , "codigos[]");
-            x.setAttribute("value", partes[0]);
-            contenedor.appendChild(x);
-
-            var a = document.createElement('input');
-            a.setAttribute("class", "form-control mt-3");
-            a.setAttribute("value", partes[1]);
-            charizard.appendChild(a);
+        for(var j=0; j< servicio.length; j++){
+            datos.push(servicio[j].nombre_servicio);
         }
-
+               
         function rar() {
             var palabra = document.getElementById("PalabrasClaves").value;
             var param = {
@@ -66,38 +45,6 @@
                 }
             }); 
         }
-
-        function obtenerObjeto(){
-            var Datos = document.getElementById('daticos').value;
-            var combo = document.getElementById("daticos");
-            var selected = combo.options[combo.selectedIndex].text;  
-
-            var porciones = selected.split('*');
-            console.log(porciones[0]);
-            console.log(porciones[1]);          
-        
-            var inputA = document.getElementById('inputA');
-            var inputB = document.getElementById('inputB');
-            var inputC = document.getElementById('inputC');
-            
-            var a = document.createElement('input');
-            a.setAttribute("class", "form-control mt-3");
-            a.setAttribute("value", Datos);
-            a.setAttribute("type", "hidden");
-            a.setAttribute("name" , "objetos[]");
-            inputA.appendChild(a);
-
-            var b = document.createElement('input');
-            b.setAttribute("class", "form-control mt-3");
-            b.setAttribute("value", porciones[0]);
-            inputB.appendChild(b);
-
-            var c = document.createElement('input');
-            c.setAttribute("class", "form-control mt-3");
-            c.setAttribute("value", porciones[1]);
-            inputC.appendChild(c);
-        }
-
     </script>
 
 <!DOCTYPE html>
@@ -211,7 +158,6 @@
                 <div class="card">
                     <div class="card-body wizard-content">
                         <form id="example-form" action="<?php echo ABS_PATH."evaluacion/agregar"?>"
-                        <!-- ../../Controllers/EvaluacionController/Evaluacion.php   
                         method="POST" class="m-t-40">
                             <div>
 
@@ -233,15 +179,18 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 mt-2">
-                                            <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Codigo</button>
+                                            <button type="button" id="crearInput" class="btn btn-primary">Agregar Codigo</button>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div id="contenedor" class="form-group col-sm-6">
+                                        <div id="contenedor" class="form-group col-sm-3">
                                             <!-- input1 -->
                                         </div>
                                         <div id="charizard" class="form-group col-sm-6">
                                             <!-- input2 -->
+                                        </div>
+                                        <div id="erase" class="form-group col-sm-3">
+                                        <!-- button -->
                                         </div>
                                     </div>
                                 </section>
@@ -262,21 +211,24 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-2 mt-2">
-                                            <button type="button" onclick="obtenerObjeto()" class="btn btn-primary">Agregar Objetos</button>
+                                            <button type="button" id="obtenerObjeto" class="btn btn-primary">Agregar Objetos</button>
                                         </div>
                                     </div>
 
                                     <hr>
 
                                     <div class="row">
-                                        <div id="inputB" class="form-group col-sm-10">
+                                        <div id="inputB" class="form-group col-sm-3">
                                             <!-- input2 -->
                                         </div>
-                                        <div id="inputC" class="form-group col-sm-2">
+                                        <div id="inputC" class="form-group col-sm-3">
                                             <!-- input3 -->
                                         </div>
-                                        <div id="inputA" class="form-group col-sm-1">
+                                        <div id="inputA" class="form-group col-sm-3">
                                             <!-- input1 -->
+                                        </div>
+                                        <div id="eraseTwo" class="form-group col-sm-3">
+                                            <!-- Button erase -->
                                         </div>
                                     </div>
                                     
@@ -381,6 +333,110 @@
                 form.submit();
             }
         });
+
+        // Add button delete
+        var erase = document.getElementById('erase');
+        var contador = 0;
+        
+        crearInput.onclick = () => {
+            var DatosSelect = document.getElementById('DatosSelect').value;
+        
+            var contenedor = document.getElementById('contenedor');
+            var charizard = document.getElementById('charizard');
+            var partes = DatosSelect.split('-');
+            
+            var x = document.createElement('input');
+            x.setAttribute("class", "form-control mt-3");
+            x.setAttribute("id" , "selecsito");
+            x.setAttribute("id" , `eraseCode-${contador}`);
+            x.setAttribute("name" , "codigos[]");
+            x.setAttribute("value", partes[0]);
+            contenedor.appendChild(x);
+
+            var a = document.createElement('input');
+            a.setAttribute("class", "form-control mt-3");
+            a.setAttribute("id" , `eraseName-${contador}`);
+            a.setAttribute("value", partes[1]);
+            charizard.appendChild(a);
+
+            var b = document.createElement('button');
+            b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
+            b.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+            b.setAttribute("id" , `${contador}`);
+            b.setAttribute("onclick", "obtenerId(this)");
+            b.setAttribute("type" , "button");
+            b.setAttribute("value", "Borrar");
+            erase.appendChild(b);
+            
+            contador++;
+        }
+
+        function obtenerId(path) {
+            var id = path.getAttribute("id")
+            var eraseCode = document.getElementById(`eraseCode-${id}`);
+            var eraseName = document.getElementById(`eraseName-${id}`);
+            var eraseButton = document.getElementById(id);
+            eraseCode.remove();
+            eraseName.remove();
+            eraseButton.remove();
+        }
+
+        var eraseTwo = document.getElementById('eraseTwo');
+        var contadorObjeto = 0;
+        obtenerObjeto.onclick = () => {
+            var Datos = document.getElementById('daticos').value;
+            var combo = document.getElementById("daticos");
+            var selected = combo.options[combo.selectedIndex].text;  
+
+            var porciones = selected.split('*');
+            var inputA = document.getElementById('inputA');
+            var inputB = document.getElementById('inputB');
+            var inputC = document.getElementById('inputC');
+            
+            var a = document.createElement('input');
+            a.setAttribute("class", "form-control mt-3");
+            a.setAttribute("id" , `eraseCodeObj-${contadorObjeto}`);
+            a.setAttribute("value", Datos);
+            a.setAttribute("type", "text");
+            a.setAttribute("name" , "objetos[]");
+            inputA.appendChild(a);
+
+            var b = document.createElement('input');
+            b.setAttribute("class", "form-control mt-3");
+            b.setAttribute("id" , `eraseNameObj-${contadorObjeto}`);
+            b.setAttribute("value", porciones[0]);
+            inputB.appendChild(b);
+
+            var c = document.createElement('input');
+            c.setAttribute("class", "form-control mt-3");
+            c.setAttribute("id" , `eraseTypeObj-${contadorObjeto}`);
+            c.setAttribute("value", porciones[1]);
+            inputC.appendChild(c);
+
+            var d = document.createElement('button');
+            d.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
+            d.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+            d.setAttribute("id" , `eraseButtonTwo-${contadorObjeto}`);
+            d.setAttribute("onclick", "obtenerIdObj(this)");
+            d.setAttribute("type" , "button");
+            d.setAttribute("value", "Borrar");
+            eraseTwo.appendChild(d);
+            
+            contadorObjeto++;
+        }
+        
+        function obtenerIdObj(path) {
+            var idString = path.getAttribute("id");
+            var id = idString.split('-');
+            var eraseCode = document.getElementById(`eraseCodeObj-${id[1]}`);
+            var eraseName = document.getElementById(`eraseNameObj-${id[1]}`);
+            var esareType = document.getElementById(`eraseTypeObj-${id[1]}`);
+            var eraseButton = document.getElementById(`eraseButtonTwo-${id[1]}`);
+            eraseCode.remove();
+            eraseName.remove();
+            esareType.remove();
+            eraseButton.remove();
+        }
     </script>
 </body>
 
