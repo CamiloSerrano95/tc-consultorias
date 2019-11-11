@@ -1,9 +1,6 @@
 <?php 
     require dirname(__FILE__).'/../home/header.php'; 
-    // require_once '../../Models/EmpresaModel.php';
-    $Empresa = new EmpresaModel();
     $data = $key['aprobaron'];
-    echo "---------------------------------->"; var_dump($key);
 ?> 
 
 
@@ -22,13 +19,14 @@
             var x = document.createElement('input');
             x.setAttribute("class", "form-control mt-3");
             x.setAttribute("id" , "selecsito");
-            x.setAttribute("name" , "codigos[]");
+            x.setAttribute("name", "empresas[]");
             x.setAttribute("value", partes[0]);
             contenedor.appendChild(x);
 
             var a = document.createElement('input');
             a.setAttribute("class", "form-control mt-3");
             a.setAttribute("id" , "selec1");
+            a.setAttribute("name", "porcentaje[]");
             a.setAttribute("placeholder", "Asignar Porcentaje Ej: 40");
             charizard.appendChild(a);
         }
@@ -61,13 +59,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="#" method="POST" class="form-horizontal">
+                        <form action="<?php echo ABS_PATH."revision/alianzaUnsExperiencia";?>" method="POST" class="form-horizontal">
                             <div class="form-group row mt-5">
                                 <div class="col-sm-10">
                                     <input type="text" value ="<?php echo $key['nombre']; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" name="nombre" id="fname" placeholder="Porcentaje %" required>
+                                    <input type="text" class="form-control" name="porcentajeEmpresa" id="fname" placeholder="Porcentaje %" required>
+                                    <input type="hidden" name="licitacion" value="<?php echo $key['licitacion']; ?>">
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -77,7 +76,6 @@
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
                                             <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
                                             <option value="<?php  echo $data[$i][0]; ?>"><?php echo $data[$i][0];} ?></option>
-                                        
                                         </select>
                                     </div>
                                 </div>
@@ -98,6 +96,39 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Comparar</button>
+
+                             <div class="card">
+                                 <?php if(isset($key['status'])){ if($key['status'] == 'aprueba'){?>
+                                    <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
+                                 <?php }?>
+                                <div class="table-responsive text-center mt-5">
+                                    <table id="zero_config" class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Indice de liquidez</th>
+                                                <th>Indice de endeudamiento</th>
+                                                <th>Razon de cobertura</th>
+                                                <th>Rentabilidad de patrimonio</th>
+                                                <th>Rentabilidad del activo</th>
+                                                <th>Capital de trabajo</th>
+                                                <th>Patrimonio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><?php echo $key['datos'][0];?></td>
+                                                <td><?php echo $key['datos'][1];?></td>
+                                                <td><?php echo $key['datos'][2];?></td>
+                                                <td><?php echo $key['datos'][3];?></td>
+                                                <td><?php echo $key['datos'][4];?></td>
+                                                <td><?php echo $key['datos'][5];?></td>
+                                                <td><?php echo $key['datos'][6];?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                 <?php }?>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

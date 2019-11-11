@@ -144,5 +144,19 @@
             }
             return $response;
         }
+
+        public function obtenerEmpresaNombre($nit) {
+            try {
+                $sql = "SELECT * FROM empresa WHERE nombre_empresa = ?";
+                $query = $this->DataBase->prepare($sql);   
+                $data = [$nit];         
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
     }
 ?>

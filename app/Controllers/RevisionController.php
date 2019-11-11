@@ -46,19 +46,20 @@
             $totalpatrimonio = $patrimonio + $Tpatrimonio;
             $vectorCumple = [];
             $requeridos = $empre->obtenerfinanciero($licitacion);
-            $pib = $requeridos['empresas'][0];
+            $pib = $requeridos['empresas'][0];        
             $validation = [];
             if($pib['ind_liquidez'] <= $totalindiceL && $pib['endeudamiento'] >= $totalindice_endeudamento && $pib['rent_patrimonio'] <= $totalrentabilidad_patrimonio && $pib['rent_activos'] <= $totalrentabilidad_del_activo && $pib['patrimonio'] <= $totalpatrimonio && $totalcapital_de_trabajo >= $pib['capital_trabajo']){
                 if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $totalrazon_cobertura_interes){
                     array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio);
-                    $validation =["status" => 'aprueba', "datos"=>$vectorCumple];
+                    $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "nombre" => $nombreEmpresaT];
                 }
             }else{
                 array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio);
-                $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple];
+                $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple , "nombre" => $nombreEmpresaT];
             }
-            var_dump($validation);
-            //return Vista::crear('Alianzas.AlianzaUnspscExperiencia',$validation);
+            //var_dump($validation);
+            //$reingreso = $this->finanmet($licitacion,$titular['empresas'][0]['nit']);
+            return Vista::crear('Alianzas.AlianzaUnspscExperiencia',$validation);
         }
 
 
@@ -75,7 +76,7 @@
                 }
             }
             if($nombre != ""){
-                return Vista::crear('Alianzas.AlianzaUnspscExperiencia', array("aprobaron" => $vect, "nombre"=>$nombre));
+                return Vista::crear('Alianzas.AlianzaUnspscExperiencia', array("aprobaron" => $vect, "nombre"=>$nombre, "licitacion"=>$dato1));
             }
         }
         

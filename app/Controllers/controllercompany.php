@@ -116,8 +116,8 @@ class controllercompany {
         $Capital = (($_POST['activo_corriente']) - ($_POST['pasivo_corriente']));
 
         $Empresita->setCapitaldeTrabajo($Capital);
-
         $Empresita->Actualizar($id);
+        return Vista::crear("Empresa.MostrarEmpresa");
     }
 
     public function eliminar($id) {
