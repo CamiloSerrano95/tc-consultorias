@@ -1,6 +1,6 @@
 <?php
 
-class SessionModel {
+class SessionesModel {
     public function ValidateSession() {
         
         if(isset($_SESSION['usuario'])){
@@ -34,17 +34,14 @@ class SessionModel {
         return $flag;
     }
 
-    public function CreateNotification($key, $typeToast, $message, $title) {
+    public function CreateNotification($notification) {
         @session_start();
-        $_SESSION['toastr'] = $key;
-        $_SESSION['toastr']['type'] = $typeToast;
-        $_SESSION['toastr']['message'] = $message;
-        $_SESSION['toastr']['title'] = $title;
+        $_SESSION['toastr'] = $notification;
     }
 
     public function ShowNotification() {
         @session_start();
-        echo $_SESSION['toastr'].$_SESSION['toastr']['type']."('". $_SESSION['toastr']['message'] ."', '". $_SESSION['toastr']['title'] ."')";
+        echo $_SESSION['toastr'];
         unset($_SESSION['toastr']);
     }
 }
