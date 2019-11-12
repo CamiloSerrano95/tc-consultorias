@@ -4,6 +4,10 @@
         public function __construct(){
         }
 
+        public function alianzaFinanciero(){
+            return Vista::crear('Alianzas.AlianzaFinancieroyOrg');
+        }
+
         public function alianzaUnsExperiencia(){
             $empre = new AprobadosModel();
             $nombreEmpresaT = $_POST['nombre'];

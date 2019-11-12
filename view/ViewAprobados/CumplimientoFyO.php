@@ -75,7 +75,7 @@
                                                         echo $key['datos'][$i][5];
                                                     echo"</td>";
                                                     echo "<td>";?>
-                                                        <a href="../Alianzas/AlianzaUnspsc.php" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                        <a href="<?php echo ABS_PATH."revision/alianzaFinanciero"?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                     <?php echo"</td>";
                                                 echo "</tr>";
                                             }
