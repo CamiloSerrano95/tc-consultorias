@@ -15,6 +15,9 @@ class Redirecciona{
 	private function redirect($rute){
 		$url = ABS_PATH;
 		header("Location: {$url}{$rute}");
+
+		/*$url = ABS_PATH . $rute;
+		echo '<meta http-equiv="refresh" content="0; url='. $url .'">';*/
 	}
 
 }
