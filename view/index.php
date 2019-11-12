@@ -1,3 +1,6 @@
+<?php
+    $sec = new SessionesModel();
+?>
 <!DOCTYPE html>
 <html dir="ltr">
 
@@ -13,6 +16,7 @@
     <title>TC - CONSULTORIAS</title>
     <!-- Custom CSS -->
     <link href="<?php echo ASSETS_URL."dist/css/style.min.css"?>" rel="stylesheet">
+    <link href="<?php echo ASSETS_URL."libs/toastr/build/toastr.min.css"?>" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -131,6 +135,7 @@
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?php echo ASSETS_URL."libs/popper.js/dist/umd/popper.min.js"?>"></script>
     <script src="<?php echo ASSETS_URL."libs/bootstrap/dist/js/bootstrap.min.js"?>"></script>
+    <script src="<?php echo ASSETS_URL."libs/toastr/build/toastr.min.js"?>"></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
@@ -150,8 +155,9 @@
             $("#loginform").fadeIn();
         });
     </script>
-
-
+    <script>
+        <?php $sec->ShowNotification() ?>
+    </script>
 </body>
 
 </html>
