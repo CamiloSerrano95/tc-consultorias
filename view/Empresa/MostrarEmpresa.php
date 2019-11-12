@@ -38,6 +38,10 @@
                                         <th>RAZÓN DE COBERTURA DE INTERESES</th>
                                         <th>RENTABILIDAD DEL PATRIMONIO</th>
                                         <th>RENTABILIDAD DEL ACTIVO</th>
+                                        <th>ACTIVO CORRIENTE</th>
+                                        <th>PASIVO CORRIENTE</th>
+                                        <th>CAPITAL DE TRABAJO</th>
+                                        <th>PATRIMONIO</th>
                                         <th>AGREGAR CODIGOS</th>
                                         <th>AGREGAR EXPERIENCIAS</th>
                                         <th>VER</th>
@@ -73,6 +77,10 @@
                                         </td>                                        
                                         <td><?php echo $data['rentabilidad_patrimonio']; ?></td>                                        
                                         <td><?php echo $data['rentabilidad_del_activo']; ?></td>
+                                        <td><?php echo $data['activo_corriente']; ?></td>
+                                        <td><?php echo $data['pasivo_corriente']; ?></td>
+                                        <td><?php echo $data['capital_de_trabajo']; ?></td>
+                                        <td><?php echo $data['patrimonio']; ?></td>
                                         <td>
                                             <a href="<?php echo $ViewCodigos; ?>" class="btn btn-link"><span style="font-size: 2em; color: green;"><i class="far fa-plus-square"></i></span></a>
                                         </td>

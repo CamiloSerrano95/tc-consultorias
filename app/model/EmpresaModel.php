@@ -350,7 +350,7 @@
 	    	try {
 	    		$sql = "UPDATE empresa SET fecha_ultima_renov_prop=?, indice_liquidez=?, indice_endeudamento=?, razon_cobertura_interes=?, rentabilidad_patrimonio=?, rentabilidad_del_activo=?, activo_corriente=?, pasivo_corriente=?, patrimonio=?, capital_de_trabajo=? WHERE nit=?";
 	    		$query = $this->DataBase->prepare($sql);
-	    		$data = [$this->getNombres(), $this->getApellidos(), $this->getCedula(), $this->getCorreo(), $this->getRol(), $this->getEstado(), $id];
+	    		$data = [$this->getFechaUltimaRenovacionProponente(), $this->getIndiceLiquidez(), $this->getIndiceEndeudamiento(), $this->getRazonCoberturaInteres(), $this->getRentabilidadPatrimonio(), $this->getRentabilidadActivo(), $this->getActivoCorriente(), $this->getPasivoCorriente(), $this->getPatrimonio(), $this->getCapitaldeTrabajo(), $id];
 	    		$query->execute($data);
 	    		$response = ['status' => 1, 'msg' => "empresa actulizada correctamente"];
 	    	} catch (Exception $e) {

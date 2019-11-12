@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2019 a las 00:07:53
+-- Tiempo de generación: 12-11-2019 a las 01:34:29
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -36,7 +36,7 @@ CREATE TABLE `cumplimiento_exp` (
   `presupuesto_exigido` float NOT NULL,
   `result_presupuesto` float NOT NULL,
   `result` text NOT NULL,
-  `objeto_licitacion` varchar(1000) NOT NULL
+  `objeto_licitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -44,7 +44,8 @@ CREATE TABLE `cumplimiento_exp` (
 --
 
 INSERT INTO `cumplimiento_exp` (`id`, `nro_contratos`, `min_cod_req`, `porcentaje_of_exigido`, `presupuesto_exigido`, `result_presupuesto`, `result`, `objeto_licitacion`) VALUES
-(35, 1, 1, 10, 1000, 100, '[\"900262944-6\"]', '25');
+(54, 1, 1, 10, 1000, 100, '[]', 67),
+(55, 1, 1, 10, 1000, 100, '[\"900262944-6\"]', 68);
 
 -- --------------------------------------------------------
 
@@ -59,6 +60,8 @@ CREATE TABLE `cumplimiento_financiero` (
   `raz_cobertura_int` float NOT NULL,
   `rent_patrimonio` float NOT NULL,
   `rent_activos` float NOT NULL,
+  `patrimonio` float NOT NULL,
+  `capital_trabajo` float NOT NULL,
   `result` text NOT NULL,
   `objeto_licitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -67,8 +70,9 @@ CREATE TABLE `cumplimiento_financiero` (
 -- Volcado de datos para la tabla `cumplimiento_financiero`
 --
 
-INSERT INTO `cumplimiento_financiero` (`id`, `ind_liquidez`, `endeudamiento`, `raz_cobertura_int`, `rent_patrimonio`, `rent_activos`, `result`, `objeto_licitacion`) VALUES
-(35, 1, 0.49, 0, 0.03, 0.02, '[\"900262944-6\"]', 25);
+INSERT INTO `cumplimiento_financiero` (`id`, `ind_liquidez`, `endeudamiento`, `raz_cobertura_int`, `rent_patrimonio`, `rent_activos`, `patrimonio`, `capital_trabajo`, `result`, `objeto_licitacion`) VALUES
+(54, 1.9, 0.49, 0, 0.03, 0.02, 0, 0, '[]', 67),
+(55, 1.15, 0.49, 0, 0.03, 0.02, 0, 0, '[]', 68);
 
 -- --------------------------------------------------------
 
@@ -88,7 +92,8 @@ CREATE TABLE `cumplimiento_objeto` (
 --
 
 INSERT INTO `cumplimiento_objeto` (`id`, `objetos`, `result`, `objeto_licitacion`) VALUES
-(35, '[\"16\",\"14\",\"15\"]', '[\"900854721-1\",\"900854721-1\",\"900262944-6\"]', 25);
+(54, '[\"15\",\"19\",\"21\",\"22\",\"24\"]', '[\"900262944-6\",\"900262944-6\",\"802003229-2\",\"802003229-2\",\"802003229-2\"]', 67),
+(55, '[\"15\",\"19\",\"21\",\"22\",\"24\"]', '[\"900262944-6\",\"900262944-6\",\"802003229-2\",\"802003229-2\",\"802003229-2\"]', 68);
 
 -- --------------------------------------------------------
 
@@ -108,7 +113,8 @@ CREATE TABLE `cumplimiento_un` (
 --
 
 INSERT INTO `cumplimiento_un` (`id`, `objetos`, `result`, `objeto_licitacion`) VALUES
-(35, '[\"10151500\",\"10151600\",\"10152000\"]', '[\"900262944-6\",\"900854721-1\"]', 25);
+(54, '[\"10151500\",\"10151600\",\"10152000\",\"771215\"]', '[]', 67),
+(55, '[\"10151500\",\"10151600\",\"10152000\"]', '[\"900262944-6\"]', 68);
 
 -- --------------------------------------------------------
 
@@ -142,9 +148,9 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`nombre_empresa`, `nit`, `matricula_mercantil`, `registro_lucro`, `organizacion`, `tamano_empresa`, `numero_proponente`, `fecha_inscripcion_registro_prop`, `fecha_ultima_renov_prop`, `indice_liquidez`, `indice_endeudamento`, `razon_cobertura_interes`, `rentabilidad_patrimonio`, `rentabilidad_del_activo`, `activo_corriente`, `pasivo_corriente`, `capital_de_trabajo`, `patrimonio`) VALUES
+('HOLA', '09876', '141183', 'NO REGISTRA', 'LIMITADA', 'MICROEMPRESA', 987654, '2019-12-31', '2020-12-31', 1.16, 0.48, 0, 0.24, 0.12, 500, 40, 460, 0.03),
 ('CONTROL DE CONTAMINACION LIMITADA', '802003229-2', '213.013', 'NO REGISTRA', 'LIMITADA', 'MICROEMPRESA', 12, '2017-07-27', '2019-04-03', 4.36, 0.16, 9.23, 0.17, 0.14, 0, 0, 0, 0),
-('FUNDACION PARA EL DESARROLLO SOSTENIBLE DE LAS REGIONES COLOMBIANAS', '900262944-6', 'NO REGISTRA', 'S0504492', 'ENTIDAD SIN ANIMO DE LUCRO', 'MICROEMPRESA', 5626, '2009-04-06', '2019-05-29', 1.16, 0.47, 0, 0.05, 0.03, 0, 0, 0, 0),
-('TECE PROYECTOS Y CONSULTORIAS S.A.S.', '900854721-1', '141183', 'NO REGISTRA', 'SOCIEDAD POR ACCIONES SIMPLIFICADA', 'MICROEMPRESA', 5066, '2015-04-06', '2019-05-27', 3.97, 0.48, 0, 0.24, 0.12, 0, 0, 0, 0);
+('FUNDACION PARA EL DESARROLLO SOSTENIBLE DE LAS REGIONES COLOMBIANAS', '900262944-6', 'NO REGISTRA', 'S0504492', 'ENTIDAD SIN ANIMO DE LUCRO', 'MICROEMPRESA', 5626, '2009-04-06', '2019-05-29', 1.16, 0.47, 0, 0.05, 0.03, 100, 50, 50, 0.03);
 
 -- --------------------------------------------------------
 
@@ -172,9 +178,7 @@ CREATE TABLE `experiencias` (
 --
 
 INSERT INTO `experiencias` (`id`, `numero_experiencia`, `id_empresa_experiencia`, `numero_contrato`, `contrato_celebrado_por`, `nombre_contratista`, `nombre_contratante`, `valor_contrato_smmlv`, `fecha_obj_inicio`, `fecha_obj_final`, `descripcion`, `tipo_objeto_actividad`) VALUES
-(14, 1, '900854721-1', '001', 'STIVEN', 'CAMILO', 'ALEXIS', 890, '2019-01-01', '2020-01-01', 'REVISIÃ“N Y OPTIMIZACIÃ“N DEL PLAN DE SEGUIMIENTO Y MONITOREO DE LA ZONA DELTAICO ESTUARINA DEL RIO SINÃŠ.', 'CONSULTORIA'),
 (15, 1, '900262944-6', '001', 'MARGARITA', 'LUCIA', 'ANA', 678, '2019-12-31', '2020-12-31', 'AUNAR ESFUERZOS PARA REALIZAR LA ACTUALIZACIÃ“N DEL PLAN GENERAL DE ORDENACIÃ“N FORESTAL DEL DEPARTAMENTO DE CORDOBA, CARIBE ', 'CONSULTORIA'),
-(16, 2, '900854721-1', '002', 'MARIA', 'ANDRE', 'JUANA', 456, '2018-02-02', '2020-04-03', 'FORMULACIÃ“N Y REGLAMENTACIÃ“N DEL PMA DE ARROYO ARENA Y DECLARATORIA AP CIÃ‰NAGA LOS NEGROS.', 'CONSULTORIA'),
 (19, 2, '900262944-6', '002', 'EL PROPONENTE', 'FUNDACION PARA EL DESARROLLO SOSTENIBLE DE LAS EMPRESAS COLOMBIANAS', 'CORPORACION AUTONOMA REGIONAL DE LOS VALLER DEL SINU Y DEL SAN JORGE -CVS', 564.33, '2016-12-12', '2017-04-12', 'DESARROLLAR UN CONVENIO DE COOPERACIÃ“N DE SERVICIOS CIENTIFICOS Y TECNOLOGICOS PARA LA EJECUCIÃ“N DE ACTIVIDADES QUE PERMITAN FORMULAR EL PLAN DE ORDENACIÃ“N DEL RECURSO HIDRICO DEL ARROYO CAROLINA', 'CONSULTORIA'),
 (21, 1, '802003229-2', '001', 'PROPONENTE', 'CONTROL DE CONTAMINACION LIMITADA', 'SOCIEDAD PRODUCTORA DE ENERGIA DE SAN ANDRES SOPESA', 163.78, '2010-11-26', '0000-00-00', 'EVALUACION DE FUENTES FIJAS  Y CALIDAD DE AIRE DE LAS PLANTAS DE GENERACION ELECTRICA DE SAN ANDRES Y PROVIDENCIA Y MONITOREO DEL COMPONENTE BIOTICO EN LA PLANTA DE GENERACION ELECTRICA DE PROVIDENCIA SOPESA', 'CONSULTORIA'),
 (22, 2, '802003229-2', '002', 'PROPONENTE', 'CONTROL DE CONTAMINACION LIMITADA', 'SOCIEDAD PRODUCTORA DE ENERGIA DE SAN ANDRES SOPESA', 203.82, '2016-11-03', '0000-00-00', 'ESTUDIOS Y MONITOREOS AMBIENTALES (LINEA BASE) , CONSTRUCCION Y OPERACIÃ³N CENTRAL TERMICA, RELLENO SANITARIO MAGIC GARDEN', 'CONSULTORIA'),
@@ -196,28 +200,14 @@ CREATE TABLE `experiencia_servicio` (
 --
 
 INSERT INTO `experiencia_servicio` (`id_servicio`, `idexperiencia`) VALUES
-(10151500, 14),
-(10151600, 14),
-(10152000, 14),
 (10151500, 15),
 (10151600, 15),
-(10151500, 14),
-(10151600, 14),
-(10152000, 14),
 (10151500, 15),
 (10151600, 15),
-(10151500, 14),
-(10151600, 14),
-(10152000, 14),
 (10151500, 15),
 (10151600, 15),
-(10151500, 14),
-(10151600, 14),
-(10152000, 14),
 (10151500, 15),
 (10151600, 15),
-(10151600, 16),
-(10151600, 16),
 (721015, 19),
 (721021, 19),
 (10151500, 19),
@@ -267,7 +257,8 @@ CREATE TABLE `licitacion` (
 --
 
 INSERT INTO `licitacion` (`id`, `nombre`) VALUES
-(25, 'Licitacion para el cachon del stiven');
+(67, 'LICITACION DE PRUEBA DE CONTRATO SI FUNCIONA DEBE APARECER '),
+(68, 'PRUEBA NUMERO DOS');
 
 -- --------------------------------------------------------
 
@@ -323,15 +314,11 @@ CREATE TABLE `servicio_empresa` (
 INSERT INTO `servicio_empresa` (`id`, `nit_empresa`, `codigo_servicio`) VALUES
 (15, '900262944-6', 10151500),
 (16, '900262944-6', 10151600),
-(17, '900854721-1', 10152000),
 (19, '900262944-6', 10152000),
 (20, '802003229-2', 721015),
 (21, '802003229-2', 411143),
 (22, '802003229-2', 411125),
-(23, '802003229-2', 411040),
-(24, '900854721-1', 10151600),
-(25, '900854721-1', 10151500),
-(26, '900854721-1', 10171500);
+(23, '802003229-2', 411040);
 
 -- --------------------------------------------------------
 
@@ -341,23 +328,17 @@ INSERT INTO `servicio_empresa` (`id`, `nit_empresa`, `codigo_servicio`) VALUES
 
 CREATE TABLE `uno_dos` (
   `id` int(11) NOT NULL,
-  `results` text NOT NULL
+  `results` text NOT NULL,
+  `objeto_licitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `uno_dos`
 --
 
-INSERT INTO `uno_dos` (`id`, `results`) VALUES
-(1, 'Array'),
-(2, 'Array'),
-(3, '[\"900262944-6\",\"900854721-1\"]'),
-(4, '[\"900262944-6\",\"900854721-1\"]'),
-(5, '[\"900262944-6\",\"900854721-1\"]'),
-(6, '[\"900262944-6\",\"900854721-1\"]'),
-(7, '[\"900262944-6\",\"900854721-1\"]'),
-(8, '[\"900262944-6\",\"900854721-1\"]'),
-(9, '[\"900262944-6\",\"900854721-1\"]');
+INSERT INTO `uno_dos` (`id`, `results`, `objeto_licitacion`) VALUES
+(15, '[]', 67),
+(16, '[\"900262944-6\"]', 68);
 
 -- --------------------------------------------------------
 
@@ -391,7 +372,8 @@ INSERT INTO `usuarios` (`id`, `nombres`, `usuario`, `contrasena`, `rol`, `email`
 -- Indices de la tabla `cumplimiento_exp`
 --
 ALTER TABLE `cumplimiento_exp`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cumplimiento_exp_ibfk_1` (`objeto_licitacion`);
 
 --
 -- Indices de la tabla `cumplimiento_financiero`
@@ -460,7 +442,8 @@ ALTER TABLE `servicio_empresa`
 -- Indices de la tabla `uno_dos`
 --
 ALTER TABLE `uno_dos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `objeto_licitacion` (`objeto_licitacion`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -477,25 +460,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cumplimiento_exp`
 --
 ALTER TABLE `cumplimiento_exp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `cumplimiento_financiero`
 --
 ALTER TABLE `cumplimiento_financiero`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `cumplimiento_objeto`
 --
 ALTER TABLE `cumplimiento_objeto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `cumplimiento_un`
 --
 ALTER TABLE `cumplimiento_un`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `experiencias`
@@ -507,19 +490,19 @@ ALTER TABLE `experiencias`
 -- AUTO_INCREMENT de la tabla `licitacion`
 --
 ALTER TABLE `licitacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio_empresa`
 --
 ALTER TABLE `servicio_empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `uno_dos`
 --
 ALTER TABLE `uno_dos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -530,6 +513,12 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `cumplimiento_exp`
+--
+ALTER TABLE `cumplimiento_exp`
+  ADD CONSTRAINT `cumplimiento_exp_ibfk_1` FOREIGN KEY (`objeto_licitacion`) REFERENCES `licitacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cumplimiento_financiero`
@@ -568,6 +557,12 @@ ALTER TABLE `experiencia_servicio`
 ALTER TABLE `servicio_empresa`
   ADD CONSTRAINT `cod_servicio` FOREIGN KEY (`codigo_servicio`) REFERENCES `servicio` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `empresa_nit` FOREIGN KEY (`nit_empresa`) REFERENCES `empresa` (`nit`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `uno_dos`
+--
+ALTER TABLE `uno_dos`
+  ADD CONSTRAINT `licitacion_unodos` FOREIGN KEY (`objeto_licitacion`) REFERENCES `licitacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

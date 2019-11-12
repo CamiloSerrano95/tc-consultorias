@@ -14,7 +14,7 @@
 
     <div class="container-fluid">
         <div class="card">
-            <form action="<?php echo ABS_PATH."code/agregar"?>"
+            <form action="<?php echo ABS_PATH."empresa/Update"?>"
              <!-- /../Controllers/ServiciosController/SavedServiceController.php
                   method="POST" class="form-horizontal"> 
                 <div class="card-body">
