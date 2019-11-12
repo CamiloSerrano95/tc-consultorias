@@ -27,6 +27,7 @@
 <script src="<?php echo ASSETS_URL."extra-libs/multicheck/datatable-checkbox-init.js"?>"></script>
 <script src="<?php echo ASSETS_URL."extra-libs/multicheck/jquery.multicheck.js"?>"></script>
 <script src="<?php echo ASSETS_URL."extra-libs/DataTables/datatables.min.js"?>"></script>
+<script src="<?php echo ASSETS_URL."libs/toastr/build/toastr.min.js"?>"></script>
 <script>
     /****************************************
      *       Basic DataTable                   *

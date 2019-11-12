@@ -14,6 +14,7 @@
     <link href="<?php echo ASSETS_URL."libs/flot/css/float-chart.css"?>" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo ASSETS_URL."dist/css/style.min.css"?>" rel="stylesheet">
+    <link href="<?php echo ASSETS_URL."libs/toastr/build/toastr.min.css"?>" rel="stylesheet">
 </head>
 
 <body>
