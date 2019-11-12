@@ -105,7 +105,8 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Comparar</button>
-
+                            
+                            <?php if(isset($key['status'])){ if($key['status'] == 'aprueba'){?>
                             <div class="card mt-5">
                                 <h5 class="card-title">DATOS REQUERIDOS</h5>
                                 <div class="table-responsive text-center mt-5">
@@ -137,8 +138,7 @@
                             </div>
 
                              <div class="card mt-5">
-                             <h5 class="card-title">RESULTADO</h5>
-                                 <?php if(isset($key['status'])){ if($key['status'] == 'aprueba'){?>
+                             <h5 class="card-title">RESULTADO</h5>                                 
                                     <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
                                  <?php }?>
                                 <div class="table-responsive text-center mt-5">
