@@ -26,11 +26,11 @@
                                             <td>RENTABILIDAD DEL ACTIVO</td>
                                         </tr>
                                         <tr>                                            
-                                            <td><?php echo $key['requridos']['ind_liquidez'];?></td>
-                                            <td><?php echo $key['requridos']['endeudamiento'];?></td>
-                                            <td><?php echo $key['requridos']['raz_cobertura_int'];?></td>
-                                            <td><?php echo $key['requridos']['rent_patrimonio'];?></td>
-                                            <td><?php echo $key['requridos']['rent_activos'];?></td>
+                                            <td><?php echo $key['dato']['requridos']['ind_liquidez'];?></td>
+                                            <td><?php echo $key['dato']['requridos']['endeudamiento'];?></td>
+                                            <td><?php echo $key['dato']['requridos']['raz_cobertura_int'];?></td>
+                                            <td><?php echo $key['dato']['requridos']['rent_patrimonio'];?></td>
+                                            <td><?php echo $key['dato']['requridos']['rent_activos'];?></td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -54,28 +54,28 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            for ($i=0; $i < sizeof($key['datos']); $i++) { 
+                                            for ($i=0; $i < sizeof($key['dato']['datos']); $i++) { 
                                                 echo "<tr>";
                                                     echo "<td>";
-                                                        echo $key['datos'][$i][0];
+                                                        echo $key['dato']['datos'][$i][0];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['datos'][$i][1];
+                                                        echo $key['dato']['datos'][$i][1];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['datos'][$i][2];
+                                                        echo $key['dato']['datos'][$i][2];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['datos'][$i][3];
+                                                        echo $key['dato']['datos'][$i][3];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['datos'][$i][4];
+                                                        echo $key['dato']['datos'][$i][4];
                                                     echo"</td>";
                                                     echo "<td>";
-                                                        echo $key['datos'][$i][5];
+                                                        echo $key['dato']['datos'][$i][5];
                                                     echo"</td>";
                                                     echo "<td>";?>
-                                                        <a href="<?php echo ABS_PATH."revision/alianzaFinanciero"?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                        <a href="<?php echo ABS_PATH."revision/alianzaFinanciero/".$key['id']."/".$key['dato']['datos'][$i][6]; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                     <?php echo"</td>";
                                                 echo "</tr>";
                                             }

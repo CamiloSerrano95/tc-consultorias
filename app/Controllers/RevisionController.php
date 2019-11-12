@@ -4,13 +4,30 @@
         public function __construct(){
         }
 
-<<<<<<< HEAD
-=======
-        public function alianzaFinanciero(){
-            return Vista::crear('Alianzas.AlianzaFinancieroyOrg');
+        public function alianzaFinanciero($idLicitacion, $idEmpresa){
+            $datos = $this->pibotCodigosExperiencias($idLicitacion,$idEmpresa);
+            return Vista::crear('Alianzas.AlianzaFinancieroyOrg', $datos);
         }
 
->>>>>>> ee95882b9cf42426d66a27c1fc81240943c4ef48
+        public function pibotCodigosExperiencias($idLicitacion,$idEmpresa){
+            $empresas = new AprobadosModel();
+            $controlador = new controllerevaluacion();
+            $datosUns = $empresas->obtenerFiltroUno($idLicitacion);
+            $datosObj = $empresas->obtenerSegundo($idLicitacion);
+            $arreglo = json_decode($datosUns['empresas'][0]['objetos']);
+            $Codigos = $controlador->filtroUnspsc($idLicitacion,$arreglo);
+            $pasaronCodigos = $Codigos['pasaron'];
+            $pasaronObjetos = $controlador->filtroObjetos($idLicitacion,$datosObj['empresas'][0]['objetos']);
+            $intersecto = array_intersect_assoc($pasaronCodigos,$pasaronObjetos);
+            $empresa = $empresas->obtenerEmpresa($idEmpresa);
+            $auxiliarArray=[];
+            for ($i=0; $i < sizeof($intersecto); $i++) { 
+                $empr = $empresas->obtenerEmpresa($intersecto[$i]);
+                array_push($auxiliarArray, $empr['empresas'][0]['nombre_empresa']);
+            }
+            return array ("nombre"=>$empresa['empresas'][0]['nombre_empresa'], "aprobaron"=>$auxiliarArray);
+
+        }
         public function alianzaUnsExperiencia(){
             $empre = new AprobadosModel();
             $nombreEmpresaT = $_POST['nombre'];
@@ -53,21 +70,6 @@
             $totalpatrimonio = $patrimonio + $Tpatrimonio;
             $vectorCumple = [];
             $requeridos = $empre->obtenerfinanciero($licitacion);
-<<<<<<< HEAD
-            $pib = $requeridos['empresas'][0];
-            $validation = [];
-            if($pib['ind_liquidez'] <= $totalindiceL && $pib['endeudamiento'] >= $totalindice_endeudamento && $pib['rent_patrimonio'] <= $totalrentabilidad_patrimonio && $pib['rent_activos'] <= $totalrentabilidad_del_activo && $pib['patrimonio'] <= $totalpatrimonio && $totalcapital_de_trabajo >= $pib['capital_trabajo']){
-                if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $totalrazon_cobertura_interes){
-                    array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio);
-                    $validation =["status" => 'aprueba', "datos"=>$vectorCumple];
-                }
-            }else{
-                array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio);
-                $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple];
-            }
-            var_dump($validation);
-            //return Vista::crear('Alianzas.AlianzaUnspscExperiencia',$validation);
-=======
             $pib = $requeridos['empresas'][0];        
             $validation = [];
             $datosFinancieros =[];
@@ -84,7 +86,6 @@
             }
             //var_dump($validation);
             return Vista::crear('Alianzas.AlianzaUnspscExperiencia',$validation);
->>>>>>> ee95882b9cf42426d66a27c1fc81240943c4ef48
         }
 
         public function finanmet($dato1, $dato2){
@@ -104,11 +105,7 @@
                 }
             }
             if($nombre != ""){
-<<<<<<< HEAD
-                return Vista::crear('Alianzas.AlianzaUnspscExperiencia', array("aprobaron" => $vect, "nombre"=>$nombre, "licitacion" => $dato1));
-=======
                 return array("aprobaron" => $vect, "nombre"=>$nombre, "licitacion"=>$dato1);
->>>>>>> ee95882b9cf42426d66a27c1fc81240943c4ef48
             }
         }
         
@@ -163,7 +160,7 @@
 
         public function redirect($id){
             $dato = $this->soloFinanciero($id);
-            return Vista::crear('ViewAprobados.CumplimientoFyO', $dato);
+            return Vista::crear('ViewAprobados.CumplimientoFyO', array ("dato" => $dato, "id"=> $id));
         }
 
         public function filtroUnoyDos($dat){

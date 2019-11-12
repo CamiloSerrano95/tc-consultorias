@@ -7,6 +7,20 @@
             $this->DataBase = $connection->get_conexion();
         }
 
+        public function obtenerUnoDos($id){
+            try {
+                $sql = "SELECT * FROM uno_dos WHERE objeto_licitacion = ?";
+                $query = $this->DataBase->prepare($sql);            
+                $data = [$id];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'empresas' => $e];
+            }
+            return $response;
+        }
+
         public function obtenerExperiencias($id){
             try {
                 $sql = "SELECT * FROM cumplimiento_exp WHERE objeto_licitacion = ?";
