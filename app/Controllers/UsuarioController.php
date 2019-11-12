@@ -53,7 +53,7 @@
 
         public function signin(){
             $usuario = new UsuarioModel();
-            $session = new SessionModel();
+            $session = new SessionesModel();
             $usuario->setUser($_POST['user']);
             $usuario->setPasswd($_POST['pass']);
             $data = $usuario->login();
@@ -64,12 +64,13 @@
                     $session->CreateSession('usuario', $data['usuario']['nombres']);
                     Redirecciona::LetsGoTo('home');
                 } else {
-                    echo "Contraseña incorrecta";  
+                    $notification = 'toastr.error("Datos erroneos", "Contraseña incorrecta")';
+                    $session->CreateNotification($notification);
+                    Redirecciona::LetsGoTo('');
                 }
             } else {
                 echo "Usuario incorrecto";
             }
-            
         }
 
         public function logout() {
