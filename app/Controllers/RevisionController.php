@@ -11,19 +11,20 @@
 
         public function pibotCodigosExperiencias($idLicitacion,$idEmpresa){
             $empresas = new AprobadosModel();
-            $controlador = new controllerevaluacion();
             $datosUns = $empresas->obtenerFiltroUno($idLicitacion);
             $datosObj = $empresas->obtenerSegundo($idLicitacion);
             $arreglo = json_decode($datosUns['empresas'][0]['objetos']);
-            $Codigos = $controlador->filtroUnspsc($idLicitacion,$arreglo);
+            $Codigos = $this->filtroUnspsc($idLicitacion,$arreglo);
             $pasaronCodigos = $Codigos['pasaron'];
-            $pasaronObjetos = $controlador->filtroObjetos($idLicitacion,$datosObj['empresas'][0]['objetos']);
-            $intersecto = array_intersect_assoc($pasaronCodigos,$pasaronObjetos);
+            $pasaronObjetos = $this->filtroObjetos($idLicitacion,json_decode($datosObj['empresas'][0]['objetos']));
+            $intersecto = array_intersect_assoc($pasaronCodigos,$pasaronObjetos['pasaron']);
             $empresa = $empresas->obtenerEmpresa($idEmpresa);
             $auxiliarArray=[];
             for ($i=0; $i < sizeof($intersecto); $i++) { 
                 $empr = $empresas->obtenerEmpresa($intersecto[$i]);
-                array_push($auxiliarArray, $empr['empresas'][0]['nombre_empresa']);
+                if($empr['empresas'][0]['nombre_empresa'] != $empresa['empresas'][0]['nombre_empresa']){
+                    array_push($auxiliarArray, $empr['empresas'][0]['nombre_empresa']);
+                }
             }
             return array ("nombre"=>$empresa['empresas'][0]['nombre_empresa'], "aprobaron"=>$auxiliarArray);
 
@@ -244,5 +245,47 @@
 
             Vista::crear("ViewAprobados.Cumplimiento1y2");
         }
+        
+        public function filtroUnspsc($Licitacion,$codigos){
+            $empresas = new CumplimientosModel();
+            $prrr= [];
+            $uaa = [];
+            for ($i=0; $i < sizeof($codigos); $i++) { 
+                $codiger = $empresas->EmpresaCodigitos($codigos[$i]);
+                for ($j=0; $j < sizeof($codiger)-1 ; $j++) { 
+                    for ($h=0; $h < sizeof($codiger['empresas']); $h++) {                 
+                        $conteo = $codiger['empresas'][$h]['nit_empresa']; 
+                    //    print_r($conteo);
+                        array_push($prrr, $conteo);
+                    }
+                }
+            }
+            
+            $uaa = array_count_values($prrr);
+            $variableReal=[];
+            foreach ($uaa as $key => $value) {
+                if($value == sizeof($codigos)){
+                    array_push($variableReal,$key);
+                }
+            }
+            $request=["pedido"=>$codigos,"pasaron"=>$variableReal, "licitacion" => $Licitacion];
+            return $request;
+        }
+
+        public function filtroObjetos($Licitacion,$objetos){
+            $empresas = new CumplimientosModel();
+            $mientes =[];
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
+                array_push($mientes , $data);
+            }
+            $nit = [];// Se genera un array vacio llamado nit
+            for ($i=0; $i < sizeof($mientes); $i++) { 
+                array_push($nit, $mientes[$i]['empresas'][0]['nit']);
+            }
+            $request=["pedido"=>$objetos,"pasaron"=>$nit, "licitacion" => $Licitacion];
+            return $request;
+        }
+
     }  
 ?>
