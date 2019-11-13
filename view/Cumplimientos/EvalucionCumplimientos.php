@@ -183,13 +183,13 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div id="contenedor" class="form-group col-sm-3">
+                                        <div id="contenedor" class=" form-group col-sm-3">
                                             <!-- input1 -->
                                         </div>
                                         <div id="charizard" class="form-group col-sm-6">
                                             <!-- input2 -->
                                         </div>
-                                        <div id="erase" class="form-group col-sm-3">
+                                        <div id="erase" class="form-group col-sm-3 ">
                                         <!-- button -->
                                         </div>
                                     </div>
@@ -361,7 +361,7 @@
 
             var b = document.createElement('button');
             b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
-            b.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+            b.setAttribute("class", "mt-4 ml-2 btn btn-link col-sm-12 ");
             b.setAttribute("id" , `${contador}`);
             b.setAttribute("onclick", "obtenerId(this)");
             b.setAttribute("type" , "button");
@@ -415,7 +415,7 @@
 
             var d = document.createElement('button');
             d.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
-            d.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+            d.setAttribute("class", "mt-4  btn btn-link col-sm-12 ");
             d.setAttribute("id" , `eraseButtonTwo-${contadorObjeto}`);
             d.setAttribute("onclick", "obtenerIdObj(this)");
             d.setAttribute("type" , "button");

@@ -180,7 +180,7 @@
 
         var b = document.createElement('button');
         b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
-        b.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+        b.setAttribute("class", "mt-3 ml-2 btn btn-link col-sm-12 ");
         b.setAttribute("id" , `${contador}`);
         b.setAttribute("onclick", "obtenerId(this)");
         b.setAttribute("type" , "button");

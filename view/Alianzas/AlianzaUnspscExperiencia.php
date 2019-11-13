@@ -64,7 +64,6 @@
                                 </div>
                                 <div class="col-sm-4 mt-2">
                                     <button type="button" id="crearInput" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
-                                    <button type="button" onclick="EliminarInput ('selec1','selecsito')" class="btn btn-primary">Eliminar Empresa</button>
                                 </div>
                             </div>
                             
@@ -185,7 +184,7 @@
 
         var b = document.createElement('button');
         b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
-        b.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+        b.setAttribute("class", "mt-3 ml-2 btn btn-link col-sm-12 ");
         b.setAttribute("id" , `${contador}`);
         b.setAttribute("onclick", "obtenerId(this)");
         b.setAttribute("type" , "button");
