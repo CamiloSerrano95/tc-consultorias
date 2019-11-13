@@ -12,9 +12,7 @@
 
     <div class="container-fluid">
         <div class="card">
-            <form action="<?php echo ABS_PATH."code/agregar"?>"
-             <!-- /../Controllers/ServiciosController/SavedServiceController.php
-                  method="POST" class="form-horizontal"> 
+            <form action="<?php echo ABS_PATH."code/agregar"?>" method="POST" class="form-horizontal"> 
                 <div class="card-body">
                     <h4 class="card-title">Agregar Codigos Globales</h4>
                     <div class="form-group row mt-5">

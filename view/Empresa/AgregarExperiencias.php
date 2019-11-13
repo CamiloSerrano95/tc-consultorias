@@ -17,33 +17,8 @@
         console.log(servicio);
         var datos=[];
 
-            for(var j=0; j< servicio.length; j++){
-                datos.push(servicio[j].nombre_servicio);
-            }
-            console.log(datos);
-            
-                
-
-        function crearInput() {
-            
-            var DatosSelect = document.getElementById('DatosSelect').value;
-        
-            var contenedor = document.getElementById('contenedor');
-            var charizard = document.getElementById('charizard');
-            var partes = DatosSelect.split('-');
-            
-            var x = document.createElement('input');
-            x.setAttribute("class", "form-control mt-3");
-            x.setAttribute("id" , "selecsito");
-            x.setAttribute("name" , "codigos[]");
-            x.setAttribute("value", partes[0]);
-            contenedor.appendChild(x);
-
-            var a = document.createElement('input');
-            a.setAttribute("class", "form-control mt-3");
-            a.setAttribute("value", partes[1]);
-            charizard.appendChild(a);
-      
+        for(var j=0; j< servicio.length; j++){
+            datos.push(servicio[j].nombre_servicio);
         }
 
     </script>
@@ -156,19 +131,18 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 mt-2">
-                                    <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Codigo</button>
+                                    <button type="button" id="crearInput" class="btn btn-primary">Agregar Codigo</button>
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-sm-6">
-                                    <div id="contenedor" class="form-group">
-                                            <!-- input1 -->
-                                    </div>
+                                <div id="contenedor" class="form-group col-sm-3">
+                                    <!-- input1 -->
                                 </div>
-                                <div class="col-sm-6">
-                                    <div id="charizard" class="form-group">
-                                            <!-- input2 -->
-                                    </div>
+                                <div id="charizard" class="form-group col-sm-6">
+                                    <!-- input2 -->
+                                </div>
+                                <div id="erase" class="form-group col-sm-3">
+                                    <!-- button -->
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -179,5 +153,52 @@
         </div>
     </div>
 </div>
+<script>
+    var erase = document.getElementById('erase');
+    var contador = 0;
+
+    crearInput.onclick = () => {
+        var DatosSelect = document.getElementById('DatosSelect').value;
+        
+        var contenedor = document.getElementById('contenedor');
+        var charizard = document.getElementById('charizard');
+        var partes = DatosSelect.split('-');
+        
+        var x = document.createElement('input');
+        x.setAttribute("class", "form-control mt-3");
+        x.setAttribute("id" , "selecsito");
+        x.setAttribute("id" , `eraseCode-${contador}`);
+        x.setAttribute("name" , "codigos[]");
+        x.setAttribute("value", partes[0]);
+        contenedor.appendChild(x);
+
+        var a = document.createElement('input');
+        a.setAttribute("class", "form-control mt-3");
+        a.setAttribute("id" , `eraseName-${contador}`);
+        a.setAttribute("value", partes[1]);
+        charizard.appendChild(a);
+
+        var b = document.createElement('button');
+        b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
+        b.setAttribute("class", "mt-3 ml-2 btn btn-light col-sm-12 ");
+        b.setAttribute("id" , `${contador}`);
+        b.setAttribute("onclick", "obtenerId(this)");
+        b.setAttribute("type" , "button");
+        b.setAttribute("value", "Borrar");
+        erase.appendChild(b);
+
+        contador++;
+    }
+
+    function obtenerId(path) {
+        var id = path.getAttribute("id")
+        var eraseCode = document.getElementById(`eraseCode-${id}`);
+        var eraseName = document.getElementById(`eraseName-${id}`);
+        var eraseButton = document.getElementById(id);
+        eraseCode.remove();
+        eraseName.remove();
+        eraseButton.remove();
+    }
+</script>
 
 <?php require dirname(__FILE__).'/../home/footer.php'?>
