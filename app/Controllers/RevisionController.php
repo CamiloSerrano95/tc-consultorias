@@ -6,7 +6,7 @@
             return Vista::crear("Alianzas.AlianzaUnspsc");
         }
 
-        public function AlianzaExperiences($idLicitacion, $idEmpresa){
+        public function pibotCodFinanciero($idLicitacion, $idEmpresa){
             $empresas = new AprobadosModel();
             $empresa = $empresas->obtenerEmpresa($idEmpresa);
             $codigos = $empresas->obtenerFiltroUno($idLicitacion);
@@ -16,14 +16,16 @@
             for ($i=0; $i < sizeof($financiero['datos']); $i++) { 
                 array_push($aux,$financiero['datos'][$i][7]);
             }
+            $result =[];
             $intenso = json_decode($codigos['empresas'][0]['result']);
-            $intersecto =  array_intersect_assoc($intenso,$aux);
-            var_dump($intenso);
-            echo "<br>";
-            var_dump($aux);
-            echo "<br>";
-            var_dump($intersecto);
-            //return Vista::crear("Alianzas.AlianzaExperiencia", array("licitacion"=>$idLicitacion, "nombre"=>$empresa['empresas'][0]['nombre_empresa']));
+            $intersecto =array_diff_assoc($intenso, $aux);
+            for ($i=0; $i < sizeof($intersecto); $i++) { 
+                $emp = $empresas->obtenerEmpresa($intersecto[$i]);
+                if($intersecto[$i] != $idEmpresa){
+                    array_push($result,$emp['empresas'][0]['nombre_empresa']);
+                }                
+            }
+            return array("aprobaron"=>$result, "licitacion"=>$idLicitacion, "nombre"=>$empresa['empresas'][0]['nombre_empresa']);
         }
 
         public function AlianzaCodFinanciero(){
@@ -33,7 +35,57 @@
             $empresas = $_POST['empresas'];
             $porcentaje = $_POST['porcentaje'];
             $licitacion = $_POST['licitacion'];
-
+            $indiceL = 0;
+            $indice_endeudamento =0;
+            $razon_cobertura_interes =0;
+            $rentabilidad_patrimonio =0;
+            $rentabilidad_del_activo =0;
+            $capital_de_trabajo =0;
+            $patrimonio = 0;
+            
+            $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
+            $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
+            $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
+            $Trazon_cobertura_interes = (($titular['empresas'][0]['razon_cobertura_interes'])* ($porcentajeEmpresa/100)) + $razon_cobertura_interes;
+            $Trentabilidad_patrimonio = (($titular['empresas'][0]['rentabilidad_patrimonio'])* ($porcentajeEmpresa/100)) + $rentabilidad_patrimonio;
+            $Trentabilidad_del_activo = (($titular['empresas'][0]['rentabilidad_del_activo'])* ($porcentajeEmpresa/100)) + $rentabilidad_del_activo;
+            $Tcapital_de_trabajo = (($titular['empresas'][0]['capital_de_trabajo'])* ($porcentajeEmpresa/100)) + $capital_de_trabajo;
+            $Tpatrimonio = (($titular['empresas'][0]['patrimonio'])* ($porcentajeEmpresa/100)) + $patrimonio;
+            for ($i=0; $i < sizeof($empresas); $i++) { 
+                $info = $empre->obtenerEmpresaNombre($empresas[$i]);
+                $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
+                $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
+                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
+                $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
+                $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
+                $patrimonio = (($info['empresas'][0]['patrimonio'])* ($porcentaje[$i]/100)) + $patrimonio;
+            }
+            $totalindiceL = $indiceL + $TindiceL;
+            $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
+            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
+            $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
+            $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
+            $totalpatrimonio = $patrimonio + $Tpatrimonio;
+            $vectorCumple = [];
+            $requeridos = $empre->obtenerfinanciero($licitacion);
+            $pib = $requeridos['empresas'][0];        
+            $validation = [];
+            $datosFinancieros =[];
+            $reingreso = $this->pibotCodFinanciero($licitacion,$titular['empresas'][0]['nit']);
+            if($pib['ind_liquidez'] <= $totalindiceL && $pib['endeudamiento'] >= $totalindice_endeudamento && $pib['rent_patrimonio'] <= $totalrentabilidad_patrimonio && $pib['rent_activos'] <= $totalrentabilidad_del_activo && $pib['patrimonio'] <= $totalpatrimonio && $totalcapital_de_trabajo >= $pib['capital_trabajo']){
+                if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $totalrazon_cobertura_interes){
+                    array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio,$reingreso);
+                    array_push($datosFinancieros,$pib['ind_liquidez'],$pib['endeudamiento'], $pib['raz_cobertura_int'],$pib['rent_patrimonio'], $pib['rent_activos'],$pib['patrimonio'], $pib['capital_trabajo']);
+                    $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "nombre" => $nombreEmpresaT, "financiero"=>$datosFinancieros];
+                }
+            }else{
+                array_push($vectorCumple, $totalindiceL, $totalindice_endeudamento,$totalrazon_cobertura_interes, $totalrentabilidad_patrimonio,$totalrentabilidad_del_activo, $totalcapital_de_trabajo,$totalpatrimonio,$reingreso);
+                $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple , "nombre" => $nombreEmpresaT, "financiero"=>$datosFinancieros];
+            }
+            //var_dump($validation);
+            return Vista::crear('Alianzas.AlianzaExperiencia',$validation);
         }
 
         public function pibotExperiencias($idLicitacion,$idEmpresa,$codigos){
@@ -54,6 +106,11 @@
                 }
             }
             return array ("nombre"=>$empresa['empresas'][0]['nombre_empresa'], "aprobaron"=>$auxiliarArray,"licitacion"=>$idLicitacion);            
+        }
+
+        public function AlianzaExperiences($idLicitacion, $idEmpresa){
+            $datos = $this->pibotCodFinanciero($idLicitacion,$idEmpresa);
+            return Vista::crear('Alianzas.AlianzaExperiencia', $datos);
         }
 
         public function alianzaFinanciero($idLicitacion, $idEmpresa){

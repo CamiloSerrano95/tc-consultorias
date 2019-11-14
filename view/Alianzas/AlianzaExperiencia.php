@@ -1,10 +1,11 @@
 <?php 
     require dirname(__FILE__).'/../home/header.php'; 
     $data ="";
-    var_dump($key);
+    $var ="";
+    $licit="";
     if(isset($key['datos'])){
         $data = $key['datos'][7]['aprobaron'];
-        $var = $key['datos'][7]['nombre'];
+        $var = $key['nombre'];
         $licit = $key['datos'][7]['licitacion'];
     }else{
         $var = $key['nombre'];
@@ -43,7 +44,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo ABS_PATH."revision/alianzaUnsExperiencia";?>" method="POST" class="form-horizontal">
+                        <form action="<?php echo ABS_PATH."revision/AlianzaCodFinanciero";?>" method="POST" class="form-horizontal">
                             <div class="form-group row mt-5">
                                 <div class="col-sm-10">
                                     <input type="text" value ="<?php echo $var; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
@@ -59,7 +60,7 @@
                                     <div class="form-group">
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
                                             <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
-                                            <option value="<?php  echo $data[$i][0]; ?>"><?php echo $data[$i][0];} ?></option>
+                                            <option value="<?php  echo $data[$i]; ?>"><?php echo $data[$i];} ?></option>
                                         </select>
                                     </div>
                                 </div>
