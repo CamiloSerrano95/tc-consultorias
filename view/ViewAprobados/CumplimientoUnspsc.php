@@ -25,6 +25,7 @@
                                     <tr>
                                         <th>Empresa</th>
                                         <th>Codigos</th>
+                                        <th>Alianza</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,6 +38,9 @@
                                                     echo "<td>";
                                                         echo $vectorcito[$i+1];
                                                     echo "</td>";
+                                                    echo "<td>";?>
+                                                        <a href="<?php echo ABS_PATH."revision/AlianzaCodigos"; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                    <?php echo"</td>";
                                                 }
                                             echo "</tr>";
                                         } 

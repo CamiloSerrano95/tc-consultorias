@@ -1,11 +1,10 @@
 <?php 
     require dirname(__FILE__).'/../home/header.php'; 
     $data ="";
-    $var ="";
-    $licit="";
+    var_dump($key);
     if(isset($key['datos'])){
         $data = $key['datos'][7]['aprobaron'];
-        $var = $key['nombre'];
+        $var = $key['datos'][7]['nombre'];
         $licit = $key['datos'][7]['licitacion'];
     }else{
         $var = $key['nombre'];
@@ -16,32 +15,6 @@
 
 
     <script>
-        function crearInput() {
-            
-            var DatosSelect = document.getElementById('DatosSelect').value;
-        
-            var contenedor = document.getElementById('contenedor');
-            var charizard = document.getElementById('charizard');
-            var partes = DatosSelect.split(',');
-
-            console.log(partes);
-            
-            
-            var x = document.createElement('input');
-            x.setAttribute("class", "form-control mt-3");
-            x.setAttribute("id" , "selecsito");
-            x.setAttribute("name", "empresas[]");
-            x.setAttribute("value", partes[0]);
-            contenedor.appendChild(x);
-
-            var a = document.createElement('input');
-            a.setAttribute("class", "form-control mt-3");
-            a.setAttribute("id" , "selec1");
-            a.setAttribute("name", "porcentaje[]");
-            a.setAttribute("placeholder", "Asignar Porcentaje Ej: 40");
-            charizard.appendChild(a);
-        }
-
         function EliminarInput (id,od) {
         
             var x = document.getElementById(id);
@@ -70,7 +43,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo ABS_PATH."revision/alianzaCodExperiencia";?>" method="POST" class="form-horizontal">
+                        <form action="<?php echo ABS_PATH."revision/alianzaUnsExperiencia";?>" method="POST" class="form-horizontal">
                             <div class="form-group row mt-5">
                                 <div class="col-sm-10">
                                     <input type="text" value ="<?php echo $var; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
@@ -86,23 +59,25 @@
                                     <div class="form-group">
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
                                             <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
-                                            <option value="<?php  echo $data[$i]; ?>"><?php echo $data[$i];} ?></option>
+                                            <option value="<?php  echo $data[$i][0]; ?>"><?php echo $data[$i][0];} ?></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mt-2">
-                                    <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
-                                    <button type="button" onclick="EliminarInput ('selec1','selecsito')" class="btn btn-primary">Eliminar Empresa</button>
+                                    <button type="button" id="crearInput" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
                                 </div>
                             </div>
                             
                             <div id="joker">
                                 <div class="row">
-                                    <div id="contenedor" class="form-group col-sm-9">
+                                    <div id="contenedor" class="form-group col-sm-6">
                                         <!-- input1 -->
                                     </div>
                                     <div id="charizard" class="form-group col-sm-3">
                                         <!-- input2 -->
+                                    </div>
+                                    <div id="erase" class="form-group col-sm-3">
+                                        <!-- button -->
                                     </div>
                                 </div>
                             </div>
@@ -178,5 +153,57 @@
         </div>
     </div>
 </div>
+<script>
+    var erase = document.getElementById('erase');
+    var contador = 0;
+
+    crearInput.onclick = () => {
+        var DatosSelect = document.getElementById('DatosSelect').value;
+        
+        var contenedor = document.getElementById('contenedor');
+        var charizard = document.getElementById('charizard');
+        var partes = DatosSelect.split(',');
+
+        console.log(partes);
+        
+        
+        var x = document.createElement('input');
+        x.setAttribute("class", "form-control mt-3");
+        x.setAttribute("id" , "selecsito");
+        x.setAttribute("id" , `eraseCode-${contador}`);
+        x.setAttribute("name", "empresas[]");
+        x.setAttribute("value", partes[0]);
+        contenedor.appendChild(x);
+
+        var a = document.createElement('input');
+        a.setAttribute("class", "form-control mt-3");
+        a.setAttribute("id" , "selec1");
+        a.setAttribute("id" , `eraseName-${contador}`);
+        a.setAttribute("name", "porcentaje[]");
+        a.setAttribute("placeholder", "Asignar Porcentaje Ej: 40");
+        charizard.appendChild(a);
+
+        var b = document.createElement('button');
+        b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
+        b.setAttribute("class", "mt-3 ml-2 btn btn-link col-sm-12 ");
+        b.setAttribute("id" , `${contador}`);
+        b.setAttribute("onclick", "obtenerId(this)");
+        b.setAttribute("type" , "button");
+        b.setAttribute("value", "Borrar");
+        erase.appendChild(b);
+
+        contador++;
+    }
+
+    function obtenerId(path) {
+        var id = path.getAttribute("id")
+        var eraseCode = document.getElementById(`eraseCode-${id}`);
+        var eraseName = document.getElementById(`eraseName-${id}`);
+        var eraseButton = document.getElementById(id);
+        eraseCode.remove();
+        eraseName.remove();
+        eraseButton.remove();
+    }
+</script>
 
 <?php require dirname(__FILE__).'/../home/footer.php';?>

@@ -6,7 +6,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">INFORMACION DE LA EMPRESA</h4>
+                <h4 class="page-title">CUMPLIMIENTO EXPERIENCIA</h4>
             </div>
         </div>
     </div>
@@ -33,6 +33,7 @@
                                             <th>FECHA OBJETO FINAL</th>
                                             <th>OBJETO</th>
                                             <th>TIPO DE ACTIVIDAD</th>
+                                            <th>Alianza</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -70,7 +71,10 @@
                                                     echo "</td>";
                                                     echo "<td>";
                                                         echo $key[$i]['experiencia'][9];
-                                                    echo "</td>";                                                                                                                                                         
+                                                    echo "</td>";       
+                                                    echo "<td>";?>
+                                                        <a href="<?php echo ABS_PATH."revision/AlianzaExperiences/".$key[$i]['licitacion']."/".$key[$i]['nit']; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                    <?php echo"</td>";                                                                                                                                                  
                                                 }
                                             echo "</tr>"
                                         ?> 
