@@ -1,7 +1,7 @@
 <?php 
     // require_once '../../Controllers/EvaluacionController/Revision.php';
     require dirname(__FILE__).'/../home/header.php';
-    $vectorcito = $key;
+    $vectorcito = $key['datos'];
 ?>
 
 <div class="page-wrapper">
@@ -29,17 +29,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i=0; $i <sizeof($vectorcito) ; $i++) {  
+                                    <?php for ($i=0; $i <sizeof($vectorcito[0]) / 3 ; $i++) {  
                                             echo "<tr>";
                                                 if (!($i%2)){
                                                     echo "<td>";
-                                                        echo $vectorcito[$i];
+                                                        echo $vectorcito[$i]['nombre'];
                                                     echo "</td>";
                                                     echo "<td>";
-                                                        echo $vectorcito[$i+1];
+                                                        echo $vectorcito[$i]['codigos'];
                                                     echo "</td>";
                                                     echo "<td>";?>
-                                                        <a href="<?php echo ABS_PATH."revision/AlianzaCodigos"; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                        <a href="<?php echo ABS_PATH."revision/AlianzaCodigos/".$key['id']."/".$vectorcito[$i]['idEmpresa']; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                     <?php echo"</td>";
                                                 }
                                             echo "</tr>";

@@ -59,7 +59,7 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
-                                            <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
+                                            <?php for ($i = 0; $i < sizeof($data); $i++ ){ ?>
                                             <option value="<?php  echo $data[$i]; ?>"><?php echo $data[$i];} ?></option>
                                         </select>
                                     </div>
