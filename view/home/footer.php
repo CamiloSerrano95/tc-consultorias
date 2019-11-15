@@ -33,6 +33,7 @@
      *       Basic DataTable                   *
      ****************************************/
     $('#zero_config').DataTable();
+    $('#tablabacana').DataTable();
 </script>
 
 </body>

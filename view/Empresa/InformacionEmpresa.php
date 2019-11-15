@@ -138,13 +138,13 @@
                         </div>
 
                         <div>
-                            <p><button class="btn btn-info"  data-toggle="collapse" data-target=".multi-collapses" aria-expanded="false" aria-controls="multiCollapseExample3 multiCollapseExample4">Experiencias de la Empresa</button></p>
+                            <p><button class="btn btn-info" type="button" data-toggle="collapse" data-target=".multi-collapses" aria-expanded="false" aria-controls="multiCollapseExample3 multiCollapseExample3">Experiencias de la Empresa</button></p>
                             <div class="row">
                                 <div class="col">
                                     <div class="collapse multi-collapses" id="multiCollapseExample3">
                                         <div class="card card-body">
                                             <div class="table-responsive text-center">
-                                                <table id="zero_config" class="table table-bordered">
+                                                <table id="tablabacana" class="table table-bordered">
                                                     <thead class="thead-dark">
                                                         <tr>
                                                             <th>ID EXPERIENCIA</th>

@@ -203,32 +203,32 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-11">
                                             <div class="form-group">
                                                 <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="daticos">
                                                     <option></option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 mt-2">
-                                            <button type="button" id="obtenerObjeto" class="btn btn-primary">Agregar Objetos</button>
+                                        <div class="col-sm-1 mt-2">
+                                            <button type="button" id="obtenerObjeto" class="btn btn-primary"><i class="mdi mdi-plus"></i></i> </button>
                                         </div>
                                     </div>
 
                                     <hr>
 
                                     <div class="row">
-                                        <div id="inputB" class="form-group col-sm-3">
+                                        <div id="inputB" class="form-group col-sm-7">
                                             <!-- input2 -->
                                         </div>
                                         <div id="inputC" class="form-group col-sm-3">
                                             <!-- input3 -->
                                         </div>
-                                        <div id="inputA" class="form-group col-sm-3">
-                                            <!-- input1 -->
-                                        </div>
-                                        <div id="eraseTwo" class="form-group col-sm-3">
+                                        <div id="eraseTwo" class="form-group col-sm-2">
                                             <!-- Button erase -->
+                                        </div>
+                                        <div id="inputA" class="form-group col-sm-1">
+                                            <!-- input1 -->
                                         </div>
                                     </div>
                                     
@@ -397,7 +397,7 @@
             a.setAttribute("class", "form-control mt-3");
             a.setAttribute("id" , `eraseCodeObj-${contadorObjeto}`);
             a.setAttribute("value", Datos);
-            a.setAttribute("type", "text");
+            a.setAttribute("type", "hidden");
             a.setAttribute("name" , "objetos[]");
             inputA.appendChild(a);
 
