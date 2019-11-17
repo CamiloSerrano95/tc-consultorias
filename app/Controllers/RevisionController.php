@@ -433,7 +433,6 @@
                 array_push($vectorcito, array("nombre" => $valorcito['empresas'][0]['nombre_empresa'], "codigos"=>$aux, "idEmpresa"=>$idEmpre));
             }
             return Vista::crear("ViewAprobados.CumplimientoUnspsc",array ("datos"=>$vectorcito, "id"=>$id));
-
         }
 
         public function redirect($id){
@@ -443,28 +442,20 @@
 
         public function filtroUnoyDos($dat){
             $empresas = new AprobadosModel();
-            $Licitacion = $empresas->obtenerLicitaciones($dat);  // obtengo la licitición con id que se recibió por parámetro.
-            $cumplex = $empresas->obtenerpedidosExperiencia($Licitacion['empresas'][0]['id']);
-            $datosFiltroUno = $empresas->obtenerFiltroUno($Licitacion['empresas'][0]['id']);
-            $variableDelosObjetos = json_decode($datosFiltroUno['empresas'][0]['objetos']);
-            $objetos = implode(",",$variableDelosObjetos);
-            //buscar las empresas de las experiencias            
-            $point = json_decode($cumplex['empresas'][0]['result']);
-            // buscar las empresas de el filtro uno.
-            $variableEmpresas = json_decode($datosFiltroUno['empresas'][0]['result']);
-            //Cotejar empresas de ambos resultados
-            $vectorDePaso=[];
-            $pibote =[];
-            for ($i=0; $i < sizeof($point) ; $i++) { 
-                for ($j=0; $j < sizeof($variableEmpresas); $j++) { 
-                    if($point[$i] == $variableEmpresas[$j]){
-                        $name = $empresas->obtenerEmpresa($variableEmpresas[$j]);
-                        array_push($pibote,$name['empresas'][0]['nombre_empresa']);
-                        array_push($vectorDePaso, array ($pibote[$i],$objetos,$cumplex['empresas'][0]['nro_contratos'],$cumplex['empresas'][0]['min_cod_req'], $cumplex['empresas'][0]['presupuesto_exigido'],$cumplex['empresas'][0]['porcentaje_of_exigido'],$cumplex['empresas'][0]['result_presupuesto'],$cumplex['empresas'][0]['result_presupuesto'],$dat,$point[$i]));
-                    }
-                }
+            $codRequeridos = $empresas->obtenerFiltroUno($dat);
+            $objetosRequeridos = $empresas->obtenerSegundo($dat);
+            $requerido = $empresas->obtenerpedidosExperiencia($dat);
+            $resultFiltroUno = $this->filtroUnspsc($dat, json_decode($codRequeridos['empresas'][0]['objetos']));
+            $resultFiltroDos = $this->filtroObjetos($dat, json_decode($objetosRequeridos['empresas'][0]['objetos']));
+            $aprobados = array_intersect_assoc($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']);
+            $codigos = implode(",", json_decode($codRequeridos['empresas'][0]['objetos']));
+            $vectorDatos= [];
+            for ($i=0; $i < sizeof($aprobados) ; $i++) { 
+                $name = $empresas->obtenerEmpresa($aprobados[$i]);
+                array_push($vectorDatos, array($name['empresas'][0]['nombre_empresa'],$codigos,$requerido['empresas'][0]['nro_contratos'],$requerido['empresas'][0]['min_cod_req'], $requerido['empresas'][0]['presupuesto_exigido'],$requerido['empresas'][0]['porcentaje_of_exigido'],$requerido['empresas'][0]['result_presupuesto'],$requerido['empresas'][0]['min_cod_req'],$dat,$aprobados[$i]));
             }
-            return Vista::crear("ViewAprobados.CumplimientounspscyExperiencia", $vectorDePaso);
+
+            return Vista::crear("ViewAprobados.CumplimientounspscyExperiencia", $vectorDatos);
         }
 
         public function soloFinanciero($dat){

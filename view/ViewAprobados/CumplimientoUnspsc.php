@@ -29,9 +29,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i=0; $i <sizeof($vectorcito[0]) / 3 ; $i++) {  
+                                    <?php for ($i=0; $i <sizeof($vectorcito); $i++) {  
                                             echo "<tr>";
-                                                if (!($i%2)){
+                                                
                                                     echo "<td>";
                                                         echo $vectorcito[$i]['nombre'];
                                                     echo "</td>";
@@ -43,7 +43,6 @@
                                                     <?php echo"</td>";
                                                 }
                                             echo "</tr>";
-                                        } 
                                     ?>                                            
                                 </tbody>
                             </table>
