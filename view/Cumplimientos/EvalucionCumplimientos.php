@@ -39,7 +39,7 @@
                     var res =  JSON.parse(data);
                     Object.keys(res).map(function(e) { 
                         //console.log(res[e]);
-                        var partes = res[e].split('-');
+                        var partes = res[e].split('_');
                         s.innerHTML += "<option value='"+partes[0]+"'>"+partes[1]+"</option>";
                     })
                 }
@@ -272,10 +272,10 @@
                                         <input type="text" class="form-control" name="activos" placeholder="Ej: 0.03">
 
                                         <label class="mt-3">Capital de Trabajo</label>
-                                        <input type="text" class="form-control" name="capital" placeholder="Ej: digite el valor en smmlv">
+                                        <input type="text" class="form-control" name="capital" placeholder="Digite el valor en smmlv, si no aplica digite 0">
 
                                         <label class="mt-3">Patrimonio</label>
-                                        <input type="text" class="form-control" name="patrimonio" placeholder="Ej: digite el valor en smmlv">
+                                        <input type="text" class="form-control" name="patrimonio" placeholder="Digite el valor en smmlv, si no aplica digite 0">
                                     </div>
                                 </section>
                             </div>
@@ -340,10 +340,12 @@
         
         crearInput.onclick = () => {
             var DatosSelect = document.getElementById('DatosSelect').value;
-        
+            
             var contenedor = document.getElementById('contenedor');
             var charizard = document.getElementById('charizard');
-            var partes = DatosSelect.split('-');
+            var partes = DatosSelect.split('-');            
+
+            
             
             var x = document.createElement('input');
             x.setAttribute("class", "form-control mt-3");
@@ -383,11 +385,12 @@
 
         var eraseTwo = document.getElementById('eraseTwo');
         var contadorObjeto = 0;
+
         obtenerObjeto.onclick = () => {
             var Datos = document.getElementById('daticos').value;
             var combo = document.getElementById("daticos");
             var selected = combo.options[combo.selectedIndex].text;  
-
+            
             var porciones = selected.split('*');
             var inputA = document.getElementById('inputA');
             var inputB = document.getElementById('inputB');

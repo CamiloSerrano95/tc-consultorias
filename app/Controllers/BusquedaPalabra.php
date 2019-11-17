@@ -20,7 +20,7 @@ use \vista\Vista;
              $request = $palabrita->Palabrita($palabras[$i]);
              if ($request['status'] == 1) {
                foreach($request['desc'] as $desc) {
-                  array_push($vect, $desc['id']."-".$desc['descripcion']."*".$desc['tipo_objeto_actividad']);
+                  array_push($vect, $desc['id']."_".$desc['descripcion']."*".$desc['tipo_objeto_actividad']);
                }
              }
          }
