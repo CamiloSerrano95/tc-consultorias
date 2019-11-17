@@ -36,44 +36,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-link mt-2" data-toggle="modal" data-target="#exampleModal-<?php echo $exp['id'] ?>" data-whatever="@fat"><span style="font-size: 2rem; color: green;"><i class="mdi mdi-barcode-scan"></i></button>
-                                                <div class="modal fade" id="exampleModal-<?php echo $exp['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Codigos de la experiencia</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="table-responsive text-center">
-                                                                    <table id="zero_config" class="table table-bordered">
-                                                                        <thead class="thead-dark">
-                                                                            <tr>
-                                                                                <th>CODIGO</th>
-                                                                                <th>DESCRIPCION</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        </tr>
                                         <?php for ($i=0; $i <sizeof($key) ; $i++) {  
                                             echo "<tr>";
                                                     echo "<td>";
@@ -108,7 +70,7 @@
                                                     echo "</td>";
                                                     echo "<td>";
                                                         echo $key[$i][10];
-                                                    echo "</td>";       
+                                                    echo "</td>";  
                                                 }
                                             echo "</tr>"
                                         ?> 
