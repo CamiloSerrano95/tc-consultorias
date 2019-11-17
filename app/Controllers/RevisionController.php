@@ -554,5 +554,9 @@
             $request=["pedido"=>$objetos,"pasaron"=>$nit, "licitacion" => $Licitacion];
             return $request;
         }
+
+        public function SeeExperience(){
+            return Vista::crear("ViewAprobados.SeeExpe");
+        } 
     }  
 ?>
