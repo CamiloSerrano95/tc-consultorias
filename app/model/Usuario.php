@@ -79,12 +79,12 @@
             return $response;
         }
 
-        public function CambiarContrasena() {
+        public function CambiarContrasena($email) {
             try {
                 
-                $sql = "UPDATE usuario SET contrasena = ? WHERE usuario = ? and email = ?";
+                $sql = "UPDATE usuarios SET contrasena = ? WHERE email = ?";
                 $query = $this->DataBase->prepare($sql);
-                $data = [$this->getPasswd(), $this->getUser(), $this->getEmail()];
+                $data = [$this->getPasswd(), $email];
                 $query->execute($data);
                 $response = ['status' => 1, 'msg' => "Se ha actualizado la contraseña correctamente"];
             } catch (Exception $e) {

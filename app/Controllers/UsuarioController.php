@@ -80,23 +80,31 @@
 
         public function recoverypass() {
             $usuario = new UsuarioModel();
-            $usuario->setUser($_POST['user']);
-            $usuario->setEmail($_POST['email']);
+            $session = new SessionesModel();
+
+            $email = $_POST['email'];
             $newpass = $_POST['newpass'];
             $retrynewpass = $_POST['retrynewpass'];
+            
 
             if ($newpass == $retrynewpass) {
                 $usuario->setPasswd(password_hash($newpass, PASSWORD_BCRYPT));
-                $data = $usuario->CambiarContrasena();
+                $data = $usuario->CambiarContrasena($email);
 
                 if($data['status'] == 1) {
-                    echo $data['msg'];
+                    $notification = 'toastr.success("Accion exitosa", "'. $data['msg'] .'")';
+                    $session->CreateNotification($notification);
                     Redirecciona::LetsGoTo('');
                 } else {
-                    echo "Usuario incorrecto";
+                    //echo "Email incorrecto";
+                    $notification = 'toastr.error("Datos erroneos", "Email incorrecto, no existe")';
+                    $session->CreateNotification($notification);
+                    Redirecciona::LetsGoTo('');    
                 }
             } else {
-                echo "Las contraseñas no coinciden";
+                $notification = 'toastr.error("Datos erroneos", "Las contraseñas no coinciden")';
+                $session->CreateNotification($notification);
+                Redirecciona::LetsGoTo('');
             }
         }
     }
