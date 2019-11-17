@@ -558,16 +558,18 @@
         public function SeeExperience($dat,$idEmpresa){
             $empr = new AprobadosModel();
             $pedido = $empr->obtenerSegundo($dat);
-            $requiredObjects = json_decode($pedido['empresas'][0]['objetos']);
+            $name= $empr->obtenerEmpresa($idEmpresa);            //nombre de la empresa en cuestion.
+            $datExperiencia = $empr->obtenerExperiencias($dat);
+            $requiredObjects = json_decode($pedido['empresas'][0]['objetos']);//los objetos que me piden tener
             $info = [];
-            $name= $empr->obtenerEmpresa($idEmpresa);            
             for ($i=0; $i < sizeof($requiredObjects) ; $i++) { 
-                $experiencia = $empr->obtengoExperiencia($requiredObjects[$i]);
-                if($experiencia['empresas'][0]['id_empresa_experiencia'] == $idEmpresa){
+                $experiencia = $empr->obtengoExperiencia($requiredObjects[$i]);         //datos de la experiencia
+                if($experiencia['empresas'][0]['id_empresa_experiencia'] == $idEmpresa){    //si la experiencia pertenece a la empresa en cuestion                
                     array_push($info,array($name['empresas'][0]['nombre_empresa'],$experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad']));
                 }
             }
 
+            
             return Vista::crear("ViewAprobados.SeeExpe",$info);
         } 
     }  

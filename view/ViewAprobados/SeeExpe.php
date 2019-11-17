@@ -13,7 +13,6 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <?php var_dump($key); ?>
                     <div class="card-body">
                         <!-- <h5 class="card-title"></h5> -->
                         <div>
