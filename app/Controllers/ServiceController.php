@@ -17,14 +17,8 @@ use \vista\Vista;
             $Servicio->setNombreServicio($_POST['descripcion']);
 
 
-            $data = $Servicio->Saved();
+            $Servicio->Saved();
 
-            if ($data['status'] == 1) {
-                header('Location: ../../View/Codigos/Codigos.php'); 
-                /* echo $data['msg']; */
-            } else {
-                echo $data['error'];
-            }
         }
         
         public function editar($id) {

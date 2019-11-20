@@ -19,5 +19,6 @@ $ruta->controladores(array(
     "/revision" => "RevisionController",
     "/koto" => "AllEmpresasController",
     "/mostrarCodigos" => "CodeCompanyController",
+    "/profesion" => "ProfessionalsController",
 
 ));

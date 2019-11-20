@@ -80,7 +80,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                    <a class="navbar-brand" href="../Inicio/index.php">
+                        <a class="navbar-brand" href="<?php echo ABS_PATH."home/index"?>">                    
                         <b class="logo-icon p-l-10">
                             <img src="<?php echo ASSETS_URL."images/logo1.png"?>" width="90%" alt="homepage" class="light-logo" />
                         </b>

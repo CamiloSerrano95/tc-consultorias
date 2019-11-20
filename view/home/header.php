@@ -29,7 +29,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                    <a class="navbar-brand" href="../Inicio/index.php">
+                    <a class="navbar-brand" href="<?php echo ABS_PATH."home/index"?>">
                         <b class="logo-icon p-l-10">
                             <img src="<?php echo ASSETS_URL."images/logo1.png"?>" width="90%" alt="homepage" class="light-logo" />
                         </b>
@@ -85,8 +85,8 @@
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-settings-variant"></i><span class="hide-menu"> Gestionar Profesionales </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../Profesionales/Profesionales.php" aria-expanded="false"><i class="mdi mdi-account-search"></i><span class="hide-menu">Buscar Profesionales</span></a></li>
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../Profesionales/AgregarProfesionales.php" aria-expanded="false"><i class="mdi mdi-plus"></i><span class="hide-menu">Agregar Profesionales</span></a></li>
+                                <li class="sidebar-item"> <a href="<?php echo ABS_PATH."profesion/nuevo"?>" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-plus"></i><span class="hide-menu">Agregar Profesionales</span></a></li>
+                                <li class="sidebar-item"> <a href="<?php echo ABS_PATH."profesion/mostrarprofesionales"?>" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Mostrar Profesionales</span></a></li>
                             </ul>
                         </li>
                     </ul>

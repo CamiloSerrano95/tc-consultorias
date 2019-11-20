@@ -15,7 +15,7 @@ use \vista\Vista;
 
             $Servicio = new ServicioModel();
             $Servicio->setCodigo($_POST['codigo']);
-            $Servicio->setNombreServicio($_POST['descripcion']);
+            $Servicio->setNombreServicio(strtoupper($_POST['descripcion']));
             $data = $Servicio->Saved();
 
             if ($data['status'] == 1) {
