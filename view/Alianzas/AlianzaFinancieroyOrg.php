@@ -142,6 +142,8 @@
                              <div class="card mt-5">
                              <h5 class="card-title">RESULTADO</h5>                                 
                                     <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
+                            <?php }else {?>
+                                    <div class="alert alert-danger text-center mt-5" role="alert" >No aprobado</div>
                                  <?php }?>
                                 <div class="table-responsive text-center mt-5">
                                     <table  class="table table-bordered">
