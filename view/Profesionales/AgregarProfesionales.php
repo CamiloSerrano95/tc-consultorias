@@ -59,7 +59,7 @@
                     <div class="form-group row">
                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">FECHA DE GRADO</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" id="lname" name="fecha_especializacion">
+                            <input type="text" class="form-control" id="lname" name="fecha_especializacion">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -71,7 +71,7 @@
                     <div class="form-group row">
                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">FECHA DE GRADO</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" id="lname" name="fecha_maestria">
+                            <input type="text" class="form-control" id="lname" name="fecha_maestria">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -83,7 +83,7 @@
                     <div class="form-group row">
                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">FECHA DE GRADO</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" name="fecha_doctorado" id="lname" >
+                            <input type="text" class="form-control" name="fecha_doctorado" id="lname" >
                         </div>
                     </div>
                 </div>
