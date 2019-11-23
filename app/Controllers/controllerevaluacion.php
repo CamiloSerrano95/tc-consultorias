@@ -16,29 +16,40 @@
             return Vista::crear("evaluacion.create");
         }
 
-        public function filtroUnspsc($Licitacion,$codigos){
+        public function filtroUnspsc($Licitacion,$codigos,$requeridos){
             $empresas = new CumplimientosModel();
             $prrr= [];
             $uaa = [];
+            $paso =[];
             for ($i=0; $i < sizeof($codigos); $i++) { 
-                $codiger = $empresas->EmpresaCodigitos($codigos[$i]);
-                for ($j=0; $j < sizeof($codiger)-1 ; $j++) { 
-                    for ($h=0; $h < sizeof($codiger['empresas']); $h++) {                 
-                        $conteo = $codiger['empresas'][$h]['nit_empresa']; 
-                    //    print_r($conteo);
-                        array_push($prrr, $conteo);
-                    }
+                $codiger = $empresas->EmpresaCodigitos($codigos[$i]);                
+                for ($h=0; $h < sizeof($codiger['empresas']); $h++) {                 
+                    $conteo = $codiger['empresas'][$h]['nit_empresa']; 
+                    print_r($conteo);
+                    array_push($prrr, $conteo);
+                    array_push($paso,array("codigo"=>$codigos[$i],"empresa"=>$conteo));
                 }
             }
-            
             $uaa = array_count_values($prrr);
             $variableReal=[];
             foreach ($uaa as $key => $value) {
-                if($value == sizeof($codigos)){
+                if($value >= $requeridos){
                     array_push($variableReal,$key);
                 }
             }
-            $request=["pedido"=>$codigos,"pasaron"=>$variableReal, "licitacion" => $Licitacion];
+            $arrayDeVerdad =[];
+            for ($i=0; $i < sizeof($codigos); $i++) { 
+                $c = $empresas->EmpresaCodigitos($codigos[$i]);
+                for ($j=0; $j < sizeof($variableReal); $j++) { 
+                    if($c == $variableReal[$j]){
+                        array_push($arrayDeVerdad, array("nit"=>$c, "codigo"=>$codigos[$i]));
+                    } 
+                }
+            }
+
+
+
+            $request=["pedido"=>$codigos,"pasaron"=>$variableReal, "licitacion" => $Licitacion, "array"=>$arrayDeVerdad];
             return $request;
         }
 
@@ -144,7 +155,7 @@
                 $empresa = $objeto->ObtenerEmpresa($nitempresa[$i]);
                 $aux = ($empresa['empresas'][0]['capital_de_trabajo'])*0.5;
                 if($Liquidez <= $empresa['empresas'][0]['indice_liquidez'] && $Endeudamiento >= $empresa['empresas'][0]['indice_endeudamento'] && $RentabilidadPatrimonio <= $empresa['empresas'][0]['rentabilidad_patrimonio'] && $RentabilidadActivos <= $empresa['empresas'][0]['rentabilidad_del_activo'] && $patrimonio <= $empresa['empresas'][0]['patrimonio'] && $aux >= $capitalTrabajo){
-                    if($CoberturaInteres >= 0 && $CoberturaInteres <= $empresa['empresas'][0]['razon_cobertura_interes']){
+                    if($CoberturaInteres >= 0 && $CoberturaInteres <= $empresa['empresas'][0]['razon_cobertura_interes'] || $empresa['empresas'][0]['razon_cobertura_interes'] == 0){
                         array_push($auxiliar, $empresa['empresas'][0]['nit']);
                     }
                 }
@@ -174,7 +185,7 @@
             //var_dump($id['id']);
 
             //-------------------------Primer filtro Servicio Empresas ---------------------------------------------------
-            $variableReal = $this->filtroUnspsc($id['id'], $codigos);
+            $variableReal = $this->filtroUnspsc($id['id'], $codigos, $CodigosRequeridos);
             $empresas->AddCumplimientoUNSPSC(json_encode($codigos), json_encode($variableReal['pasaron']), $id['id']);
             //-----------------Segundo Filtro Objetos-Experiencias --------------------------------------
             $nit = $this->filtroObjetos($id['id'],$objetos);
