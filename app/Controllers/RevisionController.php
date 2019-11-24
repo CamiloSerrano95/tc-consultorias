@@ -415,9 +415,9 @@
 
         public function filtroUno($dat){
             $empresas = new AprobadosModel();
+            $cumplimientos = new CumplimientosModel();
             $id = $dat;   
-            $Licitacion = $empresas->obtenerLicitaciones($id);    
-            $datos = $empresas->obtenerFiltroUno($Licitacion['empresas'][0]['id']);
+            $datos = $empresas->obtenerFiltroUno($id);
             $codigos = [];
             
             $data1= json_decode($datos['empresas'][0]['objetos']);
@@ -426,13 +426,23 @@
                 array_push($codigos,$data1[$i]);
             }
             $aux = implode(",",$codigos);
-            $vectorcito = [];
+
+            $values = [];
             for ($i=0; $i < sizeof($data); $i++) { 
-                $valorcito = $empresas->obtenerEmpresa($data[$i]);
-                $idEmpre = $valorcito['empresas'][0]['nit'];
-                array_push($vectorcito, array("nombre" => $valorcito['empresas'][0]['nombre_empresa'], "codigos"=>$aux, "idEmpresa"=>$idEmpre));
+                $cods = [];
+                for ($j=0; $j < sizeof($data1) ; $j++) { 
+                    $pibote = $cumplimientos->EmpresaCodigitos($data1[$j]);
+                    for ($h=0; $h < sizeof($pibote['empresas']) ; $h++) { 
+                        if($pibote['empresas'][$h]['nit_empresa']== $data[$i]){
+                            array_push($cods, $data1[$j]);
+                        }
+                    }
+                }
+                $obtenerNombreEmpresa = $empresas->obtenerEmpresa($data[$i]);
+                $auxi = implode(",",$cods);
+                array_push($values, array("nombre"=>$obtenerNombreEmpresa['empresas'][0]['nombre_empresa'], "codigos"=>$auxi));
             }
-            return Vista::crear("ViewAprobados.CumplimientoUnspsc",array ("datos"=>$vectorcito, "id"=>$id));
+            return Vista::crear("ViewAprobados.CumplimientoUnspsc",array ("datos"=>$values, "id"=>$id, "otros"=>$values));
         }
 
         public function redirect($id){

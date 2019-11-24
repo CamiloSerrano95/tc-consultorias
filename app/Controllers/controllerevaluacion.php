@@ -37,19 +37,7 @@
                     array_push($variableReal,$key);
                 }
             }
-            $arrayDeVerdad =[];
-            for ($i=0; $i < sizeof($codigos); $i++) { 
-                $c = $empresas->EmpresaCodigitos($codigos[$i]);
-                for ($j=0; $j < sizeof($variableReal); $j++) { 
-                    if($c == $variableReal[$j]){
-                        array_push($arrayDeVerdad, array("nit"=>$c, "codigo"=>$codigos[$i]));
-                    } 
-                }
-            }
-
-
-
-            $request=["pedido"=>$codigos,"pasaron"=>$variableReal, "licitacion" => $Licitacion, "array"=>$arrayDeVerdad];
+            $request=["pedido"=>$codigos,"pasaron"=>$variableReal, "licitacion" => $Licitacion];
             return $request;
         }
 
