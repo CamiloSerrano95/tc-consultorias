@@ -21,6 +21,20 @@
             return $response;
         }
 
+        public function ObtenerServicioExperiencia($dato){
+            try{
+                $sql = "SELECT * FROM experiencia_servicio where idexperiencia =?";
+                $query = $this->DataBase->prepare($sql);
+                $data = [$dato];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+           }catch (Exception $e){
+            $response = ['status' => 0, 'empresas' => $e];
+           }
+           return $response; 
+        }
+
         public function ObjetoEmpresa($idObjeto){
            //Obtener empresas mediante el id del objeto.
            try{
