@@ -79,6 +79,7 @@
         public function filtroExperiencia($primeroysegundo,$objetos ,$Contratos, $codigos, $CodigosRequeridos, $PresupuestoOficial,$PorcentajeExigido,$Licitacion){
             $empresas = new CumplimientosModel();
             $pibot =[];
+            #-----------------Empresas que cumplen con los objetos--------------------------
             for ($i=0; $i < sizeof($objetos); $i++) { 
                 $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
                 if($data['status']==1){
@@ -87,9 +88,8 @@
                     }
                 }
             }
-            //var_dump($pibot);
             $cont =[];
-
+            #----------------Cantidad de objetos por empresa----------------------------
             for ($i=0; $i < sizeof($pibot); $i++) { 
                 if($i % 2==0 || $i==0 ){
                     $j = 0;
@@ -112,35 +112,46 @@
                 }
             }
 
-            #--------------------------------------------------------------------------------------------
+            #-----------Cantidad de Códigos que tiene esa experiencia------------------
             $auxi =[];
-            for ($i=0; $i < sizeof($objetos) ; $i++) {
-                $requestExperienciaServicio = $empresas->ObtenerServicioExperiencia($objetos[$i]);
-                $contador = 0;
-                for ($j=0; $j < sizeof($codigos); $j++) { 
-                    if($requestExperienciaServicio['empresas'][0]['id_servicio']== $codigos[$j]){
-                        $contador= $contador+1;
+
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $carta =0;
+                $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i]);
+                foreach ($obtengoServExper['empresas'] as $key => $value) {
+                    for ($j=0; $j < sizeof($codigos); $j++) { 
+                        if($value['id_servicio'] == $codigos[$j]){
+                            $carta = $carta+1;
+                        }
                     }
                 }
-                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$contador));
+                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
             }
-
             $cantidadCodigos = [];
             for ($i=0; $i < sizeof($auxi) ; $i++) { 
                 if($auxi[$i]['cantidad'] >= $CodigosRequeridos){
                     array_push($cantidadCodigos, $auxi[$i]['objeto']);
                 }
             }
+            $result =[];
             $valorComp = $PresupuestoOficial * ($PorcentajeExigido/100);
             for ($i=0; $i < sizeof($cantidadCodigos) ; $i++) { 
                 $datos = $empresas->obtengoExperiencia($cantidadCodigos[$i]);
-                if($datos['empresas'][0]['valor_contrato_smmlv'] <= $valorComp ){
-
+                if($datos['empresas'][0]['valor_contrato_smmlv'] >= $valorComp ){
+                    array_push($result, $datos['empresas'][0]['id_empresa_experiencia']);
                 }
             }
-
-            $request =["pedidos" => array ($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $ficticia), "pasaron" =>$parteTres, "licitacion" => $Licitacion];
-            //return $request;
+            $parteTres=[];
+            for ($i=0; $i < sizeof($primeroysegundo); $i++) { 
+                for ($j=0; $j < sizeof($result); $j++) { 
+                    if($primeroysegundo[$i] == $result[$j]){
+                        array_push($parteTres, $primeroysegundo[$i]);
+                    }
+                }
+            }
+            $resultado = (array_unique($parteTres)); 
+            $request =["pedidos" => array ($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $valorComp), "pasaron" =>$resultado, "licitacion" => $Licitacion];
+            return $request;
         }
 
         public function filtroFinanciero($nitempresa,$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$Licitacion,$patrimonio,$capitalTrabajo){
@@ -192,12 +203,12 @@
             $empresas->AddFiltroUnoDos(json_encode($primeroysegundo['pasaron']),$id['id']);
             //-----------------------------TERCER FILTRO-----------------------------------------
             $parteTres = $this->filtroExperiencia($primeroysegundo['pasaron'],$objetos,$Contratos,$codigos, $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $id['id']);
-            //$empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][4], json_encode($parteTres['pasaron']), $id['id']);
+            $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][4], json_encode($parteTres['pasaron']), $id['id']);
             //------------------------------all final section--------------------------------------------
-            /* $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$id['id'],$patrimonio,$capitalTrabajo);
-            $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos, $patrimonio,$capitalTrabajo,json_encode($ultimo['pasaron']),$id['id']); */
+            $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$id['id'],$patrimonio,$capitalTrabajo);
+            $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos, $patrimonio,$capitalTrabajo,json_encode($ultimo['pasaron']),$id['id']);
             //var_dump($ultimo);
-            //Redirecciona::LetsGoTo('evaluacion');
+            Redirecciona::LetsGoTo('evaluacion');
         }
     }
 ?>

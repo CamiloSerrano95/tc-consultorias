@@ -97,7 +97,6 @@ class controllercompany {
         $Empresita = new EmpresaModel();
         $abajito = $Empresita->info($id);
         return Vista::crear("Empresa.EditCompany",$abajito['empresa']);
-        
     }
 
     public function Update(){

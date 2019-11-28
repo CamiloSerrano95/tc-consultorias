@@ -1,12 +1,10 @@
-<?php require dirname(__FILE__).'/../home/header.php'; 
-    echo "------------------------------>".$key;
-?>
+<?php require dirname(__FILE__).'/../home/header.php'; ?>
 
 <div class="page-wrapper">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">INFORMACION DE LA EMPRESA</h4>
+                <h4 class="page-title">EXPERIENCIAS APROVADAS CON UNSPSC Y SMMLV</h4>
             </div>
         </div>
     </div>
@@ -15,28 +13,40 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body">                        
                         <!-- <h5 class="card-title"></h5> -->
                         <div>
                             <div class="table-responsive text-center">
                                 <table id="zero_config" class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>NOMBRE EMPRESA</th>
-                                            <th>EXPERIENCIA No.1</th>
-                                            <th>NÚMERO CONSECUTIVO DEL CONTRATO</th>
-                                            <th>CONTRATO CELEBRADO POR</th>
-                                            <th>NOMBRE DEL CONTRATISTA</th>
-                                            <th>NOMBRE DEL CONTRATANTE</th>
-                                            <th>VALOR CONTRATO EN SMMLV</th>
-                                            <th>FECHA INICIO OBJETO</th>
-                                            <th>FECHA FINAL OBJETO</th>
                                             <th>OBJETO</th>
+                                            <th>VALOR CONTRATO EN SMMLV</th>
                                             <th>TIPO ACTIVIDAD</th>
                                             <th>CODIGOS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php for ($i=0; $i <sizeof($key) ; $i++) {  
+                                            echo "<tr>";
+                                                echo "<td>";
+                                                    echo $key[$i]['nombre'];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                    echo $key[$i]['valor'];
+                                                echo "</td>";           
+                                                echo "<td>";
+                                                    echo $key[$i]['tipoActividad'];
+                                                echo "</td>";  
+                                                echo "<td>";
+                                                var_dump($key[$i]['codigos']);
+                                                    $data = implode(",",$key[$i]['codigos']);
+                                                    echo $data;
+                                                echo "</td>";
+                                                }
+                                            echo "</tr>"
+                                        ?> 
+
                                         <tr>
                                             <td>
                                                 <button type="button" class="btn btn-link mt-2" data-toggle="modal" data-target="#exampleModal-<?php echo $exp['id'] ?>" data-whatever="@fat"><span style="font-size: 2rem; color: green;"><i class="mdi mdi-barcode-scan"></i></button>
@@ -75,6 +85,8 @@
                                             </td>
 
                                         </tr>
+
+
                                     </tbody>
                                 </table>
 

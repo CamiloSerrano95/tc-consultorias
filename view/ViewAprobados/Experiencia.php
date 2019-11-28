@@ -23,16 +23,7 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>NOMBRE EMPRESA</th>
-                                            <th>NUMERO EXPERIENCIA</th>
-                                            <th>NUMERO CONTRATO</th>
-                                            <th>CONTRATO CELEBRADO POR</th>
-                                            <th>NOMBRE CONTRATISTA</th>
-                                            <th>NOMBRE CONTRATANTE</th>
-                                            <th>VALOR CONTRATO SMMLV</th>
-                                            <th>FECHA OBJETO INICIO</th>
-                                            <th>FECHA OBJETO FINAL</th>
-                                            <th>OBJETO</th>
-                                            <th>TIPO DE ACTIVIDAD</th>
+                                            <th>EXPERIENCIA CUMPLIDAS</th>
                                             <th>Alianza</th>
                                         </tr>
                                     </thead>
@@ -40,40 +31,13 @@
                                         <?php for ($i=0; $i <sizeof($key) ; $i++) {  
                                             echo "<tr>";
                                                 echo "<td>";
-                                                    echo $key[$i]['nameEmpresa'];
+                                                    echo $key[$i]['nombre'];
                                                     echo "</td>";
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][0];
-                                                    echo "</td>";
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][1];
-                                                    echo "</td>";                                                                                         
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][2];
-                                                    echo "</td>";                                                                                         
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][3];
-                                                    echo "</td>";                                                                                         
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][4];
-                                                    echo "</td>";                                                                                         
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][5];
-                                                    echo "</td>";                                                                                         
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][6];
-                                                    echo "</td>";
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][7];
-                                                    echo "</td>";                                                                                         
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][8];
-                                                    echo "</td>";
-                                                    echo "<td>";
-                                                        echo $key[$i]['experiencia'][9];
-                                                    echo "</td>";       
+                                                    echo "<td>"; ?>
+                                                        <a href="<?php echo ABS_PATH."revision/RevisionExperienciaCumple/".$key[$i]['id']."/".$key[$i]['licitacion']; ?>" class="btn btn-link"><span style="font-size: 3em; color: orange;"><i class="mdi mdi-certificate"></i></span></a>
+                                                    <?php echo "</td>";
                                                     echo "<td>";?>
-                                                        <a href="<?php echo ABS_PATH."revision/AlianzaExperiences/".$key[$i]['licitacion']."/".$key[$i]['nit']; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                                        <a href="<?php echo ABS_PATH."revision/AlianzaExperiences/".$key[$i]['licitacion']."/".$key[$i]['id']; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                                                     <?php echo"</td>";                                                                                                                                                  
                                                 }
                                             echo "</tr>"

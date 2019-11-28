@@ -388,28 +388,15 @@
         
         public function viewExperiences($id){
             $empresas = new AprobadosModel();
-
-            $Licitacion = $empresas->obtenerLicitaciones($id);    
-            $cumplex = $empresas->obtenerSegundo($Licitacion['empresas'][0]['id']);
-            //var_dump($cumplex['empresas']);
-            $vact =[];
-            foreach ($cumplex['empresas'] as $key => $value) {
-                $aux =json_decode($value['objetos']);
-                $aux2 = json_decode($value['result']);
-                array_push($vact, $aux[$key], $aux2[$key] );
-            }
-            //var_dump($vact);
+            $cumplex = $empresas->obtenerSegundo($id);
+            $requestData = json_decode($cumplex['empresas'][0]['result']);
+            $cleanData = array_unique($requestData);
             $vect =[];
-            $aux1 = json_decode($value['result']);
-            for ($i=0; $i < sizeof($aux1); $i++) { 
-                $aux =json_decode($value['objetos']);
-                $aux2 = json_decode($value['result']);
-                $codEmpresa = $empresas->obtenerEmpresa($aux2[$i]);
+            for ($i=0; $i < sizeof($cleanData); $i++) { 
+                $codEmpresa = $empresas->obtenerEmpresa($cleanData[$i]);
                 $auxi = $codEmpresa['empresas'][0]['nombre_empresa'];
-                $expe = $empresas->obtengoExperiencia($aux[$i]);
-                array_push($vect, array ("experiencia" => array ($expe['empresas'][0]['numero_experiencia'],$expe['empresas'][0]['numero_contrato'],$expe['empresas'][0]['contrato_celebrado_por'],$expe['empresas'][0]['nombre_contratista'],$expe['empresas'][0]['nombre_contratante'],$expe['empresas'][0]['valor_contrato_smmlv'],$expe['empresas'][0]['fecha_obj_inicio'],$expe['empresas'][0]['fecha_obj_final'],$expe['empresas'][0]['descripcion'], $expe['empresas'][0]['tipo_objeto_actividad']), "nameEmpresa" => $auxi, "nit" => $codEmpresa['empresas'][0]['nit'],"licitacion"=>$id));
+                array_push($vect, array("nombre"=> $auxi, "id"=>$cleanData[$i],"licitacion"=>$id));
             }
-            //var_dump($vect[2]['nameEmpresa']);
             return Vista::crear('ViewAprobados.Experiencia',$vect);
         }
 
@@ -577,9 +564,54 @@
                     array_push($info,array($name['empresas'][0]['nombre_empresa'],$experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad']));
                 }
             }
-
-            
             return Vista::crear("ViewAprobados.SeeExpe",$info);
         } 
+
+        public function RevisionExperienciaCumple($id,$licitacion){
+            $empr = new AprobadosModel();
+            $empresas = new CumplimientosModel();
+            $required = $empr->obtenerpedidosExperiencia($licitacion);
+            $requiredObject = $empr->obtenerSegundo($licitacion);
+            $requiredCods = $empr->obtenerFiltroUno($licitacion);
+            $objetos = json_decode($requiredObject['empresas'][0]['objetos']);
+            $pibot =[];
+            #-----------------Empresas que cunplen con los objetos--------------------------
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
+                if($data['status']==1){
+                    for ($j=0; $j < sizeof($data['empresas']); $j++) { 
+                        if($id == $data['empresas'][$j]['nit']){
+                            $experiencia = $empresas->obtengoExperiencia($objetos[$i]);
+                            $aux = $experiencia['empresas'][0];
+                            $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
+                            $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i]);
+                            $param =[];
+                            $contar =0;
+                            foreach ($obtengoServExper['empresas'] as $key => $value) {
+                                $cods=[];
+                                $cadena="";
+                                echo "<br>";
+                                for ($j=0; $j < sizeof($codigos); $j++) { 
+                                    if($value['id_servicio'] == $codigos[$j]){
+                                                                                
+                                    }
+                                }
+                                /* if($cadena != ""){
+                                    array_push($param, array("codigos"=>$cadena, "objeto"=>$value['idexperiencia']));
+                                } */
+                            }
+                            var_dump($param);
+                            for ($j=0; $j < sizeof($param); $j++) { 
+                                for ($i=0; $i < sizeof($param[$j]); $i++) { 
+                                    
+                                }
+                            }
+                            array_push($pibot, array("nombre"=>$aux['descripcion'],"valor"=>$aux['valor_contrato_smmlv'],"tipoActividad"=>$aux['tipo_objeto_actividad'],"codigos"=>$param[$objetos[$i]])); // guardo la empresa junto a el objeto que cumple
+                        }
+                    }
+                }
+            }
+            //return Vista::crear("ViewAprobados.ViewExperience", $pibot);
+        }
     }  
 ?>
