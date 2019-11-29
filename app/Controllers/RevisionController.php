@@ -578,40 +578,33 @@
             #-----------------Empresas que cunplen con los objetos--------------------------
             for ($i=0; $i < sizeof($objetos); $i++) { 
                 $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
+                $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i]);
                 if($data['status']==1){
                     for ($j=0; $j < sizeof($data['empresas']); $j++) { 
                         if($id == $data['empresas'][$j]['nit']){
-                            $experiencia = $empresas->obtengoExperiencia($objetos[$i]);
-                            $aux = $experiencia['empresas'][0];
                             $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
-                            $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i]);
                             $param =[];
                             $contar =0;
+                            $cods =[];
+                            $cods=[];
                             foreach ($obtengoServExper['empresas'] as $key => $value) {
-                                $cods=[];
-                                $cadena="";
-                                echo "<br>";
                                 for ($j=0; $j < sizeof($codigos); $j++) { 
                                     if($value['id_servicio'] == $codigos[$j]){
-                                                                                
+                                        $contar = $contar+1;
+                                        array_push($cods, $codigos[$j]);
                                     }
                                 }
-                                /* if($cadena != ""){
-                                    array_push($param, array("codigos"=>$cadena, "objeto"=>$value['idexperiencia']));
-                                } */
                             }
-                            var_dump($param);
-                            for ($j=0; $j < sizeof($param); $j++) { 
-                                for ($i=0; $i < sizeof($param[$j]); $i++) { 
-                                    
-                                }
+                            if($cods != null && $contar >= $required['empresas'][0]['min_cod_req']){
+                                $imp = implode(",",$cods);
+                                array_push($param, array("codigos"=>$imp, "objeto"=>$value['idexperiencia']));
                             }
-                            array_push($pibot, array("nombre"=>$aux['descripcion'],"valor"=>$aux['valor_contrato_smmlv'],"tipoActividad"=>$aux['tipo_objeto_actividad'],"codigos"=>$param[$objetos[$i]])); // guardo la empresa junto a el objeto que cumple
+                            array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0]['valor_contrato_smmlv'],"tipoActividad"=>$data['empresas'][0]['tipo_objeto_actividad'],"codigos"=>$param[0]['codigos'])); // guardo la empresa junto a el objeto que cumple
                         }
                     }
                 }
             }
-            //return Vista::crear("ViewAprobados.ViewExperience", $pibot);
+            return Vista::crear("ViewAprobados.ViewExperience", $pibot);
         }
     }  
 ?>

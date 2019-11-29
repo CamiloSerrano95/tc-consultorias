@@ -39,9 +39,7 @@
                                                     echo $key[$i]['tipoActividad'];
                                                 echo "</td>";  
                                                 echo "<td>";
-                                                var_dump($key[$i]['codigos']);
-                                                    $data = implode(",",$key[$i]['codigos']);
-                                                    echo $data;
+                                                    echo $key[$i]['codigos'];
                                                 echo "</td>";
                                                 }
                                             echo "</tr>"
