@@ -21,11 +21,11 @@
             return $response;
         }
 
-        public function ObtenerServicioExperiencia($dato){
+        public function ObtenerServicioExperiencia($experience, $service){
             try{
-                $sql = "SELECT * FROM experiencia_servicio where idexperiencia =?";
+                $sql = "SELECT * FROM experiencia_servicio where idexperiencia = ? AND experiencia_servicio.id_servicio = ?";
                 $query = $this->DataBase->prepare($sql);
-                $data = [$dato];
+                $data = [$experience, $service];
                 $query->execute($data);
                 $empresas = $query->fetchAll();
                 $response = ['status' => 1, 'empresas' => $empresas];
