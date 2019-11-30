@@ -20,10 +20,37 @@
             }
             return $response;
         }
+        public function ObtenerServicioExper($dato){
+            try{
+                $sql = "SELECT * FROM experiencia_servicio where idexperiencia = ?";
+                $query = $this->DataBase->prepare($sql);
+                $data = [$dato];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+           }catch (Exception $e){
+            $response = ['status' => 0, 'empresas' => $e];
+           }
+           return $response; 
+        }
+
+        public function getServicioExpe($dato){
+            try{
+                $sql = "SELECT * FROM experiencia_servicio WHERE idexperiencia = ?";
+                $query = $this->DataBase->prepare($sql);
+                $data = [$dato];
+                $query->execute($data);
+                $empresas = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $empresas];
+           }catch (Exception $e){
+            $response = ['status' => 0, 'empresas' => $e];
+           }
+           return $response;
+        }
 
         public function ObtenerServicioExperiencia($experience, $service){
             try{
-                $sql = "SELECT * FROM experiencia_servicio where idexperiencia = ? AND experiencia_servicio.id_servicio = ?";
+                $sql = "SELECT * FROM experiencia_servicio WHERE idexperiencia = ? AND experiencia_servicio.id_servicio = ?";
                 $query = $this->DataBase->prepare($sql);
                 $data = [$experience, $service];
                 $query->execute($data);
