@@ -585,12 +585,12 @@
                         $cods =[];
                         for ($h=0; $h < sizeof($codigos); $h++) { 
                                 $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
-                                if($obtengoServExper['status']==1){
+                                if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
                                     array_push($cods, $codigos[$h]);
                                     $contar = $contar+1;
                                 }
-                            }         
-                        if($contar >= $required['empresas'][0]['min_cod_req']){
+                        }         
+                        if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req'] && $cods != 0){
                             $cod = implode(',',$cods);
                             array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0]['valor_contrato_smmlv'],"tipoActividad"=>$data['empresas'][0]['tipo_objeto_actividad'],"codigos"=>$cod)); // guardo la empresa junto a el objeto que cumple
                         }
