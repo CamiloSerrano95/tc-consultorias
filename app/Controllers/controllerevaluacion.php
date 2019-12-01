@@ -40,29 +40,7 @@
             return $request;
         }
 
-        public function filtroObjetos($Licitacion,$objetos){
-            $empresas = new CumplimientosModel();
-            $mientes =[];
-            for ($i=0; $i < sizeof($objetos); $i++) { 
-                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
-                array_push($mientes , $data);
-            }
-            $nit = [];// Se genera un array vacio llamado nit
-            for ($i=0; $i < sizeof($mientes); $i++) { 
-                array_push($nit, $mientes[$i]['empresas'][0]['nit']);
-            }
-            $request=["pedido"=>$objetos,"pasaron"=>$nit, "licitacion" => $Licitacion];
-            return $request;
-        }
-
-        public function codigosObjetos($variableReal, $nit, $Licitacion){            
-            $request = [];
-            $intersecto = array_intersect_assoc($variableReal,$nit);
-            $request = ["pasaron"=>$intersecto, "licitacion" => $Licitacion];
-            return $request;
-        }
-
-        public function filtroExperiencia($primeroysegundo,$objetos ,$Contratos, $codigos, $CodigosRequeridos, $PresupuestoOficial,$PorcentajeExigido,$Licitacion){
+        public function filtroObjetos($Licitacion,$objetos, $Contratos, $CodigosRequeridos, $codigos){
             $empresas = new CumplimientosModel();
             $pibot =[];
             #-----------------Empresas que cumplen con los objetos--------------------------
@@ -91,16 +69,9 @@
             }
             $obtenerEmpresa =((array_column($cont,'empresa')));
             $obtenerCantidad = array_count_values($obtenerEmpresa);
-            $pasaCantidadObjetos =[];
-            foreach ($obtenerCantidad as $key => $value) {
-                if ($value >= $Contratos){
-                    array_push($pasaCantidadObjetos, $key);
-                }
-            }
-
             #-----------Cantidad de Códigos que tiene esa experiencia------------------
             $auxi =[];
-
+            
             for ($i=0; $i < sizeof($objetos); $i++) { 
                 $carta =0;
                 $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
@@ -113,12 +84,46 @@
                 }
                 array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
             }
+
             $cantidadCodigos = [];
-            for ($i=0; $i < sizeof($auxi) ; $i++) { 
-                if($auxi[$i]['cantidad'] >= $CodigosRequeridos){
-                    array_push($cantidadCodigos, $auxi[$i]['objeto']);
+
+            foreach ($auxi as $key => $value) {
+                if($value['cantidad']>=$CodigosRequeridos){
+                    array_push($cantidadCodigos, $value['objeto']);
                 }
             }
+
+            
+            $pasaCantidadObjetos =[];
+            foreach ($obtenerCantidad as $key => $value) {
+                if ($value >= $Contratos){
+                    array_push($pasaCantidadObjetos, $key);
+                }
+            }
+            $aprobaron =[];
+            for ($i=0; $i < sizeof($pasaCantidadObjetos) ; $i++) { 
+                for ($j=0; $j < sizeof($cantidadCodigos); $j++) { 
+                    $ver = $empresas->ObjetoEmpresa($cantidadCodigos[$j]);
+                    for ($h=0; $h < sizeof($ver); $h++) { 
+                        if($ver['empresas'][0]['nit'] == $pasaCantidadObjetos[$i]){
+                            array_push($aprobaron,$ver['empresas'][0]['nit']);
+                        }
+                    }
+                }
+            }
+            $request=["pedido"=>$objetos,"pasaron"=>array_unique($aprobaron) ,"cantidad" =>$cantidadCodigos, "licitacion" => $Licitacion];
+            return $request;
+        }
+
+        public function codigosObjetos($variableReal, $nit, $Licitacion){            
+            $request = [];
+            $intersecto = array_intersect_assoc($variableReal,$nit);
+            $request = ["pasaron"=>$intersecto, "licitacion" => $Licitacion];
+            return $request;
+        }
+
+        public function filtroExperiencia($primeroysegundo ,$Contratos, $cantidadCodigos, $CodigosRequeridos, $PresupuestoOficial,$PorcentajeExigido,$Licitacion){
+            $empresas = new CumplimientosModel();
             $result =[];
             $valorComp = $PresupuestoOficial * ($PorcentajeExigido/100);
             for ($i=0; $i < sizeof($cantidadCodigos) ; $i++) { 
@@ -180,7 +185,7 @@
                 $variableReal = $this->filtroUnspsc($id['id'], $codigos, $CodigosRequeridos);
                 $empresas->AddCumplimientoUNSPSC(json_encode($codigos), json_encode($variableReal['pasaron']), $id['id']);
                 //-----------------Segundo Filtro Objetos-Experiencias --------------------------------------
-                $nit = $this->filtroObjetos($id['id'],$objetos);
+                $nit = $this->filtroObjetos($id['id'],$objetos,$Contratos,$CodigosRequeridos,$codigos);
                 $empresas->AddCumplimientoObjeto(json_encode($objetos), json_encode($nit['pasaron']), $id['id']);
                 // Se obtiene un array llamado objetos que trae todos los nit de los objetos a buscar por el solicitante
                 
@@ -188,7 +193,7 @@
                 $primeroysegundo = $this->codigosObjetos($variableReal['pasaron'],$nit['pasaron'],$id['id']);
                 $empresas->AddFiltroUnoDos(json_encode($primeroysegundo['pasaron']),$id['id']);
                 //-----------------------------TERCER FILTRO-----------------------------------------
-                $parteTres = $this->filtroExperiencia($primeroysegundo['pasaron'],$objetos,$Contratos,$codigos, $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $id['id']);
+                $parteTres = $this->filtroExperiencia($primeroysegundo['pasaron'],$Contratos,$nit['cantidad'], $CodigosRequeridos,$PresupuestoOficial,$PorcentajeExigido, $id['id']);
                 $empresas->AddCumplimientoExperiencia($Contratos, $CodigosRequeridos, $PorcentajeExigido , $PresupuestoOficial, $parteTres['pedidos'][4], json_encode($parteTres['pasaron']), $id['id']);
                 //------------------------------all final section--------------------------------------------
                 $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$id['id'],$patrimonio,$capitalTrabajo);

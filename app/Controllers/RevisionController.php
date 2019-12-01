@@ -569,36 +569,40 @@
 
         public function RevisionExperienciaCumple($id,$licitacion){
             $empr = new AprobadosModel();
-            $empresas = new CumplimientosModel();
-            $required = $empr->obtenerpedidosExperiencia($licitacion);
-            $requiredObject = $empr->obtenerSegundo($licitacion);
-            $requiredCods = $empr->obtenerFiltroUno($licitacion);
-            $objetos = json_decode($requiredObject['empresas'][0]['objetos']);
-            $pibot =[];
-            #-----------------Empresas que cunplen con los objetos--------------------------
-            $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
-            for ($i=0; $i < sizeof($objetos); $i++) { 
-                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
-                if($data['status']==1){
-                    if($id == $data['empresas'][0]['nit']){
-                        $contar = 0;
-                        $cods =[];
-                        for ($h=0; $h < sizeof($codigos); $h++) { 
-                                $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
-                                if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
-                                    array_push($cods, $codigos[$h]);
-                                    $contar = $contar+1;
-                                }
-                        }         
-                        if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req'] && $cods != 0){
-                            $cod = implode(',',$cods);
-                            array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0]['valor_contrato_smmlv'],"tipoActividad"=>$data['empresas'][0]['tipo_objeto_actividad'],"codigos"=>$cod)); // guardo la empresa junto a el objeto que cumple
+            try {
+                $empresas = new CumplimientosModel();
+                $required = $empr->obtenerpedidosExperiencia($licitacion);
+                $requiredObject = $empr->obtenerSegundo($licitacion);
+                $requiredCods = $empr->obtenerFiltroUno($licitacion);
+                $objetos = json_decode($requiredObject['empresas'][0]['objetos']);
+                $pibot =[];
+                #-----------------Empresas que cunplen con los objetos--------------------------
+                $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
+                for ($i=0; $i < sizeof($objetos); $i++) { 
+                    $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
+                    if($data['status']==1){
+                        if($id == $data['empresas'][0]['nit']){
+                            $contar = 0;
+                            $cods =[];
+                            for ($h=0; $h < sizeof($codigos); $h++) { 
+                                    $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
+                                    if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
+                                        array_push($cods, $codigos[$h]);
+                                        $contar = $contar+1;
+                                    }
+                            }    
+                            if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req'] && $cods != 0){
+                                $cod = implode(',',$cods);
+                                array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0]['valor_contrato_smmlv'],"tipoActividad"=>$data['empresas'][0]['tipo_objeto_actividad'],"codigos"=>$cod)); // guardo la empresa junto a el objeto que cumple
+                            }
                         }
                     }
                 }
+                return Vista::crear("ViewAprobados.ViewExperience", $pibot);
+            } catch (Exception $th) {
+                print_r($th);
             }
 
-            return Vista::crear("ViewAprobados.ViewExperience", $pibot);
         }
     }  
 ?>
