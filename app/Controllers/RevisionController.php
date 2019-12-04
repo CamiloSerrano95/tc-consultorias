@@ -190,7 +190,7 @@
 
         public function pibotExperiencias($idLicitacion,$idEmpresa,$codigos){
             $empresas = new AprobadosModel();
-            $datosUns = $empresas->filtroUns($idLicitacion,$codigos);
+            $datosUns = $empresas->obtenerFiltroUno($idLicitacion,$codigos);
             $datosObj = $empresas->obtenerSegundo($idLicitacion);
             $arreglo = json_decode($datosUns['empresas'][0]['objetos']);
             $Codigos = $this->filtroUnspsc($idLicitacion,$arreglo);
@@ -406,7 +406,6 @@
             $id = $dat;   
             $datos = $empresas->obtenerFiltroUno($id);
             $codigos = [];
-            
             $data1= json_decode($datos['empresas'][0]['objetos']);
             $data = json_decode($datos['empresas'][0]['result']);
             for ($i=0; $i < sizeof($data1); $i++) { 
@@ -427,7 +426,7 @@
                 }
                 $obtenerNombreEmpresa = $empresas->obtenerEmpresa($data[$i]);
                 $auxi = implode(",",$cods);
-                array_push($values, array("nombre"=>$obtenerNombreEmpresa['empresas'][0]['nombre_empresa'], "codigos"=>$auxi));
+                array_push($values, array("nombre"=>$obtenerNombreEmpresa['empresas'][0]['nombre_empresa'], "codigos"=>$auxi, "idEmpresa"=>$data[$i]));
             }
             return Vista::crear("ViewAprobados.CumplimientoUnspsc",array ("datos"=>$values, "id"=>$id, "otros"=>$values));
         }
@@ -497,23 +496,24 @@
         
         public function filtroUnspsc($Licitacion,$codigos){
             $empresas = new CumplimientosModel();
+            $empr= new AprobadosModel();
+            $required = $empr->obtenerpedidosExperiencia($Licitacion);
+            $requeridos = $required['empresas'][0]['min_cod_req'];
             $prrr= [];
             $uaa = [];
+            $paso =[];
             for ($i=0; $i < sizeof($codigos); $i++) { 
-                $codiger = $empresas->EmpresaCodigitos($codigos[$i]);
-                for ($j=0; $j < sizeof($codiger)-1 ; $j++) { 
-                    for ($h=0; $h < sizeof($codiger['empresas']); $h++) {                 
-                        $conteo = $codiger['empresas'][$h]['nit_empresa']; 
-                    //    print_r($conteo);
-                        array_push($prrr, $conteo);
-                    }
+                $codiger = $empresas->EmpresaCodigitos($codigos[$i]);                
+                for ($h=0; $h < sizeof($codiger['empresas']); $h++) {                 
+                    $conteo = $codiger['empresas'][$h]['nit_empresa'];
+                    array_push($prrr, $conteo);
+                    array_push($paso,array("codigo"=>$codigos[$i],"empresa"=>$conteo));
                 }
             }
-            
             $uaa = array_count_values($prrr);
             $variableReal=[];
             foreach ($uaa as $key => $value) {
-                if($value == sizeof($codigos)){
+                if($value >= $requeridos){
                     array_push($variableReal,$key);
                 }
             }
@@ -523,16 +523,84 @@
 
         public function filtroObjetos($Licitacion,$objetos){
             $empresas = new CumplimientosModel();
-            $mientes =[];
+            $empr = new AprobadosModel();
+            $requerido = $empr->obtenerpedidosExperiencia($Licitacion);
+            $codsRequired =$empr->obtenerFiltroUno($Licitacion);
+            $Contratos = $requerido['empresas'][0]['nro_contratos'];
+            $CodigosRequeridos = $requerido['empresas'][0]['min_cod_req'];
+            $codigos = json_decode($codsRequired['empresas'][0]['objetos']);
+            $pibot =[];
+            #-----------------Empresas que cumplen con los objetos--------------------------
             for ($i=0; $i < sizeof($objetos); $i++) { 
                 $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
-                array_push($mientes , $data);
+                if($data['status']==1){
+                    for ($j=0; $j < sizeof($data['empresas']); $j++) { 
+                        array_push($pibot, $data['empresas'][$j]['nit'], $objetos[$i]); // guardo la empresa junto a el objeto que cumple
+                    }
+                }
             }
-            $nit = [];// Se genera un array vacio llamado nit
-            for ($i=0; $i < sizeof($mientes); $i++) { 
-                array_push($nit, $mientes[$i]['empresas'][0]['nit']);
+            $cont =[];
+            #----------------Cantidad de objetos por empresa----------------------------
+            for ($i=0; $i < sizeof($pibot); $i++) { 
+                if($i % 2==0 || $i==0 ){
+                    $arrayObjects =[];
+                    $j = 0;
+                    foreach ($pibot as $key=>$value) {
+                        if($key %2 ==0 || $key ==0){
+                            if($pibot[$i]==$value){
+                                $j= $j+1;
+                                array_push($arrayObjects, $pibot[$i+1]);
+                            }                        
+                        }
+                    }
+                    array_push($cont, array("empresa"=>$pibot[$i], "cantidad"=>$j, "codigos"=>$arrayObjects));
+                }
             }
-            $request=["pedido"=>$objetos,"pasaron"=>$nit, "licitacion" => $Licitacion];
+            $obtenerEmpresa =((array_column($cont,'empresa')));
+            $obtenerCantidad = array_count_values($obtenerEmpresa);
+            #-----------Cantidad de Códigos que tiene esa experiencia------------------
+            $auxi =[];
+            
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $carta =0;
+                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                foreach ($obtengoServExper['empresas'] as $key => $value) {
+                    for ($j=0; $j < sizeof($codigos); $j++) { 
+                        if($value['id_servicio'] == $codigos[$j]){
+                            $carta = $carta+1;
+                        }
+                    }
+                }
+                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
+            }
+
+            $cantidadCodigos = [];
+
+            foreach ($auxi as $key => $value) {
+                if($value['cantidad']>=$CodigosRequeridos){
+                    array_push($cantidadCodigos, $value['objeto']);
+                }
+            }
+
+            
+            $pasaCantidadObjetos =[];
+            foreach ($obtenerCantidad as $key => $value) {
+                if ($value >= $Contratos){
+                    array_push($pasaCantidadObjetos, $key);
+                }
+            }
+            $aprobaron =[];
+            for ($i=0; $i < sizeof($pasaCantidadObjetos) ; $i++) { 
+                for ($j=0; $j < sizeof($cantidadCodigos); $j++) { 
+                    $ver = $empresas->ObjetoEmpresa($cantidadCodigos[$j]);
+                    for ($h=0; $h < sizeof($ver); $h++) { 
+                        if($ver['empresas'][0]['nit'] == $pasaCantidadObjetos[$i]){
+                            array_push($aprobaron,$ver['empresas'][0]['nit']);
+                        }
+                    }
+                }
+            }
+            $request=["pedido"=>$objetos,"pasaron"=>array_unique($aprobaron), "licitacion" => $Licitacion, "objetos"=>(array_column($cont,'codigos'))];
             return $request;
         }
         public function filtroUnoyDos($dat){
@@ -554,16 +622,62 @@
 
         public function SeeExperience($dat,$idEmpresa){
             $empr = new AprobadosModel();
+            $empresas = new CumplimientosModel();
+            $requiredCods = $empr->obtenerFiltroUno($dat);
+            $requerido = $empr->obtenerpedidosExperiencia($dat);
+            $CodigosRequeridos= $requerido['empresas'][0]['min_cod_req'];
+            $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
             $pedido = $empr->obtenerSegundo($dat);
-            $name= $empr->obtenerEmpresa($idEmpresa);            //nombre de la empresa en cuestion.
             $requiredObjects = json_decode($pedido['empresas'][0]['objetos']);//los objetos que me piden tener
             $info = [];
-            for ($i=0; $i < sizeof($requiredObjects) ; $i++) { 
-                $experiencia = $empr->obtengoExperiencia($requiredObjects[$i]);         //datos de la experiencia
-                if($experiencia['empresas'][0]['id_empresa_experiencia'] == $idEmpresa){    //si la experiencia pertenece a la empresa en cuestion                
-                    array_push($info,array($name['empresas'][0]['nombre_empresa'],$experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad']));
+            $filtrado = $this->filtroObjetos($dat,$requiredObjects);
+            $rep_array = [];
+            
+            for ($l=0; $l <sizeof($filtrado['pedido']) ; $l++) { 
+                array_push($rep_array,$filtrado['pedido'][$l]);
+            }
+
+            $objetos = $rep_array;
+            $auxi =[];  
+            
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $carta =0;
+                $pibo =[];
+                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                foreach ($obtengoServExper['empresas'] as $key => $value) {
+                    $aux =[];
+                    for ($j=0; $j < sizeof($codigos); $j++) { 
+                        if($value['id_servicio'] == $codigos[$j]){
+                            $carta = $carta+1;
+                            array_push($aux, $codigos[$j]);
+                        }
+                    }
+                    if($aux != null){
+                        array_push($pibo, implode(",",$aux));
+                    }
+                }
+                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta, "codigos"=>$pibo));
+            }
+
+            $cantidadCodigos = [];
+
+            foreach ($auxi as $key => $value) {
+                if($value['cantidad']>=$CodigosRequeridos){
+                    array_push($cantidadCodigos, array("objeto"=>$value['objeto'],"codigos"=>$value['codigos']));
                 }
             }
+
+            for ($i=0; $i < sizeof($filtrado['pasaron']) ; $i++) { 
+                if($idEmpresa == $filtrado['pasaron'][$i]){
+                    for ($l=0; $l < sizeof($cantidadCodigos); $l++) { 
+                        if($rep_array[$i] == $cantidadCodigos[$l]['objeto']){
+                            $experiencia = $empr->obtengoExperiencia($rep_array[$i]); //datos de la experiencia
+                            array_push($info,array($experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad'],$cantidadCodigos[$l]['codigos']));
+                        }
+                    }
+                }
+            }
+
             return Vista::crear("ViewAprobados.SeeExpe",$info);
         } 
 

@@ -20,7 +20,6 @@
                                 <table id="zero_config" class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>NOMBRE EMPRESA</th>
                                             <th>EXPERIENCIA No.1</th>
                                             <th>NÚMERO CONSECUTIVO DEL CONTRATO</th>
                                             <th>CONTRATO CELEBRADO POR</th>
@@ -68,7 +67,7 @@
                                                         echo $key[$i][9];
                                                     echo "</td>";
                                                     echo "<td>";
-                                                        echo $key[$i][10];
+                                                        echo implode(",",$key[$i][10]);
                                                     echo "</td>";  
                                                 }
                                             echo "</tr>"
