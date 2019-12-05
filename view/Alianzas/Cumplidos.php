@@ -1,17 +1,5 @@
 <?php 
     require dirname(__FILE__).'/../home/header.php'; 
-    $data ="";
-    $var ="";
-    $licit="";
-    if(isset($key['datos'])){
-        $data = $key['datos'][7]['aprobaron'];
-        $var = $key['nombre'];
-        $licit = $key['datos'][7]['licitacion'];
-    }else{
-        $var = $key['nombre'];
-        $data = $key['aprobaron'];
-        $licit = $key['licitacion'];
-    }
 ?> 
 
 
@@ -161,6 +149,43 @@
                                 </div>
                             </div>
                         </form>
+
+                        <div class="card mt-5">
+                            <h5 class="card-title">PRIMERA TABLA</h5>
+                            <div class="table-responsive text-center mt-5">
+                                <table  class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Algo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Algo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card mt-5">
+                            <h5 class="card-title">SEGUNDA TABLA</h5>
+                            <div class="table-responsive text-center mt-5">
+                                <table  class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Algo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Algo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

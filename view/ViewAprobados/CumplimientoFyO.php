@@ -16,24 +16,30 @@
                     <div class="card-body">
                         <h5 class="card-title mt-5">DATOS REQUERIDOS</h5>
                         <div class="table-responsive text-center mt-3">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <td>INDICE DE LIQUIDEZ</td>
-                                            <td>INDICE DE ENDEUDAMIENTO</td>
-                                            <td>RAZON COBERTURA DE INTERES</td>
-                                            <td>RENTABILIDAD SOBRE EL PATRIMONIO</td>
-                                            <td>RENTABILIDAD DEL ACTIVO</td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td><?php echo $key['dato']['requridos']['ind_liquidez'];?></td>
-                                            <td><?php echo $key['dato']['requridos']['endeudamiento'];?></td>
-                                            <td><?php echo $key['dato']['requridos']['raz_cobertura_int'];?></td>
-                                            <td><?php echo $key['dato']['requridos']['rent_patrimonio'];?></td>
-                                            <td><?php echo $key['dato']['requridos']['rent_activos'];?></td>
-                                        </tr>
-                                    </thead>
-                                </table>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>INDICE DE LIQUIDEZ</td>
+                                        <td>INDICE DE ENDEUDAMIENTO</td>
+                                        <td>RAZON COBERTURA DE INTERES</td>
+                                        <td>RENTABILIDAD SOBRE EL PATRIMONIO</td>
+                                        <td>RENTABILIDAD DEL ACTIVO</td>
+                                    </tr>
+                                    <tr>                                            
+                                        <td><?php echo $key['dato']['requridos']['ind_liquidez'];?></td>
+                                        <td><?php echo $key['dato']['requridos']['endeudamiento'];?></td>
+                                        <td><?php echo $key['dato']['requridos']['raz_cobertura_int'];?></td>
+                                        <td><?php echo $key['dato']['requridos']['rent_patrimonio'];?></td>
+                                        <td><?php echo $key['dato']['requridos']['rent_activos'];?></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-5">
+                                <a href="<?php echo ABS_PATH."revision/everycompany"?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body mt-3">

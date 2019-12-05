@@ -718,5 +718,9 @@
             }
 
         }
+
+        public function everycompany(){
+            return Vista::crear("Alianzas.Cumplidos");
+        }
     }  
 ?>
