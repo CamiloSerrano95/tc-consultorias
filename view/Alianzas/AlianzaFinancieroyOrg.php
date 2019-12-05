@@ -42,16 +42,27 @@
             charizard.appendChild(a);
         }
 
-        function EliminarInput (id,od) {
-        
-            var x = document.getElementById(id);
-            var y = document.getElementById(od);
-            if (!x){
-                alert("elemento no definido");
-            }else{
-                x.parentNode.removeChild(x);
-                y.parentNode.removeChild(y);
-            }
+    </script>
+
+<script>
+        function create() {
+            
+            var contenedor = document.getElementById('companyA');
+            var charizard = document.getElementById('companyB');            
+            
+            var x = document.createElement('input');
+            x.setAttribute("class", "form-control mt-3");
+            /* x.setAttribute("id" , "selecsito"); */
+            /* x.setAttribute("name", "empresas[]"); */
+            /* x.setAttribute("value", partes[0]); */
+            contenedor.appendChild(x);
+
+            var a = document.createElement('input');
+            a.setAttribute("class", "form-control mt-3");
+            /* a.setAttribute("id" , "selec1"); */
+            /* a.setAttribute("name", "porcentaje[]"); */
+            a.setAttribute("placeholder", "Asignar Porcentaje Ej: 40");
+            charizard.appendChild(a);
         }
 
     </script>
@@ -92,7 +103,6 @@
                                 </div>
                                 <div class="col-sm-4 mt-2">
                                     <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
-                                    <button type="button" onclick="EliminarInput ('selec1','selecsito')" class="btn btn-primary">Eliminar Empresa</button>
                                 </div>
                             </div>
                             
@@ -174,6 +184,79 @@
                                 </div>
                             </div>
                         </form>
+
+                        <div class="card mt-5">
+                            <h5 class="card-title">PRIMERA TABLA</h5>
+                            <div class="table-responsive text-center mt-5">
+                                <table  class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Algo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Algo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card mt-5">
+                            <h5 class="card-title">SEGUNDA TABLA</h5>
+                            <div class="table-responsive text-center mt-5">
+                                <table  class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Algo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Algo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <form action="" method="POST" class="form-horizontal">
+                            <div class="form-group row mt-5">
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" name="porcentajeEmpresa" id="fname" placeholder="Porcentaje %" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;">
+                                            <option>value</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mt-2">
+                                    <button type="button" onclick="create()" class="btn btn-primary">Agregar Empresa</button>
+                                </div>
+                            </div>
+                            
+                            <div id="joker">
+                                <div class="row">
+                                    <div id="companyA" class="form-group col-sm-9">
+                                        <!-- input1 -->
+                                    </div>
+                                    <div id="companyB" class="form-group col-sm-3">
+                                        <!-- input2 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Comparar</button>
+                        </form>
+
+
                     </div>
                 </div>
             </div>
