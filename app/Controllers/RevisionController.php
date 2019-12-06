@@ -726,12 +726,8 @@
             $required = new AprobadosModel();
             $requiredExperiences = $required->obtenerExperiencias($licitacion);
             $requiredObjects = $required->obtenerSegundo($licitacion);
-            $allCompany = $empresas->EveryThings();
             $dataCompany =[];
             #----------------------AllCompany--------------------------------
-            foreach ($allCompany['empresas'] as $key => $value) {
-                array_push($dataCompany,array("nit" =>$value['nit'], "nombre"=>$value['nombre_empresa']));
-            }
             #-----------------------Filtro-----------------
             $seeObject = $this->filtroObjetos($licitacion, json_decode($requiredObjects['empresas'][0]['objetos']));
             $objetos = json_decode($requiredObjects['empresas'][0]['objetos']);
@@ -785,37 +781,26 @@
                 }
                 array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
             }
-
+            
             $cantidadCodigos = [];
-
+            
             foreach ($auxi as $key => $value) {
                 if($value['cantidad']>=$CodigosRequeridos){
                     array_push($cantidadCodigos, $value['objeto']);
                 }
             }
-
+            
             
             $pasaCantidadObjetos =[];
             $Cantidad_por_empresa =[];
             foreach ($obtenerCantidad as $key => $value) {
-                if ($value >= $Contratos){
-                    array_push($pasaCantidadObjetos, $key);
-                    array_push($Cantidad_por_empresa, array("nit"=>$key, "cantidad"=>$value));
-                }
+                array_push($pasaCantidadObjetos, $key);
+                $nameCompany = $required->obtenerEmpresa($key);
+                array_push($Cantidad_por_empresa, array("nit"=>$nameCompany['empresas'][0]['nombre_empresa'], "cantidad"=>$value));
             }
-            $aprobaron =[];
-            for ($i=0; $i < sizeof($pasaCantidadObjetos) ; $i++) { 
-                for ($j=0; $j < sizeof($cantidadCodigos); $j++) { 
-                    $ver = $empresas->ObjetoEmpresa($cantidadCodigos[$j]);
-                    for ($h=0; $h < sizeof($ver); $h++) { 
-                        if($ver['empresas'][0]['nit'] == $pasaCantidadObjetos[$i]){
-                            array_push($aprobaron,$ver['empresas'][0]['nit']);
-                        }
-                    }
-                }
-            }
+            
             #---------------------------------------------------------------------------------------------
-            return Vista::crear("Alianzas.Cumplidos",array("empresa"=>$dataCompany,"infoAnswer"=>$Cantidad_por_empresa ,"nro_contratos"=>$requiredExperiences['empresas'][0]['nro_contratos']));
+            return Vista::crear("Alianzas.Cumplidos",array("infoAnswer"=>$Cantidad_por_empresa ,"nro_contratos"=>$requiredExperiences['empresas'][0]['nro_contratos']));
         }
     }  
 ?>
