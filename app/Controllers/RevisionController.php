@@ -721,20 +721,16 @@
 
         }
 
-        public function everycompany($licitacion){
+        public function validateObjects($licitacion){
             $empresas = new EmpresaModel();
             $required = new AprobadosModel();
-            $requiredExperiences = $required->obtenerExperiencias($licitacion);
             $requiredObjects = $required->obtenerSegundo($licitacion);
-            $dataCompany =[];
-            #----------------------AllCompany--------------------------------
+            $requiredExperiences = $required->obtenerExperiencias($licitacion);
             #-----------------------Filtro-----------------
-            $seeObject = $this->filtroObjetos($licitacion, json_decode($requiredObjects['empresas'][0]['objetos']));
             $objetos = json_decode($requiredObjects['empresas'][0]['objetos']);
             $empresas = new CumplimientosModel();
             $requerido = $required->obtenerpedidosExperiencia($licitacion);
             $codsRequired =$required->obtenerFiltroUno($licitacion);
-            $Contratos = $requerido['empresas'][0]['nro_contratos'];
             $CodigosRequeridos = $requerido['empresas'][0]['min_cod_req'];
             $codigos = json_decode($codsRequired['empresas'][0]['objetos']);
             $pibot =[];
@@ -798,9 +794,71 @@
                 $nameCompany = $required->obtenerEmpresa($key);
                 array_push($Cantidad_por_empresa, array("nit"=>$nameCompany['empresas'][0]['nombre_empresa'], "cantidad"=>$value));
             }
-            
-            #---------------------------------------------------------------------------------------------
-            return Vista::crear("Alianzas.Cumplidos",array("infoAnswer"=>$Cantidad_por_empresa ,"nro_contratos"=>$requiredExperiences['empresas'][0]['nro_contratos']));
+            return array("infoAnswer"=>$Cantidad_por_empresa ,"nro_contratos"=>$requiredExperiences['empresas'][0]['nro_contratos'],"licitacion"=>$licitacion);
+        }
+
+        public function everycompany($licitacion){
+            return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion));
+        }
+
+        public function freeAliance(){
+            $required = new AprobadosModel();
+            $empresas = $_POST['empresas'];
+            $porcentaje = $_POST['porcentaje'];
+            $licitacion = $_POST['licitacion'];
+            $requiredFinancy = $required->obtenerfinanciero($licitacion);
+            $pib = $requiredFinancy['empresas'][0];
+            $response = $this->validateObjects($licitacion);
+            $adder = 0;
+            for ($i=0; $i < sizeof($empresas); $i++) { 
+                if($empresas[$i] == $response['infoAnswer'][$i]['nit']){
+                    $adder = $adder+ $response['infoAnswer'][$i]['cantidad'];
+                }
+            }
+            if($adder >= $response['nro_contratos']){
+                $empresas = [];
+                $porcentaje =[];
+                if(isset($_POST['empresas'])){
+                    $empresas = $_POST['empresas'];
+                    $porcentaje = $_POST['porcentaje'];
+                }
+                $licitacion = $_POST['licitacion'];
+                $indiceL = 0;
+                $indice_endeudamento =0;
+                $razon_cobertura_interes =0;
+                $rentabilidad_patrimonio =0;
+                $rentabilidad_del_activo =0;
+                $capital_de_trabajo =0;
+                $patrimonio = 0;
+                for ($i=0; $i < sizeof($empresas); $i++) { 
+                    $info = $required->obtenerEmpresaNombre($empresas[$i]);
+                    $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
+                    $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
+                    $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
+                    $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
+                    $patrimonio = (($info['empresas'][0]['patrimonio'])* ($porcentaje[$i]/100)) + $patrimonio;
+                }
+                $vectorCumple = [];
+                $requeridos = $required->obtenerfinanciero($licitacion);
+                $pib = $requeridos['empresas'][0];        
+                $validation = [];
+                $datosFinancieros =[];
+                if($pib['ind_liquidez'] <= $indiceL && $pib['endeudamiento'] >= $indice_endeudamento && $pib['rent_patrimonio'] <= $rentabilidad_patrimonio && $pib['rent_activos'] <= $rentabilidad_del_activo && $pib['patrimonio'] <= $patrimonio && $capital_de_trabajo >= $pib['capital_trabajo']){
+                    if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $razon_cobertura_interes || $razon_cobertura_interes == 0){
+                        array_push($vectorCumple, $indiceL, $indice_endeudamento,$razon_cobertura_interes, $rentabilidad_patrimonio,$rentabilidad_del_activo, $capital_de_trabajo,$patrimonio);
+                        array_push($datosFinancieros,$pib['ind_liquidez'],$pib['endeudamiento'], $pib['raz_cobertura_int'],$pib['rent_patrimonio'], $pib['rent_activos'],$pib['patrimonio'], $pib['capital_trabajo']);
+                        $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "financiero"=>$datosFinancieros];
+                    }
+                }else{
+                    array_push($vectorCumple, $indiceL, $indice_endeudamento,$razon_cobertura_interes, $rentabilidad_patrimonio,$rentabilidad_del_activo, $capital_de_trabajo,$patrimonio);
+                    $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple, "financiero"=>$datosFinancieros];
+                }
+                return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion), $validation);
+            }else{
+                return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion));
+            }
         }
     }  
 ?>

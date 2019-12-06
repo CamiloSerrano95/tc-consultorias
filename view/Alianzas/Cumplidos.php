@@ -66,6 +66,11 @@
 
                         <div class="card mt-5">
                             <h5 class="card-title">SEGUNDA TABLA</h5>
+                            <?php if(isset($value['status'])){ if($value['status'] == 'aprueba'){?>
+                                <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
+                                <?php }else {?>
+                                    <div class="alert alert-danger text-center mt-5" role="alert" >No aprobado</div>
+                                 <?php }}?>
                             <div class="table-responsive text-center mt-5">
                                 <table  class="table table-bordered">
                                     <thead class="thead-dark">
@@ -87,7 +92,7 @@
                             </div>
                         </div>
                         
-                        <form action="<?php echo ABS_PATH."revision/alianzaCodExperiencia";?>" method="POST" class="form-horizontal">
+                        <form action="<?php echo ABS_PATH."revision/freeAliance";?>" method="POST" class="form-horizontal">
                             <div class="row mt-3">
                             <input type="hidden" name="nit" value="<?php  echo $nit; ?>">
                                 <div class="col-sm-8">
@@ -99,6 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mt-2">
+                                    <input type="hidden" name="licitacion" value ="<?php echo $key['licitacion'];?>">
                                     <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
                                 </div>
                             </div>
