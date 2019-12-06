@@ -46,111 +46,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo ABS_PATH."revision/alianzaCodExperiencia";?>" method="POST" class="form-horizontal">
-                            <div class="form-group row mt-5">
-                                <div class="col-sm-10">
-                                    <input type="text" value ="<?php echo $var; ?>" class="form-control" name="nombre" id="fname" placeholder="Nombre Empresa" required>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" name="porcentajeEmpresa" id="fname" placeholder="Porcentaje %" required>
-                                    <input type="hidden" name="licitacion" value="<?php echo $licit; ?>">
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                            <input type="hidden" name="nit" value="<?php  echo $nit; ?>">
-                                <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
-                                            <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
-                                            <option value="<?php  echo $data[$i]; ?>"><?php echo $data[$i];} ?></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 mt-2">
-                                    <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
-                                </div>
-                            </div>
-                            
-                            <div id="joker">
-                                <div class="row">
-                                    <div id="contenedor" class="form-group col-sm-9">
-                                        <!-- input1 -->
-                                    </div>
-                                    <div id="charizard" class="form-group col-sm-3">
-                                        <!-- input2 -->
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Comparar</button>
-                            
-                            <?php if(isset($key['status'])){ if($key['status'] == 'aprueba'){?>
-                            <div class="card mt-5">
-                                <h5 class="card-title">DATOS REQUERIDOS</h5>
-                                <div class="table-responsive text-center mt-5">
-                                    <table  class="table table-bordered">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th>Indice de liquidez</th>
-                                                <th>Indice de endeudamiento</th>
-                                                <th>Razon de cobertura</th>
-                                                <th>Rentabilidad de patrimonio</th>
-                                                <th>Rentabilidad del activo</th>
-                                                <th>Capital de trabajo</th>
-                                                <th>Patrimonio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            <td><?php echo $key['financiero'][0];?></td>
-                                            <td><?php echo $key['financiero'][1];?></td>
-                                            <td><?php echo $key['financiero'][2];?></td>
-                                            <td><?php echo $key['financiero'][3];?></td>
-                                            <td><?php echo $key['financiero'][4];?></td>
-                                            <td><?php echo $key['financiero'][5];?></td>
-                                            <td><?php echo $key['financiero'][6];?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                             <div class="card mt-5">
-                             <h5 class="card-title">RESULTADO</h5>                                 
-                                    <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
-                            <?php }else {?>
-                                    <div class="alert alert-danger text-center mt-5" role="alert" >No aprobado</div>
-                                 <?php }?>
-                                <div class="table-responsive text-center mt-5">
-                                    <table  class="table table-bordered">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th>Indice de liquidez</th>
-                                                <th>Indice de endeudamiento</th>
-                                                <th>Razon de cobertura</th>
-                                                <th>Rentabilidad de patrimonio</th>
-                                                <th>Rentabilidad del activo</th>
-                                                <th>Capital de trabajo</th>
-                                                <th>Patrimonio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><?php echo $key['datos'][0];?></td>
-                                                <td><?php echo $key['datos'][1];?></td>
-                                                <td><?php echo $key['datos'][2];?></td>
-                                                <td><?php echo $key['datos'][3];?></td>
-                                                <td><?php echo $key['datos'][4];?></td>
-                                                <td><?php echo $key['datos'][5];?></td>
-                                                <td><?php echo $key['datos'][6];?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                 <?php }?>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div class="card mt-5">
+                    <div class="card mt-5">
                             <h5 class="card-title">PRIMERA TABLA</h5>
                             <div class="table-responsive text-center mt-5">
                                 <table  class="table table-bordered">
@@ -185,7 +81,35 @@
                                 </table>
                             </div>
                         </div>
-
+                        
+                        <form action="<?php echo ABS_PATH."revision/alianzaCodExperiencia";?>" method="POST" class="form-horizontal">
+                            <div class="row mt-3">
+                            <input type="hidden" name="nit" value="<?php  echo $nit; ?>">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
+                                            <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
+                                            <option value="<?php  echo $data[$i]; ?>"><?php echo $data[$i];} ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mt-2">
+                                    <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
+                                </div>
+                            </div>
+                            
+                            <div id="joker">
+                                <div class="row">
+                                    <div id="contenedor" class="form-group col-sm-9">
+                                        <!-- input1 -->
+                                    </div>
+                                    <div id="charizard" class="form-group col-sm-3">
+                                        <!-- input2 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Comparar</button>
+                        </form>
                     </div>
                 </div>
             </div>
