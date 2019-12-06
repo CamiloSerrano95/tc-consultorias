@@ -52,12 +52,12 @@
                                 <table  class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Algo</th>
+                                            <th>Numero de experiencias mínimas requeridas</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Algo</td>
+                                            <td><?php echo $key['nro_contratos'];?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -70,13 +70,18 @@
                                 <table  class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Algo</th>
+                                            <th>Empresa</th>
+                                            <th>Cantidad experiencias</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php for ($i=0; $i < sizeof($key['infoAnswer']); $i++) { ?>
+                                            
                                         <tr>
-                                            <td>Algo</td>
+                                            <td><?php echo $key['infoAnswer'][$i]['nit'] ?></td>
+                                            <td><?php echo $key['infoAnswer'][$i]['cantidad'] ?></td>
                                         </tr>
+                                        <?php }?>
                                     </tbody>
                                 </table>
                             </div>
@@ -88,8 +93,8 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <select class="select2 form-control custom-select mt-2" style="width: 100%; height:36px;" id="DatosSelect">
-                                            <?php for ($i =0; $i < sizeof($data); $i++ ){ ?>
-                                            <option value="<?php  echo $data[$i]; ?>"><?php echo $data[$i];} ?></option>
+                                            <?php for ($i =0; $i < sizeof($key['empresa']); $i++ ){ ?>
+                                            <option value="<?php  echo $key['empresa'][$i]['nombre']; ?>"><?php echo $key['empresa'][$i]['nombre'];} ?></option>
                                         </select>
                                     </div>
                                 </div>

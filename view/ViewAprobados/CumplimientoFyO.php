@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-6"></div>
                             <div class="col-5">
-                                <a href="<?php echo ABS_PATH."revision/everycompany"?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
+                                <a href="<?php echo ABS_PATH."revision/everycompany/".$key['id'];?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
                             </div>
                         </div>
                     </div>
