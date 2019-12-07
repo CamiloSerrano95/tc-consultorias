@@ -389,18 +389,17 @@
         public function viewExperiences($id){
             $empresas = new AprobadosModel();
             $cumplex = $empresas->obtenerSegundo($id);
-            $dataRequired = $empresas->obtenerfinanciero($id);
+            $dataRequired = $empresas->obtenerExperiencias($id);
             $requestData = json_decode($cumplex['empresas'][0]['objetos']);
             $filtro = $this->filtroObjetos($id,$requestData);
-            $pibot = $dataRequired['empresas'][0]['nro_contrato'];
+            $pibot = $dataRequired['empresas'][0]['nro_contratos'];
             $aprobados = [];
             foreach ($filtro['cantidad_objetos'] as $value) {
                 if ($value['cantidad'] >= $pibot){
                     $infoEmpresa = $empresas->obtenerEmpresa($value['nit']);
-                    array_push($aprobados,array("nombre"=>$infoEmpresa['empresas'][0]['nombre_empresa'], "id"=>$value[$i], "licitacion"=>$id));
+                    array_push($aprobados,array("nombre"=>$infoEmpresa['empresas'][0]['nombre_empresa'], "id"=>$value['nit'], "licitacion"=>$id));
                 }
             }
-
             return Vista::crear('ViewAprobados.Experiencia',$aprobados);
         }
 
