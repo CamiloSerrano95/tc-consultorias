@@ -47,7 +47,7 @@
                 <div class="card">
                     <div class="card-body">
                     <div class="card mt-5">
-                            <h5 class="card-title">PRIMERA TABLA</h5>
+                            <h5 class="card-title">EXPERIENCIA REQUERIDA</h5>
                             <div class="table-responsive text-center mt-5">
                                 <table  class="table table-bordered">
                                     <thead class="thead-dark">
@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="card mt-5">
-                            <h5 class="card-title">SEGUNDA TABLA</h5>
+                            <h5 class="card-title">EMPRESAS</h5>
                             <?php if(isset($value['status'])){ if($value['status'] == 'aprueba'){?>
                                 <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
                                 <?php }else {?>
@@ -120,6 +120,36 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Comparar</button>
+
+                            <div class="card mt-5">
+                                <h5 class="card-title">RESULTADO DE LA ALIANZA</h5>
+                                <div class="table-responsive text-center mt-5">
+                                    <table  class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Indice de liquidez</th>
+                                                <th>Indice de endeudamiento</th>
+                                                <th>Razon de cobertura</th>
+                                                <th>Rentabilidad de patrimonio</th>
+                                                <th>Rentabilidad del activo</th>
+                                                <th>Capital de trabajo</th>
+                                                <th>Patrimonio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
