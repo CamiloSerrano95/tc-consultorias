@@ -14,11 +14,14 @@
             $Empresa = new EmpresaModel();
 
             $nit = $_POST['nit'];
-            $codigos = $_POST["codigos"];  
-
+            $codigos = $_POST["codigos"]; 
+            
             for ($i=0; $i < sizeof($codigos); $i++) {
                 $Empresa->setNit($nit);
-                $results = $Empresa->RegistroCodigos($codigos[$i]);
+                $verification = $Empresa->verficationService($codigos[$i]);
+                if($verification['status'] == 0){
+                    $results = $Empresa->RegistroCodigos($codigos[$i]);
+                }
             }
 
             if ($results['status'] == 1) {

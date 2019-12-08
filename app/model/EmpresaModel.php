@@ -358,5 +358,19 @@
 	    	}
 	    	return $response;
         }
+
+        public function verficationService($codigos){
+            try {
+                $sql = "SELECT * FROM servicio_empresa WHERE codigo_servicio = ? AND nit_empresa = ?";
+                $query = $this->DataBase->prepare($sql);
+                $datos = [$codigos, $this->getNit()];
+                $query->execute($datos);
+                $data = $query->fetchAll();
+                $response = ['status' => 1, 'empresas' => $data];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'error' => $e];
+            }
+            return $response;
+        }
     }
 ?>
