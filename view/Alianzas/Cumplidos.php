@@ -118,12 +118,12 @@
                                     
                                     <div class="card mt-5">
                                         <h5 class="card-title">RESULTADO DE LA ALIANZA</h5>
-                                        <?php if(isset($value['status'])){ if($value['status'] == 'aprueba'){?>
-                                            <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
-                                            <?php }else {?>
-                                                <div class="alert alert-danger text-center mt-5" role="alert" >No aprobado</div>
-                                             <?php }}?>
-                                <div class="table-responsive text-center mt-5">
+                                        <div class="table-responsive text-center mt-5">
+                                                <?php if(isset($value['status'])){ if($value['status'] == 'aprueba'){?>
+                                                    <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
+                                                    <?php }else {?>
+                                                        <div class="alert alert-danger text-center mt-5" role="alert" >No aprobado</div>
+                                                     <?php }}?>
                                     <table  class="table table-bordered">
                                         <thead class="thead-dark">
                                             <tr>
