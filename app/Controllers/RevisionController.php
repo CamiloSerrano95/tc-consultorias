@@ -671,14 +671,14 @@
                 if($value['cantidad']>=$CodigosRequeridos){
                     array_push($cantidadCodigos, array("objeto"=>$value['objeto'],"codigos"=>$value['codigos']));
                 }
-            }
-            var_dump($filtrado);
+            }      
             for ($i=0; $i < sizeof($filtrado['pasaron']) ; $i++) { 
-                if($filtrado['cantidad_objetos'][$i]['nit'] == $idEmpresa && $filtrado['cantidad_objetos'][$i]['cantidad'] >= $requerido['empresas'][0]['nro_contratos']){
+                if($filtrado['pasaron'][$i]== $idEmpresa && $filtrado['cantidad_objetos'][$i]['nit'] == $idEmpresa && $filtrado['cantidad_objetos'][$i]['cantidad'] >= $requerido['empresas'][0]['nro_contratos']){
                     for ($p=0; $p < sizeof($objetos); $p++) { 
+                        $data = $empresas->ObjetoEmpresa($objetos[$p]);
                         for ($l=0; $l < sizeof($cantidadCodigos); $l++) { 
-                            if($objetos[$p] == $cantidadCodigos[$l]['objeto']){
-                                var_dump($cantidadCodigos[$l]['objeto']);echo "---->";var_dump($objetos[$p]);echo "<br>";
+                            if($data['empresas'][0]['nit'] == $idEmpresa && $objetos[$p] == $cantidadCodigos[$l]['objeto']){
+                                //var_dump($cantidadCodigos[$l]['objeto']);echo "---->";var_dump($objetos[$p]);echo "<br>";
                                 $experiencia = $empr->obtengoExperiencia($cantidadCodigos[$l]['objeto']); //datos de la experiencia
                                 array_push($info,array($experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad'],$cantidadCodigos[$l]['codigos']));
                             }
@@ -686,7 +686,7 @@
                     }
                 }
             }
-                return Vista::crear("ViewAprobados.SeeExpe",$info);
+            return Vista::crear("ViewAprobados.SeeExpe",$info);
         } 
 
         public function RevisionExperienciaCumple($id,$licitacion){
