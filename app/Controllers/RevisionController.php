@@ -605,7 +605,9 @@
                     }
                 }
             }
-            $request=["pedido"=>$objetos,"pasaron"=>array_unique($aprobaron), "licitacion" => $Licitacion, "cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
+            $reductor = array_unique($aprobaron);
+            $realyAprovade= array_values($reductor);
+            $request=["pedido"=>$objetos,"pasaron"=>$realyAprovade, "licitacion" => $Licitacion, "cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
             return $request;
         }
         public function filtroUnoyDos($dat){
@@ -637,12 +639,11 @@
             $info = [];
             $filtrado = $this->filtroObjetos($dat,$requiredObjects);
             $rep_array = [];
-            
             for ($l=0; $l <sizeof($filtrado['pedido']) ; $l++) { 
                 array_push($rep_array,$filtrado['pedido'][$l]);
             }
 
-            $objetos = $rep_array;
+            $objetos = array_values(array_unique($rep_array));
             $auxi =[];  
             
             for ($i=0; $i < sizeof($objetos); $i++) { 
@@ -671,19 +672,21 @@
                     array_push($cantidadCodigos, array("objeto"=>$value['objeto'],"codigos"=>$value['codigos']));
                 }
             }
-
+            var_dump($filtrado);
             for ($i=0; $i < sizeof($filtrado['pasaron']) ; $i++) { 
-                if($idEmpresa == $filtrado['pasaron'][$i]){
-                    for ($l=0; $l < sizeof($cantidadCodigos); $l++) { 
-                        if($rep_array[$i] == $cantidadCodigos[$l]['objeto']){
-                            $experiencia = $empr->obtengoExperiencia($rep_array[$i]); //datos de la experiencia
-                            array_push($info,array($experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad'],$cantidadCodigos[$l]['codigos']));
+                if($filtrado['cantidad_objetos'][$i]['nit'] == $idEmpresa && $filtrado['cantidad_objetos'][$i]['cantidad'] >= $requerido['empresas'][0]['nro_contratos']){
+                    for ($p=0; $p < sizeof($objetos); $p++) { 
+                        for ($l=0; $l < sizeof($cantidadCodigos); $l++) { 
+                            if($objetos[$p] == $cantidadCodigos[$l]['objeto']){
+                                var_dump($cantidadCodigos[$l]['objeto']);echo "---->";var_dump($objetos[$p]);echo "<br>";
+                                $experiencia = $empr->obtengoExperiencia($cantidadCodigos[$l]['objeto']); //datos de la experiencia
+                                array_push($info,array($experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad'],$cantidadCodigos[$l]['codigos']));
+                            }
                         }
                     }
                 }
             }
-
-            return Vista::crear("ViewAprobados.SeeExpe",$info);
+                return Vista::crear("ViewAprobados.SeeExpe",$info);
         } 
 
         public function RevisionExperienciaCumple($id,$licitacion){
