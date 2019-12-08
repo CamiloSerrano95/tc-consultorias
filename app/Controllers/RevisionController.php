@@ -678,7 +678,6 @@
                         $data = $empresas->ObjetoEmpresa($objetos[$p]);
                         for ($l=0; $l < sizeof($cantidadCodigos); $l++) { 
                             if($data['empresas'][0]['nit'] == $idEmpresa && $objetos[$p] == $cantidadCodigos[$l]['objeto']){
-                                //var_dump($cantidadCodigos[$l]['objeto']);echo "---->";var_dump($objetos[$p]);echo "<br>";
                                 $experiencia = $empr->obtengoExperiencia($cantidadCodigos[$l]['objeto']); //datos de la experiencia
                                 array_push($info,array($experiencia['empresas'][0]['numero_experiencia'],$experiencia['empresas'][0]['numero_contrato'],$experiencia['empresas'][0]['contrato_celebrado_por'],$experiencia['empresas'][0]['nombre_contratista'],$experiencia['empresas'][0]['nombre_contratante'],$experiencia['empresas'][0]['valor_contrato_smmlv'],$experiencia['empresas'][0]['fecha_obj_inicio'],$experiencia['empresas'][0]['fecha_obj_final'],$experiencia['empresas'][0]['descripcion'],$experiencia['empresas'][0]['tipo_objeto_actividad'],$cantidadCodigos[$l]['codigos']));
                             }
@@ -724,7 +723,6 @@
             } catch (Exception $th) {
                 print_r($th);
             }
-
         }
 
         public function validateObjects($licitacion){
