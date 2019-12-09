@@ -813,18 +813,16 @@
             $requiredFinancy = $required->obtenerfinanciero($licitacion);
             $pib = $requiredFinancy['empresas'][0];
             $response = $this->validateObjects($licitacion);
-            $adder = 0;
-            for ($i=0; $i < sizeof($empresas); $i++) { 
-                if($empresas[$i] == $response['infoAnswer'][$i]['nit']){
-                    $adder = $adder+ $response['infoAnswer'][$i]['cantidad'];
-                }
-            }
-            $empresas = [];
-            $porcentaje =[];
+            $adder = 0;            
             if(isset($_POST['empresas'])){
                 $empresas = $_POST['empresas'];
                 $porcentaje = $_POST['porcentaje'];
-            }
+                for ($i=0; $i < sizeof($empresas); $i++) { 
+                    if($empresas[$i] == $response['infoAnswer'][0]['nit']){
+                        $adder = $adder+ $response['infoAnswer'][0]['cantidad'];
+                    }
+                }
+            }            
             if($adder >= $response['nro_contratos']){
                 $licitacion = $_POST['licitacion'];
                 $indiceL = 0;
