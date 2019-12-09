@@ -813,17 +813,12 @@
             $requiredFinancy = $required->obtenerfinanciero($licitacion);
             $pib = $requiredFinancy['empresas'][0];
             $response = $this->validateObjects($licitacion);
-            $adder = 0;            
-            if(isset($_POST['empresas'])){
-                $empresas = $_POST['empresas'];
-                $porcentaje = $_POST['porcentaje'];
-                for ($i=0; $i < sizeof($empresas); $i++) { 
-                    if($empresas[$i] == $response['infoAnswer'][0]['nit']){
-                        $adder = $adder+ $response['infoAnswer'][0]['cantidad'];
-                    }
+            $adder = 0;           
+            
+                if(isset($_POST['empresas'])){
+                    $empresas = $_POST['empresas'];
+                    $porcentaje = $_POST['porcentaje'];
                 }
-            }            
-            if($adder >= $response['nro_contratos']){
                 $licitacion = $_POST['licitacion'];
                 $indiceL = 0;
                 $indice_endeudamento =0;
@@ -858,9 +853,7 @@
                     $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple, "financiero"=>$datosFinancieros];
                 }
                 return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion), $validation);
-            }else{
-                return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion));
-            }
+            
         }
     }  
 ?>
