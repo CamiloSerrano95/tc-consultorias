@@ -819,13 +819,13 @@
                     $adder = $adder+ $response['infoAnswer'][$i]['cantidad'];
                 }
             }
+            $empresas = [];
+            $porcentaje =[];
+            if(isset($_POST['empresas'])){
+                $empresas = $_POST['empresas'];
+                $porcentaje = $_POST['porcentaje'];
+            }
             if($adder >= $response['nro_contratos']){
-                $empresas = [];
-                $porcentaje =[];
-                if(isset($_POST['empresas'])){
-                    $empresas = $_POST['empresas'];
-                    $porcentaje = $_POST['porcentaje'];
-                }
                 $licitacion = $_POST['licitacion'];
                 $indiceL = 0;
                 $indice_endeudamento =0;
