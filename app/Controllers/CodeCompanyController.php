@@ -27,7 +27,8 @@
             if ($results['status'] == 1) {
                 Redirecciona::LetsGoTo('mostrarCodigos/ViewCodigos/'.$nit);
             } else {
-                echo $results['error'];
+                Redirecciona::LetsGoTo('mostrarCodigos/ViewCodigos/'.$nit);
+                /* echo $results['error']; */
             }   
         }
 
