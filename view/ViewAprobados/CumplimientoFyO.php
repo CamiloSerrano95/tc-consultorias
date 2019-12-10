@@ -55,6 +55,8 @@
                                             <th>RAZON DE COBERTURA</th>
                                             <th>RENTABILIDAD DEL PATRIMONIO</th>
                                             <th>RENTABILIDAD DEL ACTIVO</th>
+                                            <th>CAPITAL DE TRABAJO</th>
+                                            <th>PATRIMONIO</th>
                                             <th>ALIANZAS</th>
                                         </tr>
                                     </thead>
@@ -79,6 +81,12 @@
                                                     echo"</td>";
                                                     echo "<td>";
                                                         echo $key['dato']['datos'][$i][5];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['dato']['datos'][$i][6];
+                                                    echo"</td>";
+                                                    echo "<td>";
+                                                        echo $key['dato']['datos'][$i][7];
                                                     echo"</td>";
                                                     echo "<td>";?>
                                                         <a href="<?php echo ABS_PATH."revision/alianzaFinanciero/".$key['id']."/".$key['dato']['datos'][$i][6]; ?>" class="btn btn-link"><span style="font-size: 3em; color: green;"><i class="fas fa-hands-helping"></i></span></a>
