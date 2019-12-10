@@ -69,7 +69,9 @@
                     Redirecciona::LetsGoTo('');
                 }
             } else {
-                echo "Usuario incorrecto";
+                    $notification = 'toastr.error("Datos erroneos", "Usuario incorrecto")';
+                    $session->CreateNotification($notification);
+                    Redirecciona::LetsGoTo('');
             }
         }
 
