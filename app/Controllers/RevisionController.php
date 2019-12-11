@@ -526,7 +526,7 @@
             return $request;
         }
 
-        public function filtroObjetos($Licitacion,$objetos){
+        public function filtroObjetos($Licitacion,$objects){
             $empresas = new CumplimientosModel();
             $empr = new AprobadosModel();
             $requerido = $empr->obtenerpedidosExperiencia($Licitacion);
@@ -536,6 +536,16 @@
             $CodigosRequeridos = $requerido['empresas'][0]['min_cod_req'];
             $codigos = json_decode($codsRequired['empresas'][0]['objetos']);
             $pibot =[];
+            $objetos =[];
+            #----------------Filtro de objetos por  valor salario -------------------
+            for ($i=0; $i < sizeof($objects); $i++) { 
+                $dataAux = $empresas->obtengoExperiencia($objects[$i]);
+                if($dataAux['empresas'][0]['valor_contrato_smmlv'] >= $slm){
+                    array_push($objetos,$objects[$i]);
+                }
+            }
+
+
             #-----------------Empresas que cumplen con los objetos--------------------------
             for ($i=0; $i < sizeof($objetos); $i++) { 
                 $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
@@ -562,6 +572,7 @@
                     array_push($cont, array("empresa"=>$pibot[$i], "cantidad"=>$j, "codigos"=>$arrayObjects));
                 }
             }
+
             $obtenerEmpresa =((array_column($cont,'empresa')));
             $obtenerCantidad = array_count_values($obtenerEmpresa);
             #-----------Cantidad de Códigos que tiene esa experiencia------------------
@@ -590,7 +601,6 @@
                     array_push($cantidadCodigos, $value['objeto']);
                 }
             }
-
             
             $pasaCantidadObjetos =[];
             $Cantidad_por_empresa =[];
@@ -600,17 +610,22 @@
                     array_push($Cantidad_por_empresa, array("nit"=>$key, "cantidad"=>$value));
                 }
             }
+
             $aprobaron =[];
             for ($i=0; $i < sizeof($pasaCantidadObjetos) ; $i++) { 
                 for ($j=0; $j < sizeof($cantidadCodigos); $j++) { 
                     $ver = $empresas->ObjetoEmpresa($cantidadCodigos[$j]);
                     for ($h=0; $h < sizeof($ver); $h++) { 
                         if($ver['empresas'][0]['nit'] == $pasaCantidadObjetos[$i]){
-                            array_push($aprobaron,$ver['empresas'][0]['nit']);
+                            $dataAux = $empresas->obtengoExperiencia($cantidadCodigos[$i]);
+                            if($dataAux['empresas'][0]['valor_contrato_smmlv'] >= $slm){
+                                array_push($aprobaron,$ver['empresas'][0]['nit']);
+                            }
                         }
                     }
                 }
             }
+
             $reductor = array_unique($aprobaron);
             $realyAprovade= array_values($reductor);
             $request=["pedido"=>$objetos, "pasaron"=>$realyAprovade, "licitacion" => $Licitacion, "objetos_por_cantidad"=>$cantidadCodigos,"cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
@@ -623,9 +638,9 @@
             $requerido = $empresas->obtenerpedidosExperiencia($dat);
             $resultFiltroUno = $this->filtroUnspsc($dat, json_decode($codRequeridos['empresas'][0]['objetos']));
             $resultFiltroDos = $this->filtroObjetos($dat, json_decode($objetosRequeridos['empresas'][0]['objetos']));
-            $aprobados = array_intersect_assoc($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']);
+            $aprobados = array_values(array_intersect_assoc($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $codigos = implode(",", json_decode($codRequeridos['empresas'][0]['objetos']));
-            $vectorDatos= [];
+            $vectorDatos= [];            
             for ($i=0; $i < sizeof($aprobados) ; $i++) { 
                 $name = $empresas->obtenerEmpresa($aprobados[$i]);
                 array_push($vectorDatos, array($name['empresas'][0]['nombre_empresa'],$codigos,$requerido['empresas'][0]['nro_contratos'],$requerido['empresas'][0]['min_cod_req'], $requerido['empresas'][0]['presupuesto_exigido'],$requerido['empresas'][0]['porcentaje_of_exigido'],$requerido['empresas'][0]['result_presupuesto'],$requerido['empresas'][0]['min_cod_req'],$dat,$aprobados[$i]));
@@ -696,12 +711,13 @@
 
         public function RevisionExperienciaCumple($id,$licitacion){
             $empr = new AprobadosModel();
+            $empresas = new CumplimientosModel();
             try {
-                $empresas = new CumplimientosModel();
                 $required = $empr->obtenerpedidosExperiencia($licitacion);
                 $requiredObject = $empr->obtenerSegundo($licitacion);
                 $requiredCods = $empr->obtenerFiltroUno($licitacion);
                 $objetos = json_decode($requiredObject['empresas'][0]['objetos']);
+                $past = $this->filtroObjetos($licitacion,$objetos);
                 $pibot =[];
                 #-----------------Empresas que cunplen con los objetos--------------------------
                 $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
@@ -712,11 +728,12 @@
                             $contar = 0;
                             $cods =[];
                             for ($h=0; $h < sizeof($codigos); $h++) { 
-                                    $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
-                                    if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
-                                        array_push($cods, $codigos[$h]);
-                                        $contar = $contar+1;
-                                    }
+                                $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
+                                if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
+
+                                    array_push($cods, $codigos[$h]);
+                                    $contar = $contar+1;
+                                }
                             }    
                             if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req'] && $cods != 0){
                                 $cod = implode(',',$cods);
