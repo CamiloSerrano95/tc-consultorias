@@ -1,10 +1,10 @@
 <?php
     class Conexion{	
 		public function get_conexion(){
-			$user = "root";
-			$pass = "";
-			$host = "localhost";
-            $db = "tconsultoria";
+		    $user = "alcaldiacovenas";
+            $pass = "Covenas2019";
+            $host = "localhost";
+            $db = "tconsultorias";
             
 			try {
 				$connection = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
