@@ -575,7 +575,6 @@
                         if($value['id_servicio'] == $codigos[$j]){
                             $dataAux = $empresas->obtengoExperiencia($objetos[$i]);
                             if($dataAux['empresas'][0]['valor_contrato_smmlv'] >= $slm){
-                                echo $dataAux['empresas'][0]['valor_contrato_smmlv'];
                                 $carta = $carta+1;
                             }
                         }
@@ -817,6 +816,7 @@
             $empresas = $_POST['empresas'];
             $porcentaje = $_POST['porcentaje'];
             $licitacion = $_POST['licitacion'];
+            $object = $required->obtenerfinanciero($licitacion); //se obtiene uno a uno.
             $requiredFinancy = $required->obtenerfinanciero($licitacion);
             $pib = $requiredFinancy['empresas'][0];
             $response = $this->validateObjects($licitacion);
@@ -859,7 +859,7 @@
                     array_push($vectorCumple, $indiceL, $indice_endeudamento,$razon_cobertura_interes, $rentabilidad_patrimonio,$rentabilidad_del_activo, $capital_de_trabajo,$patrimonio);
                     $validation = $validation =["status" => 'reprueba', "datos"=>$vectorCumple, "financiero"=>$datosFinancieros];
                 }
-                return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion), $validation);
+                return Vista::crear("Alianzas.Cumplidos",$this->validateObjects($licitacion), array("resultados"=>$validation,"requeridos"=>$object['empresas'][0]));
             
         }
     }  

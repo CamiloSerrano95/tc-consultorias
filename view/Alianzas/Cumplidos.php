@@ -118,6 +118,27 @@
                                     
                                     <div class="card mt-5">
                                         <h5 class="card-title">RESULTADO DE LA ALIANZA</h5>
+                                        <h5 class="card-title mt-5">DATOS REQUERIDOS</h5>
+                                        <div class="table-responsive text-center mt-3">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td>INDICE DE LIQUIDEZ</td>
+                                                        <td>INDICE DE ENDEUDAMIENTO</td>
+                                                        <td>RAZON COBERTURA DE INTERES</td>
+                                                        <td>RENTABILIDAD SOBRE EL PATRIMONIO</td>
+                                                        <td>RENTABILIDAD DEL ACTIVO</td>
+                                                    </tr>
+                                                    <tr>                                            
+                                                        <td><?php echo $value['requeridos']['ind_liquidez'];?></td>
+                                                        <td><?php echo $value['requeridos']['endeudamiento'];?></td>
+                                                        <td><?php echo $value['requeridos']['raz_cobertura_int'];?></td>
+                                                        <td><?php echo $value['requeridos']['rent_patrimonio'];?></td>
+                                                        <td><?php echo $value['requeridos']['rent_activos'];?></td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                         <div class="table-responsive text-center mt-5">
                                                 <?php if(isset($value['status'])){ if($value['status'] == 'aprueba'){?>
                                                     <div class="alert alert-success text-center mt-5" role="alert" >Alianza aprobada</div>
@@ -138,13 +159,13 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><?php echo $value['datos'][0];?></td>
-                                                <td><?php echo $value['datos'][1];?></td>
-                                                <td><?php echo $value['datos'][2];?></td>
-                                                <td><?php echo $value['datos'][3];?></td>
-                                                <td><?php echo $value['datos'][4];?></td>
-                                                <td><?php echo $value['datos'][5];?></td>
-                                                <td><?php echo $value['datos'][6];?></td>
+                                                <td><?php echo $value['resultados']['datos'][0];?></td>
+                                                <td><?php echo $value['resultados']['datos'][1];?></td>
+                                                <td><?php echo $value['resultados']['datos'][2];?></td>
+                                                <td><?php echo $value['resultados']['datos'][3];?></td>
+                                                <td><?php echo $value['resultados']['datos'][4];?></td>
+                                                <td><?php echo $value['resultados']['datos'][5];?></td>
+                                                <td><?php echo $value['resultados']['datos'][6];?></td>
                                             </tr>
                                         </tbody>
                                     </table>
