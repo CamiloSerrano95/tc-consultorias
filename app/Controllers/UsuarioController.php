@@ -18,6 +18,7 @@
         // pero en un modelo se pueden necesitar realizar diversas consultas.
         
         public function index() {
+            $this->agregar();
             return Vista::crear("inicio.index");
         }
 

@@ -65,7 +65,7 @@
         public function RegistroUser () {
             
             try {
-                $sql = "INSERT INTO usuario (nombres,usuario,contrasena,rol) VALUES (?,?,?,?)";
+                $sql = "INSERT INTO usuarios (nombres,usuario,contrasena,rol) VALUES (?,?,?,?)";
                 $query = $this->DataBase->prepare($sql);
                 $data = [$this->getNombres(),
                          $this->getUser(),
