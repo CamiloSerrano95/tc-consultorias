@@ -3,6 +3,7 @@
         private $nombres;
         private $user;
         private $passwd;
+        private $Email;
         private $rol;
         private $DataBase;
 
@@ -24,6 +25,10 @@
             $this->passwd = $passwd;
         }
 
+        public function setEmail ($Email) {
+            $this->Email = $Email;
+        }
+
         public function setRol ($rol) {
             $this->rol = $rol;
         }
@@ -40,6 +45,10 @@
 
         public function getPasswd () {
             return $this->passwd;
+        }
+
+        public function getEmail () {
+            return $this->Email;
         }
 
         public function getRol () {
@@ -65,12 +74,9 @@
         public function RegistroUser () {
             
             try {
-                $sql = "INSERT INTO usuarios (nombres,usuario,contrasena,rol) VALUES (?,?,?,?)";
+                $sql = "INSERT INTO usuarios (nombres,usuario,contrasena,email,rol) VALUES (?,?,?,?,?)";
                 $query = $this->DataBase->prepare($sql);
-                $data = [$this->getNombres(),
-                         $this->getUser(),
-                         $this->getPasswd(),
-                         $this->getRol()];
+                $data = [$this->getNombres(),$this->getUser(),$this->getPasswd(),$this->getEmail(),$this->getRol()];
                 $query->execute($data);
                 $response = ['status' => 1, 'msg' => "Usuario guardado exitosamente"];
             } catch (Exception $e) {

@@ -30,6 +30,7 @@
            
             $usuario = new UsuarioModel();
             $usuario->setUser($_POST['user']);
+            $usuario->setEmail($_POST['email']);
             $usuario->setNombres($_POST['nombres']);
             $passHash = password_hash($_POST['passwd'], PASSWORD_BCRYPT);
             $usuario->setPasswd($passHash);
