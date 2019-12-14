@@ -199,7 +199,7 @@
                 //------------------------------all final section--------------------------------------------
                 $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$id['id'],$patrimonio,$capitalTrabajo);
                 $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos, $patrimonio,$capitalTrabajo,json_encode($ultimo['pasaron']),$id['id']);
-                Redirecciona::LetsGoTo('evaluacion');
+                Redirecciona::LetsGoTo('vistaresults/UnoDos');
             } catch (Exception $e) {
                 print_r($e);
             }

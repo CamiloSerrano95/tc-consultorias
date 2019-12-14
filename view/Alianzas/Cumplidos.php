@@ -2,35 +2,6 @@
     require dirname(__FILE__).'/../home/header.php'; 
 ?>
 
-
-<script>
-    function crearInput() {
-
-        var DatosSelect = document.getElementById('DatosSelect').value;
-
-        var contenedor = document.getElementById('contenedor');
-        var charizard = document.getElementById('charizard');
-        var partes = DatosSelect.split(',');
-
-        console.log(partes);
-
-
-        var x = document.createElement('input');
-        x.setAttribute("class", "form-control mt-3");
-        x.setAttribute("id", "selecsito");
-        x.setAttribute("name", "empresas[]");
-        x.setAttribute("value", partes[0]);
-        contenedor.appendChild(x);
-
-        var a = document.createElement('input');
-        a.setAttribute("class", "form-control mt-3");
-        a.setAttribute("id", "selec1");
-        a.setAttribute("name", "porcentaje[]");
-        a.setAttribute("placeholder", "Asignar Porcentaje Ej: 40");
-        charizard.appendChild(a);
-    }
-</script>
-
 <div class="page-wrapper">
     <div class="page-breadcrumb">
         <div class="row">
@@ -105,16 +76,19 @@
                                 </div>
                                 <div class="col-sm-4 mt-2">
                                     <input type="hidden" name="licitacion" value="<?php echo $key['licitacion'];?>">
-                                    <button type="button" onclick="crearInput()" class="btn btn-primary">Agregar Empresa</button>
+                                    <button type="button" id="crearInput" class="btn btn-primary">Agregar Empresa</button>
                                 </div>
                             </div>
 
                             <div id="joker">
                                 <div class="row">
-                                    <div id="contenedor" class="form-group col-sm-9">
+                                    <div id="inputA" class="form-group col-sm-9">
                                         <!-- input1 -->
                                     </div>
-                                    <div id="charizard" class="form-group col-sm-3">
+                                    <div id="inputB" class="form-group col-sm-3">
+                                        <!-- input2 -->
+                                    </div>
+                                    <div id="erase" class="form-group col-sm-3">
                                         <!-- input2 -->
                                     </div>
                                 </div>
@@ -163,7 +137,7 @@
                                     </table>
                                 </div>
                                 <div class="table-responsive text-center mt-5">
-                                    <?php if(isset($value['requeridos'])){ if($value['requeridos'] == 'aprueba'){?>
+                                    <?php if(isset($value['requeridos'])){ if($value['resultados']['status'] == 'aprueba'){?>
                                     <div class="alert alert-success text-center mt-5" role="alert">Alianza aprobada</div>
                                     <?php }else {?>
                                     <div class="alert alert-danger text-center mt-5" role="alert">No aprobado</div>
@@ -215,5 +189,62 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Add button delete
+    var erase = document.getElementById('erase');
+    var contador = 0;
+    crearInput.onclick = () => {
+        var DatosSelect = document.getElementById('DatosSelect').value;
+        
+        var inputA = document.getElementById('inputA');
+        var inputB = document.getElementById('inputB');
+        var inputC = document.getElementById('inputC');
+            
+        var contenedor = document.getElementById('contenedor');
+        var charizard = document.getElementById('charizard');
+        var partes = DatosSelect.split(',');
+
+        console.log(partes);
+
+        var x = document.createElement('input');
+        x.setAttribute("class", "form-control mt-3");
+        x.setAttribute("id", "selecsito");
+        x.setAttribute("id" , `eraseCode-${contador}`);
+        x.setAttribute("name", "empresas[]");
+        x.setAttribute("value", partes[0]);
+        inputA.appendChild(x);
+
+        var a = document.createElement('input');
+        a.setAttribute("class", "form-control mt-3");
+        a.setAttribute("id", "selec1");
+        a.setAttribute("id" , `eraseName-${contador}`);
+        a.setAttribute("name", "porcentaje[]");
+        a.setAttribute("placeholder", "Asignar Porcentaje Ej: 40");
+        inputB.appendChild(a);
+
+        
+        var b = document.createElement('button');
+        b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
+        b.setAttribute("class", "mt-4 ml-2 btn btn-link col-sm-12 ");
+        b.setAttribute("id" , `${contador}`);
+        b.setAttribute("onclick", "obtenerId(this)");
+        b.setAttribute("type" , "button");
+        b.setAttribute("value", "Borrar");
+        erase.appendChild(b);
+       
+        contador++;
+    }
+
+    function obtenerId(path) {
+        var id = path.getAttribute("id")
+        var eraseCode = document.getElementById(`eraseCode-${id}`);
+        var eraseName = document.getElementById(`eraseName-${id}`);
+        var eraseButton = document.getElementById(id);
+        eraseCode.remove();
+        eraseName.remove();
+        eraseButton.remove();
+    }
+</script>
 
 <?php require dirname(__FILE__).'/../home/footer.php';?>

@@ -4,7 +4,7 @@
 			$user = "root";
 			$pass = "";
 			$host = "localhost";
-            $db = "tconsultoria";
+			$db = "tconsultorias";
             
 			try {
 				$connection = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
@@ -19,3 +19,4 @@
 		}
     }
 ?>
+
