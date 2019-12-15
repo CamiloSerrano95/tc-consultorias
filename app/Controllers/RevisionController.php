@@ -544,14 +544,34 @@
                     array_push($objetos,$objects[$i]);
                 }
             }
+            
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $contador =0;
+                $cods =[];
+                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                foreach ($obtengoServExper['empresas'] as $key => $value) {
+                    $codes = [];
+                    for ($j=0; $j < sizeof($codigos); $j++) { 
+                        if($value['id_servicio'] == $codigos[$j]){
+                            $contador = $contador+1;
+                            array_push($codes, $codigos[$j]);
+                        }
+                    }
+                    array_push($cods, implode(",",$codes));
+                }
+                if($contador >= $CodigosRequeridos){
+                    array_push($datas, array("codigos"=>$cods, "objeto"=>$objetos[$i], "cantidad_codigos"=>$contador)); 
+                }
+            }
+
 
 
             #-----------------Empresas que cumplen con los objetos--------------------------
-            for ($i=0; $i < sizeof($objetos); $i++) { 
-                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
+            for ($i=0; $i < sizeof($datas); $i++) { 
+                $data = $empresas->ObjetoEmpresa($datas[$i]['objeto']); //filtra las empresas que contengan los objetos que se pasaron por parametros.
                 if($data['status']==1){
                     for ($j=0; $j < sizeof($data['empresas']); $j++) { 
-                        array_push($pibot, $data['empresas'][$j]['nit'], $objetos[$i]); // guardo la empresa junto a el objeto que cumple
+                        array_push($pibot, $data['empresas'][$j]['nit'], $datas[$i]); // guardo la empresa junto a el objeto que cumple
                     }
                 }
             }
@@ -578,20 +598,20 @@
             #-----------Cantidad de Códigos que tiene esa experiencia------------------
             $auxi =[];
             
-            for ($i=0; $i < sizeof($objetos); $i++) { 
+            for ($i=0; $i < sizeof($datas); $i++) { 
                 $carta =0;
-                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                $obtengoServExper = $empresas->getServicioExpe($datas[$i]['objeto']);
                 foreach ($obtengoServExper['empresas'] as $key => $value) {
                     for ($j=0; $j < sizeof($codigos); $j++) { 
                         if($value['id_servicio'] == $codigos[$j]){
-                            $dataAux = $empresas->obtengoExperiencia($objetos[$i]);
+                            $dataAux = $empresas->obtengoExperiencia($datas[$i]['objeto']);
                             if($dataAux['empresas'][0]['valor_contrato_smmlv'] >= $slm){
                                 $carta = $carta+1;
                             }
                         }
                     }
                 }
-                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
+                array_push($auxi, array("objeto"=> $datas[$i]['objeto'], "cantidad"=>$carta));
             }
 
             $cantidadCodigos = [];
@@ -628,7 +648,7 @@
 
             $reductor = array_unique($aprobaron);
             $realyAprovade= array_values($reductor);
-            $request=["pedido"=>$objetos, "pasaron"=>$realyAprovade, "licitacion" => $Licitacion, "objetos_por_cantidad"=>$cantidadCodigos,"cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
+            $request=["pedido"=>$objects, "pasaron"=>$realyAprovade, "licitacion" => $Licitacion, "objetos_por_cantidad"=>$cantidadCodigos,"cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
             return $request;
         }
         public function filtroUnoyDos($dat){
