@@ -537,6 +537,7 @@
             $codigos = json_decode($codsRequired['empresas'][0]['objetos']);
             $pibot =[];
             $objetos =[];
+            $datas=[];
             #----------------Filtro de objetos por  valor salario -------------------
             for ($i=0; $i < sizeof($objects); $i++) { 
                 $dataAux = $empresas->obtengoExperiencia($objects[$i]);
