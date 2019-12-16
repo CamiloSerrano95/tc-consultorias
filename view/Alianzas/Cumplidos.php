@@ -82,13 +82,13 @@
 
                             <div id="joker">
                                 <div class="row">
-                                    <div id="inputA" class="form-group col-sm-9">
+                                    <div id="inputA" class="form-group col-sm-8">
                                         <!-- input1 -->
                                     </div>
-                                    <div id="inputB" class="form-group col-sm-3">
+                                    <div id="inputB" class="form-group col-sm-2">
                                         <!-- input2 -->
                                     </div>
-                                    <div id="erase" class="form-group col-sm-3">
+                                    <div id="erase" class="form-group col-sm-2">
                                         <!-- input2 -->
                                     </div>
                                 </div>
@@ -226,7 +226,7 @@
         
         var b = document.createElement('button');
         b.innerHTML = "<span style='font-size: 1em; color: Tomato;'><i class='fas fa-trash'></i></span>";
-        b.setAttribute("class", "mt-4 ml-2 btn btn-link col-sm-12 ");
+        b.setAttribute("class", "mt-3 ml-2 btn btn-link col-sm-12 ");
         b.setAttribute("id" , `${contador}`);
         b.setAttribute("onclick", "obtenerId(this)");
         b.setAttribute("type" , "button");
