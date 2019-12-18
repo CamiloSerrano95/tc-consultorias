@@ -6,9 +6,9 @@
         $var = $key['datos'][7]['nombre'];
         $licit = $key['datos'][7]['licitacion'];
     }else{
-        $var = $key['nombre'];
-        $data = $key['aprobaron'];
-        $licit = $key['licitacion'];
+        $var = $key['name'];
+        $data = $key['datos']['aprobaron'];
+        $licit = $key['datos']['licitacion'];
     }
 ?> 
 
@@ -25,6 +25,8 @@
                 y.parentNode.removeChild(y);
             }
         }
+
+        str_replace
 
     </script>
 
@@ -82,7 +84,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Comparar</button>
                             
-                            <?php if(isset($key['status'])){ if($key['status'] == 'aprueba'){?>
+                            <?php if(isset($key['datos']['status'])){ if($key['datos']['status'] == 'aprueba'){?>
                             <div class="card mt-5">
                                 <h5 class="card-title">DATOS REQUERIDOS</h5>
                                 <div class="table-responsive text-center mt-5">
@@ -100,13 +102,13 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                            <td><?php echo $key['financiero'][0];?></td>
-                                            <td><?php echo $key['financiero'][1];?></td>
-                                            <td><?php echo $key['financiero'][2];?></td>
-                                            <td><?php echo $key['financiero'][3];?></td>
-                                            <td><?php echo $key['financiero'][4];?></td>
-                                            <td><?php echo $key['financiero'][5];?></td>
-                                            <td><?php echo $key['financiero'][6];?></td>
+                                            <td><?php echo $key['datos']['financiero'][0];?></td>
+                                            <td><?php echo $key['datos']['financiero'][1];?></td>
+                                            <td><?php echo $key['datos']['financiero'][2];?></td>
+                                            <td><?php echo $key['datos']['financiero'][3];?></td>
+                                            <td><?php echo $key['datos']['financiero'][4];?></td>
+                                            <td><?php echo $key['datos']['financiero'][5];?></td>
+                                            <td><?php echo $key['datos']['financiero'][6];?></td>
                                             </tr>
                                         </tbody>
                                     </table>

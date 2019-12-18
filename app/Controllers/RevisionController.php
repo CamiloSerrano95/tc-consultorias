@@ -3,8 +3,18 @@
     class RevisionController{
 
         public function AlianzaCodigos($licitacion,$idEmpresa){
+            $empresas = new AprobadosModel();
+            $request = $empresas->obtenerSegundo($licitacion);
+            $objects = json_decode($request['empresas'][0]['objetos']);
             $datos = $this->pibotCodFinanciero($licitacion,$idEmpresa);
-            return Vista::crear("Alianzas.AlianzaUnspsc", $datos);
+            $idsEmpresas=[];
+            for ($i=0; $i < sizeof($datos['aprobaron']); $i++) { 
+                $idRequest = $empresas->obtenerEmpresaNombre($datos['aprobaron'][$i]);
+                array_push($idsEmpresas, $idRequest['empresas'][0]['nit']);
+            }
+            $requestFiltroObjeto = $this->filtroObjetos($licitacion,$objects);
+            $aprobados = array_values(array_intersect($idsEmpresas,$requestFiltroObjeto['pasaron']));            
+            return Vista::crear("Alianzas.AlianzaUnspsc", array('datos'=>$datos, 'aprobados'=>$aprobados));
         }
 
         public function evaluarFinanExperiencia(){
@@ -366,8 +376,10 @@
         }
 
         public function finanmet($dato1, $dato2){
+            $empresa = new AprobadosModel();
+            $dataEmpresa = $empresa->obtenerEmpresa($dato2);
             $datos = $this->pibotFinanciero($dato1,$dato2);
-            return Vista::crear('Alianzas.AlianzaUnspscExperiencia', $datos);
+            return Vista::crear('Alianzas.AlianzaUnspscExperiencia', array('datos'=>$datos,'name'=>$dataEmpresa['empresas'][0]['nombre_empresa']));
         }
 
         public function pibotFinanciero($dato1, $dato2){
@@ -659,8 +671,9 @@
             $requerido = $empresas->obtenerpedidosExperiencia($dat);
             $resultFiltroUno = $this->filtroUnspsc($dat, json_decode($codRequeridos['empresas'][0]['objetos']));
             $resultFiltroDos = $this->filtroObjetos($dat, json_decode($objetosRequeridos['empresas'][0]['objetos']));
-            $aprobados = array_values(array_intersect_assoc($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
+            $aprobados = array_values(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $codigos = implode(",", json_decode($codRequeridos['empresas'][0]['objetos']));
+            //var_dump(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $vectorDatos= [];            
             for ($i=0; $i < sizeof($aprobados) ; $i++) { 
                 $name = $empresas->obtenerEmpresa($aprobados[$i]);
