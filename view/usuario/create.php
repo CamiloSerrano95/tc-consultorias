@@ -23,6 +23,12 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
+                                                <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="ti-email"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control form-control-lg" name="email" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
                                                 <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                             </div>
                                             <input type="text" class="form-control form-control-lg" name="user" placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1" required>
