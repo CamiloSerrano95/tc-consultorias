@@ -35,7 +35,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -45,10 +45,14 @@
             $Tcapital_de_trabajo = (($titular['empresas'][0]['capital_de_trabajo'])* ($porcentajeEmpresa/100)) + $capital_de_trabajo;
             $Tpatrimonio = (($titular['empresas'][0]['patrimonio'])* ($porcentajeEmpresa/100)) + $patrimonio;
                 for ($i=0; $i < sizeof($empresas); $i++) { 
-                    $info = $empre->obtenerEmpresaNombre($empresas[$i]);
+                    $info = $empre->obtenerEmpresaNombre($empresas[$i]); //obtengo info de la empresa.
                     $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                     $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                        $razonPibote = 0;
+                    }else{
+                        $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    }
                     $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                     $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                     $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -56,7 +60,11 @@
                 }
                 $totalindiceL = $indiceL + $TindiceL;
                 $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+                if($razonPibote >= 0){
+                    $totalrazon_cobertura_interes = 0;
+                }else{
+                    $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+                }
                 $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
                 $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
                 $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -152,7 +160,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -165,7 +173,11 @@
                 $info = $empre->obtenerEmpresaNombre($empresas[$i]);
                 $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                 $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                    $razonPibote = 0;
+                }else{
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                }
                 $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                 $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                 $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -173,7 +185,11 @@
             }
             $totalindiceL = $indiceL + $TindiceL;
             $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            if($razonPibote >=0){
+                $totalrazon_cobertura_interes = 0;
+            }else{
+                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            }
             $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
             $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
             $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -246,7 +262,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -259,7 +275,11 @@
                 $info = $empre->obtenerEmpresaNombre($empresas[$i]);
                 $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                 $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                    $razonPibote = 0;
+                }else{
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                }
                 $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                 $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                 $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -267,7 +287,11 @@
             }
             $totalindiceL = $indiceL + $TindiceL;
             $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            if($razonPibote >=0){
+                $totalrazon_cobertura_interes = 0;
+            }else{
+                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            }
             $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
             $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
             $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -329,7 +353,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -342,7 +366,11 @@
                 $info = $empre->obtenerEmpresaNombre($empresas[$i]);
                 $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                 $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                    $razonPibote = 0;
+                }else{
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                }
                 $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                 $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                 $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -350,7 +378,11 @@
             }
             $totalindiceL = $indiceL + $TindiceL;
             $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            if($razonPibote >=0){
+                $totalrazon_cobertura_interes = 0;
+            }else{
+                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            }
             $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
             $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
             $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -884,11 +916,16 @@
                 $rentabilidad_del_activo =0;
                 $capital_de_trabajo =0;
                 $patrimonio = 0;
+                $razonPibote = -1;
                 for ($i=0; $i < sizeof($empresas); $i++) { 
                     $info = $required->obtenerEmpresaNombre($empresas[$i]);
                     $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                     $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                        $razonPibote = 0;
+                    }else{
+                        $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    }
                     $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                     $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                     $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -900,7 +937,7 @@
                 $validation = [];
                 $datosFinancieros =[];
                 if($pib['ind_liquidez'] <= $indiceL && $pib['endeudamiento'] >= $indice_endeudamento && $pib['rent_patrimonio'] <= $rentabilidad_patrimonio && $pib['rent_activos'] <= $rentabilidad_del_activo && $pib['patrimonio'] <= $patrimonio && $capital_de_trabajo >= $pib['capital_trabajo']){
-                    if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $razon_cobertura_interes || $razon_cobertura_interes == 0){
+                    if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $razon_cobertura_interes || $razonPibote == 0){
                         array_push($vectorCumple, $indiceL, $indice_endeudamento,$razon_cobertura_interes, $rentabilidad_patrimonio,$rentabilidad_del_activo, $capital_de_trabajo,$patrimonio);
                         array_push($datosFinancieros,$pib['ind_liquidez'],$pib['endeudamiento'], $pib['raz_cobertura_int'],$pib['rent_patrimonio'], $pib['rent_activos'],$pib['patrimonio'], $pib['capital_trabajo']);
                         $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "financiero"=>$datosFinancieros];
