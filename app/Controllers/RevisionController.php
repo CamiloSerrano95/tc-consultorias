@@ -432,21 +432,21 @@
         
         public function viewExperiences($id){
             $empresas = new AprobadosModel();
-            $cumplex = $empresas->obtenerSegundo($id);
             $dataRequired = $empresas->obtenerExperiencias($id);
-            $requestData = json_decode($cumplex['empresas'][0]['objetos']);
-            $filtro = $this->filtroObjetos($id,$requestData);
-            $pibot = $dataRequired['empresas'][0]['nro_contratos'];
-            $aprobados = [];
-            if($filtro['objetos_por_cantidad'] != null){
-                foreach ($filtro['cantidad_objetos'] as $value) {
-                    if ($value['cantidad'] >= $pibot ){
-                        $infoEmpresa = $empresas->obtenerEmpresa($value['nit']);
-                        array_push($aprobados,array("nombre"=>$infoEmpresa['empresas'][0]['nombre_empresa'], "id"=>$value['nit'], "licitacion"=>$id));
+            $dataInfo = $this->validateObjects($id);
+            $aprobados=[];
+            if($dataInfo != NULL){
+                foreach ($dataInfo['infoAnswer'] as $key => $value) {
+                    if($value['cantidad'] >= $dataRequired['empresas'][0]['nro_contratos']){
+                        array_push($aprobados, array('nit'=>$value['nit'], 'id'=>$value['id']));
                     }
                 }
             }
-            return Vista::crear('ViewAprobados.Experiencia',$aprobados);
+            if($aprobados != null){
+                return Vista::crear('ViewAprobados.Experiencia',$aprobados,$dataInfo['licitacion']);
+            }else{
+                return Vista::crear('ViewAprobados.Experiencia');
+            }
         }
 
         public function filtroUno($dat){
@@ -638,7 +638,7 @@
                 }
             }
 
-            $obtenerEmpresa =((array_column($cont,'empresa')));
+            $obtenerEmpresa =array_column($cont,'empresa');
             $obtenerCantidad = array_count_values($obtenerEmpresa);
             #-----------Cantidad de Códigos que tiene esa experiencia------------------
             $auxi =[];
@@ -783,7 +783,6 @@
                 $requiredObject = $empr->obtenerSegundo($licitacion);
                 $requiredCods = $empr->obtenerFiltroUno($licitacion);
                 $objetos = json_decode($requiredObject['empresas'][0]['objetos']);
-                $past = $this->filtroObjetos($licitacion,$objetos);
                 $pibot =[];
                 #-----------------Empresas que cunplen con los objetos--------------------------
                 $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
@@ -795,12 +794,12 @@
                             $cods =[];
                             for ($h=0; $h < sizeof($codigos); $h++) { 
                                 $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
-                                if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
+                                if($obtengoServExper['status']==1){
                                     array_push($cods, $codigos[$h]);
                                     $contar = $contar+1;
                                 }
                             }    
-                            if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req'] && $cods != 0){
+                            if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req']){
                                 $cod = implode(',',$cods);
                                 array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0],"codigos"=>$cod)); // guardo la empresa junto a el objeto que cumple
                             }
@@ -884,7 +883,7 @@
             foreach ($obtenerCantidad as $key => $value) {
                 array_push($pasaCantidadObjetos, $key);
                 $nameCompany = $required->obtenerEmpresa($key);
-                array_push($Cantidad_por_empresa, array("nit"=>$nameCompany['empresas'][0]['nombre_empresa'], "cantidad"=>$value));
+                array_push($Cantidad_por_empresa, array("nit"=>$nameCompany['empresas'][0]['nombre_empresa'], "cantidad"=>$value, "id"=>$key));
             }
             return array("infoAnswer"=>$Cantidad_por_empresa ,"nro_contratos"=>$requiredExperiences['empresas'][0]['nro_contratos'],"licitacion"=>$licitacion);
         }
