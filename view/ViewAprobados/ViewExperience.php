@@ -21,8 +21,15 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>OBJETO</th>
-                                            <th>VALOR CONTRATO EN SMMLV</th>
                                             <th>TIPO ACTIVIDAD</th>
+                                            <th>Nro EXPERIENCIA</th>
+                                            <th>Nro CONSECUTIVO DEL CONTRATO</th>
+                                            <th>CONTRATO CELEBRADO POR</th>
+                                            <th>NOMBRE CONTRATISTA</th>
+                                            <th>NOMBRE DEL CONTRATANTE</th>
+                                            <th>FECHA INICIO OBJETO</th>
+                                            <th>FECHA FINAL OBJETO</th>
+                                            <th>VALOR CONTRATO EN SMMLV</th>
                                             <th>CODIGOS</th>
                                         </tr>
                                     </thead>
@@ -33,14 +40,35 @@
                                                     echo $key[$i]['nombre'];
                                                 echo "</td>";
                                                 echo "<td>";
-                                                    echo $key[$i]['valor'];
-                                                echo "</td>";           
-                                                echo "<td>";
-                                                    echo $key[$i]['tipoActividad'];
+                                                    echo $key[$i]['valor']['tipo_objeto_actividad'];
                                                 echo "</td>";  
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['numero_experiencia'];
+                                                echo "</td>";  
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['numero_contrato'];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['contrato_celebrado_por'];
+                                                echo "</td>";  echo "<td>";
+                                                    echo $key[$i]['valor']['nombre_contratista'];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['nombre_contratante'];
+                                                echo "</td>";
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['fecha_obj_inicio'];
+                                                echo "</td>";  
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['fecha_obj_final'];
+                                                echo "</td>";  
+                                                echo "<td>";
+                                                    echo $key[$i]['valor']['valor_contrato_smmlv'];
+                                                echo "</td>";           
                                                 echo "<td>";
                                                     echo $key[$i]['codigos'];
                                                 echo "</td>";
+                                                
                                                 }
                                             echo "</tr>"
                                         ?> 

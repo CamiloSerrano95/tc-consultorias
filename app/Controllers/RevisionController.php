@@ -3,8 +3,18 @@
     class RevisionController{
 
         public function AlianzaCodigos($licitacion,$idEmpresa){
+            $empresas = new AprobadosModel();
+            $request = $empresas->obtenerSegundo($licitacion);
+            $objects = json_decode($request['empresas'][0]['objetos']);
             $datos = $this->pibotCodFinanciero($licitacion,$idEmpresa);
-            return Vista::crear("Alianzas.AlianzaUnspsc", $datos);
+            $idsEmpresas=[];
+            for ($i=0; $i < sizeof($datos['aprobaron']); $i++) { 
+                $idRequest = $empresas->obtenerEmpresaNombre($datos['aprobaron'][$i]);
+                array_push($idsEmpresas, $idRequest['empresas'][0]['nit']);
+            }
+            $requestFiltroObjeto = $this->filtroObjetos($licitacion,$objects);
+            $aprobados = array_values(array_intersect($idsEmpresas,$requestFiltroObjeto['pasaron']));            
+            return Vista::crear("Alianzas.AlianzaUnspsc", array('datos'=>$datos, 'aprobados'=>$aprobados));
         }
 
         public function evaluarFinanExperiencia(){
@@ -25,7 +35,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -35,10 +45,14 @@
             $Tcapital_de_trabajo = (($titular['empresas'][0]['capital_de_trabajo'])* ($porcentajeEmpresa/100)) + $capital_de_trabajo;
             $Tpatrimonio = (($titular['empresas'][0]['patrimonio'])* ($porcentajeEmpresa/100)) + $patrimonio;
                 for ($i=0; $i < sizeof($empresas); $i++) { 
-                    $info = $empre->obtenerEmpresaNombre($empresas[$i]);
+                    $info = $empre->obtenerEmpresaNombre($empresas[$i]); //obtengo info de la empresa.
                     $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                     $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                        $razonPibote = 0;
+                    }else{
+                        $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    }
                     $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                     $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                     $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -46,7 +60,11 @@
                 }
                 $totalindiceL = $indiceL + $TindiceL;
                 $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+                if($razonPibote >= 0){
+                    $totalrazon_cobertura_interes = 0;
+                }else{
+                    $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+                }
                 $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
                 $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
                 $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -142,7 +160,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -155,7 +173,11 @@
                 $info = $empre->obtenerEmpresaNombre($empresas[$i]);
                 $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                 $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                    $razonPibote = 0;
+                }else{
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                }
                 $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                 $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                 $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -163,7 +185,11 @@
             }
             $totalindiceL = $indiceL + $TindiceL;
             $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            if($razonPibote >=0){
+                $totalrazon_cobertura_interes = 0;
+            }else{
+                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            }
             $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
             $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
             $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -236,7 +262,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -249,7 +275,11 @@
                 $info = $empre->obtenerEmpresaNombre($empresas[$i]);
                 $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                 $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                    $razonPibote = 0;
+                }else{
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                }
                 $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                 $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                 $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -257,7 +287,11 @@
             }
             $totalindiceL = $indiceL + $TindiceL;
             $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            if($razonPibote >=0){
+                $totalrazon_cobertura_interes = 0;
+            }else{
+                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            }
             $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
             $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
             $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -319,7 +353,7 @@
             $rentabilidad_del_activo =0;
             $capital_de_trabajo =0;
             $patrimonio = 0;
-            
+            $razonPibote = -1;
             $titular = $empre->obtenerEmpresaNombre($nombreEmpresaT);
             $TindiceL = (($titular['empresas'][0]['indice_liquidez'])* ($porcentajeEmpresa/100)) + $indiceL;
             $Tindice_endeudamento = (($titular['empresas'][0]['indice_endeudamento'])* ($porcentajeEmpresa/100)) + $indice_endeudamento;
@@ -332,7 +366,11 @@
                 $info = $empre->obtenerEmpresaNombre($empresas[$i]);
                 $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                 $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                    $razonPibote = 0;
+                }else{
+                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                }
                 $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                 $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                 $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -340,7 +378,11 @@
             }
             $totalindiceL = $indiceL + $TindiceL;
             $totalindice_endeudamento = $indice_endeudamento + $Tindice_endeudamento;
-            $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            if($razonPibote >=0){
+                $totalrazon_cobertura_interes = 0;
+            }else{
+                $totalrazon_cobertura_interes = $razon_cobertura_interes + $Trazon_cobertura_interes;
+            }
             $totalrentabilidad_patrimonio = $rentabilidad_patrimonio + $Trentabilidad_patrimonio;
             $totalrentabilidad_del_activo = $rentabilidad_del_activo + $Trentabilidad_del_activo;
             $totalcapital_de_trabajo = $capital_de_trabajo + $Tcapital_de_trabajo;
@@ -366,8 +408,10 @@
         }
 
         public function finanmet($dato1, $dato2){
+            $empresa = new AprobadosModel();
+            $dataEmpresa = $empresa->obtenerEmpresa($dato2);
             $datos = $this->pibotFinanciero($dato1,$dato2);
-            return Vista::crear('Alianzas.AlianzaUnspscExperiencia', $datos);
+            return Vista::crear('Alianzas.AlianzaUnspscExperiencia', array('datos'=>$datos,'name'=>$dataEmpresa['empresas'][0]['nombre_empresa']));
         }
 
         public function pibotFinanciero($dato1, $dato2){
@@ -388,21 +432,21 @@
         
         public function viewExperiences($id){
             $empresas = new AprobadosModel();
-            $cumplex = $empresas->obtenerSegundo($id);
             $dataRequired = $empresas->obtenerExperiencias($id);
-            $requestData = json_decode($cumplex['empresas'][0]['objetos']);
-            $filtro = $this->filtroObjetos($id,$requestData);
-            $pibot = $dataRequired['empresas'][0]['nro_contratos'];
-            $aprobados = [];
-            if($filtro['objetos_por_cantidad'] != null){
-                foreach ($filtro['cantidad_objetos'] as $value) {
-                    if ($value['cantidad'] >= $pibot ){
-                        $infoEmpresa = $empresas->obtenerEmpresa($value['nit']);
-                        array_push($aprobados,array("nombre"=>$infoEmpresa['empresas'][0]['nombre_empresa'], "id"=>$value['nit'], "licitacion"=>$id));
+            $dataInfo = $this->validateObjects($id);
+            $aprobados=[];
+            if($dataInfo != NULL){
+                foreach ($dataInfo['infoAnswer'] as $key => $value) {
+                    if($value['cantidad'] >= $dataRequired['empresas'][0]['nro_contratos']){
+                        array_push($aprobados, array('nit'=>$value['nit'], 'id'=>$value['id']));
                     }
                 }
             }
-            return Vista::crear('ViewAprobados.Experiencia',$aprobados);
+            if($aprobados != null){
+                return Vista::crear('ViewAprobados.Experiencia',$aprobados,$dataInfo['licitacion']);
+            }else{
+                return Vista::crear('ViewAprobados.Experiencia');
+            }
         }
 
         public function filtroUno($dat){
@@ -537,6 +581,7 @@
             $codigos = json_decode($codsRequired['empresas'][0]['objetos']);
             $pibot =[];
             $objetos =[];
+            $datas=[];
             #----------------Filtro de objetos por  valor salario -------------------
             for ($i=0; $i < sizeof($objects); $i++) { 
                 $dataAux = $empresas->obtengoExperiencia($objects[$i]);
@@ -544,14 +589,34 @@
                     array_push($objetos,$objects[$i]);
                 }
             }
+            
+            for ($i=0; $i < sizeof($objetos); $i++) { 
+                $contador =0;
+                $cods =[];
+                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                foreach ($obtengoServExper['empresas'] as $key => $value) {
+                    $codes = [];
+                    for ($j=0; $j < sizeof($codigos); $j++) { 
+                        if($value['id_servicio'] == $codigos[$j]){
+                            $contador = $contador+1;
+                            array_push($codes, $codigos[$j]);
+                        }
+                    }
+                    array_push($cods, implode(",",$codes));
+                }
+                if($contador >= $CodigosRequeridos){
+                    array_push($datas, array("codigos"=>$cods, "objeto"=>$objetos[$i], "cantidad_codigos"=>$contador)); 
+                }
+            }
+
 
 
             #-----------------Empresas que cumplen con los objetos--------------------------
-            for ($i=0; $i < sizeof($objetos); $i++) { 
-                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
+            for ($i=0; $i < sizeof($datas); $i++) { 
+                $data = $empresas->ObjetoEmpresa($datas[$i]['objeto']); //filtra las empresas que contengan los objetos que se pasaron por parametros.
                 if($data['status']==1){
                     for ($j=0; $j < sizeof($data['empresas']); $j++) { 
-                        array_push($pibot, $data['empresas'][$j]['nit'], $objetos[$i]); // guardo la empresa junto a el objeto que cumple
+                        array_push($pibot, $data['empresas'][$j]['nit'], $datas[$i]); // guardo la empresa junto a el objeto que cumple
                     }
                 }
             }
@@ -573,25 +638,25 @@
                 }
             }
 
-            $obtenerEmpresa =((array_column($cont,'empresa')));
+            $obtenerEmpresa =array_column($cont,'empresa');
             $obtenerCantidad = array_count_values($obtenerEmpresa);
             #-----------Cantidad de Códigos que tiene esa experiencia------------------
             $auxi =[];
             
-            for ($i=0; $i < sizeof($objetos); $i++) { 
+            for ($i=0; $i < sizeof($datas); $i++) { 
                 $carta =0;
-                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                $obtengoServExper = $empresas->getServicioExpe($datas[$i]['objeto']);
                 foreach ($obtengoServExper['empresas'] as $key => $value) {
                     for ($j=0; $j < sizeof($codigos); $j++) { 
                         if($value['id_servicio'] == $codigos[$j]){
-                            $dataAux = $empresas->obtengoExperiencia($objetos[$i]);
+                            $dataAux = $empresas->obtengoExperiencia($datas[$i]['objeto']);
                             if($dataAux['empresas'][0]['valor_contrato_smmlv'] >= $slm){
                                 $carta = $carta+1;
                             }
                         }
                     }
                 }
-                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
+                array_push($auxi, array("objeto"=> $datas[$i]['objeto'], "cantidad"=>$carta));
             }
 
             $cantidadCodigos = [];
@@ -628,7 +693,7 @@
 
             $reductor = array_unique($aprobaron);
             $realyAprovade= array_values($reductor);
-            $request=["pedido"=>$objetos, "pasaron"=>$realyAprovade, "licitacion" => $Licitacion, "objetos_por_cantidad"=>$cantidadCodigos,"cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
+            $request=["pedido"=>$objects, "pasaron"=>$realyAprovade, "licitacion" => $Licitacion, "objetos_por_cantidad"=>$cantidadCodigos,"cantidad_objetos"=>$Cantidad_por_empresa,"objetos"=>(array_column($cont,'codigos'))];
             return $request;
         }
         public function filtroUnoyDos($dat){
@@ -638,8 +703,9 @@
             $requerido = $empresas->obtenerpedidosExperiencia($dat);
             $resultFiltroUno = $this->filtroUnspsc($dat, json_decode($codRequeridos['empresas'][0]['objetos']));
             $resultFiltroDos = $this->filtroObjetos($dat, json_decode($objetosRequeridos['empresas'][0]['objetos']));
-            $aprobados = array_values(array_intersect_assoc($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
+            $aprobados = array_values(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $codigos = implode(",", json_decode($codRequeridos['empresas'][0]['objetos']));
+            //var_dump(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $vectorDatos= [];            
             for ($i=0; $i < sizeof($aprobados) ; $i++) { 
                 $name = $empresas->obtenerEmpresa($aprobados[$i]);
@@ -717,7 +783,6 @@
                 $requiredObject = $empr->obtenerSegundo($licitacion);
                 $requiredCods = $empr->obtenerFiltroUno($licitacion);
                 $objetos = json_decode($requiredObject['empresas'][0]['objetos']);
-                $past = $this->filtroObjetos($licitacion,$objetos);
                 $pibot =[];
                 #-----------------Empresas que cunplen con los objetos--------------------------
                 $codigos = json_decode($requiredCods['empresas'][0]['objetos']);
@@ -729,15 +794,14 @@
                             $cods =[];
                             for ($h=0; $h < sizeof($codigos); $h++) { 
                                 $obtengoServExper = $empresas->ObtenerServicioExperiencia($objetos[$i],$codigos[$h]);
-                                if($obtengoServExper['status']==1 && $obtengoServExper['empresas'] != null){
-
+                                if($obtengoServExper['status']==1){
                                     array_push($cods, $codigos[$h]);
                                     $contar = $contar+1;
                                 }
                             }    
-                            if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req'] && $cods != 0){
+                            if($contar !=0 && $contar >= $required['empresas'][0]['min_cod_req']){
                                 $cod = implode(',',$cods);
-                                array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0]['valor_contrato_smmlv'],"tipoActividad"=>$data['empresas'][0]['tipo_objeto_actividad'],"codigos"=>$cod)); // guardo la empresa junto a el objeto que cumple
+                                array_push($pibot, array("nombre"=>$data['empresas'][0]['descripcion'],"valor"=>$data['empresas'][0],"codigos"=>$cod)); // guardo la empresa junto a el objeto que cumple
                             }
                         }
                     }
@@ -819,7 +883,7 @@
             foreach ($obtenerCantidad as $key => $value) {
                 array_push($pasaCantidadObjetos, $key);
                 $nameCompany = $required->obtenerEmpresa($key);
-                array_push($Cantidad_por_empresa, array("nit"=>$nameCompany['empresas'][0]['nombre_empresa'], "cantidad"=>$value));
+                array_push($Cantidad_por_empresa, array("nit"=>$nameCompany['empresas'][0]['nombre_empresa'], "cantidad"=>$value, "id"=>$key));
             }
             return array("infoAnswer"=>$Cantidad_por_empresa ,"nro_contratos"=>$requiredExperiences['empresas'][0]['nro_contratos'],"licitacion"=>$licitacion);
         }
@@ -851,11 +915,16 @@
                 $rentabilidad_del_activo =0;
                 $capital_de_trabajo =0;
                 $patrimonio = 0;
+                $razonPibote = -1;
                 for ($i=0; $i < sizeof($empresas); $i++) { 
                     $info = $required->obtenerEmpresaNombre($empresas[$i]);
                     $indiceL = (($info['empresas'][0]['indice_liquidez'])* ($porcentaje[$i]/100)) + $indiceL;
                     $indice_endeudamento = (($info['empresas'][0]['indice_endeudamento'])* ($porcentaje[$i]/100)) + $indice_endeudamento;
-                    $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    if($info['empresa'][0]['razon_cobertura_interes']== 0){
+                        $razonPibote = 0;
+                    }else{
+                        $razon_cobertura_interes = (($info['empresas'][0]['razon_cobertura_interes'])* ($porcentaje[$i]/100)) + $razon_cobertura_interes;
+                    }
                     $rentabilidad_patrimonio = (($info['empresas'][0]['rentabilidad_patrimonio'])* ($porcentaje[$i]/100)) + $rentabilidad_patrimonio;
                     $rentabilidad_del_activo = (($info['empresas'][0]['rentabilidad_del_activo'])* ($porcentaje[$i]/100)) + $rentabilidad_del_activo;
                     $capital_de_trabajo = (($info['empresas'][0]['capital_de_trabajo'])* ($porcentaje[$i]/100)) + $capital_de_trabajo;
@@ -867,7 +936,7 @@
                 $validation = [];
                 $datosFinancieros =[];
                 if($pib['ind_liquidez'] <= $indiceL && $pib['endeudamiento'] >= $indice_endeudamento && $pib['rent_patrimonio'] <= $rentabilidad_patrimonio && $pib['rent_activos'] <= $rentabilidad_del_activo && $pib['patrimonio'] <= $patrimonio && $capital_de_trabajo >= $pib['capital_trabajo']){
-                    if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $razon_cobertura_interes || $razon_cobertura_interes == 0){
+                    if($pib['raz_cobertura_int'] >= 0 && $pib['raz_cobertura_int'] <= $razon_cobertura_interes || $razonPibote == 0){
                         array_push($vectorCumple, $indiceL, $indice_endeudamento,$razon_cobertura_interes, $rentabilidad_patrimonio,$rentabilidad_del_activo, $capital_de_trabajo,$patrimonio);
                         array_push($datosFinancieros,$pib['ind_liquidez'],$pib['endeudamiento'], $pib['raz_cobertura_int'],$pib['rent_patrimonio'], $pib['rent_activos'],$pib['patrimonio'], $pib['capital_trabajo']);
                         $validation =["status" => 'aprueba', "datos"=>$vectorCumple, "financiero"=>$datosFinancieros];

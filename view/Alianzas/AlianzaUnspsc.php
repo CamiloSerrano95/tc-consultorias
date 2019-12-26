@@ -4,13 +4,13 @@
     $var ="";
     $licit="";
     if(isset($key['datos'])){
-        $data = $key['datos'][7]['aprobaron'];
-        $var = $key['nombre'];
-        $licit = $key['datos'][7]['licitacion'];
+        $data = $key['aprobados'];
+        $var = $key['datos']['nombre'];
+        $licit = $key['datos']['licitacion'];
     }else{
-        $var = $key['nombre'];
-        $data = $key['aprobaron'];
-        $licit = $key['licitacion'];
+        $var = $key['datos']['nombre'];
+        $data = $key['aprobados'];
+        $licit = $key['datos']['licitacion'];
     }
 ?> 
 

@@ -42,14 +42,31 @@
 
         public function filtroObjetos($Licitacion,$objetos, $Contratos, $CodigosRequeridos, $codigos){
             $empresas = new CumplimientosModel();
-            $pibot =[];
-            #-----------------Empresas que cumplen con los objetos--------------------------
+            $datas=[];
             for ($i=0; $i < sizeof($objetos); $i++) { 
-                $data = $empresas->ObjetoEmpresa($objetos[$i]); //filtra las empresas que contengan los objetos que se pasaron por parametros.
-                if($data['status']==1){
-                    for ($j=0; $j < sizeof($data['empresas']); $j++) { 
-                        array_push($pibot, $data['empresas'][$j]['nit'], $objetos[$i]); // guardo la empresa junto a el objeto que cumple
+                $contador =0;
+                $cods =[];
+                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
+                foreach ($obtengoServExper['empresas'] as $key => $value) {
+                    $codes = [];
+                    for ($j=0; $j < sizeof($codigos); $j++) { 
+                        if($value['id_servicio'] == $codigos[$j]){
+                            $contador = $contador+1;
+                            array_push($codes, $codigos[$j]);
+                        }
                     }
+                    array_push($cods, implode(",",$codes));
+                }
+                if($contador >= $CodigosRequeridos){
+                    array_push($datas, array("codigos"=>$cods, "objeto"=>$objetos[$i], "cantidad_codigos"=>$contador)); 
+                }
+            }
+            
+            $pibot =[];
+            for ($i=0; $i < sizeof($datas); $i++) { 
+                $data = $empresas->ObjetoEmpresa($datas[$i]['objeto']);
+                if($data['status']==1){
+                    array_push($pibot, $data['empresas'][$j]['nit'], $datas[$i]); // guardo la empresa junto a lo de arriba
                 }
             }
             $cont =[];
@@ -69,37 +86,23 @@
             }
             $obtenerEmpresa =((array_column($cont,'empresa')));
             $obtenerCantidad = array_count_values($obtenerEmpresa);
-            #-----------Cantidad de Códigos que tiene esa experiencia------------------
-            $auxi =[];
-            
-            for ($i=0; $i < sizeof($objetos); $i++) { 
-                $carta =0;
-                $obtengoServExper = $empresas->getServicioExpe($objetos[$i]);
-                foreach ($obtengoServExper['empresas'] as $key => $value) {
-                    for ($j=0; $j < sizeof($codigos); $j++) { 
-                        if($value['id_servicio'] == $codigos[$j]){
-                            $carta = $carta+1;
-                        }
-                    }
-                }
-                array_push($auxi, array("objeto"=> $objetos[$i], "cantidad"=>$carta));
-            }
+            #-----------Cantidad de Códigos que tiene esa experiencia------------------      
 
             $cantidadCodigos = [];
 
-            foreach ($auxi as $key => $value) {
+            foreach ($datas as $key => $value) {
                 if($value['cantidad']>=$CodigosRequeridos){
                     array_push($cantidadCodigos, $value['objeto']);
                 }
             }
 
-            
             $pasaCantidadObjetos =[];
             foreach ($obtenerCantidad as $key => $value) {
                 if ($value >= $Contratos){
                     array_push($pasaCantidadObjetos, $key);
                 }
             }
+            
             $aprobaron =[];
             for ($i=0; $i < sizeof($pasaCantidadObjetos) ; $i++) { 
                 for ($j=0; $j < sizeof($cantidadCodigos); $j++) { 
@@ -199,7 +202,7 @@
                 //------------------------------all final section--------------------------------------------
                 $ultimo = $this->filtroFinanciero($parteTres['pasaron'],$Endeudamiento,$Liquidez,$CoberturaInteres,$RentabilidadActivos,$RentabilidadPatrimonio,$id['id'],$patrimonio,$capitalTrabajo);
                 $empresas->AddCumplimientoFinanciero($Liquidez,$Endeudamiento,$CoberturaInteres,$RentabilidadPatrimonio,$RentabilidadActivos, $patrimonio,$capitalTrabajo,json_encode($ultimo['pasaron']),$id['id']);
-                Redirecciona::LetsGoTo('evaluacion');
+                Redirecciona::LetsGoTo('vistaresults/UnoDos');
             } catch (Exception $e) {
                 print_r($e);
             }
