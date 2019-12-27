@@ -702,8 +702,12 @@
             $objetosRequeridos = $empresas->obtenerSegundo($dat);
             $requerido = $empresas->obtenerpedidosExperiencia($dat);
             $resultFiltroUno = $this->filtroUnspsc($dat, json_decode($codRequeridos['empresas'][0]['objetos']));
-            $resultFiltroDos = $this->filtroObjetos($dat, json_decode($objetosRequeridos['empresas'][0]['objetos']));
-            $aprobados = array_values(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
+            $resultFiltroDos = $this->validateObjects($dat);
+            $data=[];
+            for ($i=0; $i < sizeof($resultFiltroDos['infoAnswer']); $i++) { 
+                array_push($data,$resultFiltroDos['infoAnswer'][$i]['id']);
+            }
+            $aprobados = array_values(array_intersect($resultFiltroUno['pasaron'],$data));
             $codigos = implode(",", json_decode($codRequeridos['empresas'][0]['objetos']));
             //var_dump(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $vectorDatos= [];            
