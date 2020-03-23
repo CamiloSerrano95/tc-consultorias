@@ -702,10 +702,15 @@
             $objetosRequeridos = $empresas->obtenerSegundo($dat);
             $requerido = $empresas->obtenerpedidosExperiencia($dat);
             $resultFiltroUno = $this->filtroUnspsc($dat, json_decode($codRequeridos['empresas'][0]['objetos']));
-            $resultFiltroDos = $this->filtroObjetos($dat, json_decode($objetosRequeridos['empresas'][0]['objetos']));
-            $aprobados = array_values(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
+            $resultFiltroDos = $this->validateObjects($dat);
+            $data=[];
+            for ($i=0; $i < sizeof($resultFiltroDos['infoAnswer']); $i++) { 
+                if($resultFiltroDos['infoAnswer'][$i]['cantidad'] >=$requerido['empresas'][0]['nro_contratos']){
+                    array_push($data,$resultFiltroDos['infoAnswer'][$i]['id']);
+                }
+            }
+            $aprobados = array_values(array_intersect($resultFiltroUno['pasaron'],$data));
             $codigos = implode(",", json_decode($codRequeridos['empresas'][0]['objetos']));
-            //var_dump(array_intersect($resultFiltroUno['pasaron'],$resultFiltroDos['pasaron']));
             $vectorDatos= [];            
             for ($i=0; $i < sizeof($aprobados) ; $i++) { 
                 $name = $empresas->obtenerEmpresa($aprobados[$i]);
@@ -724,13 +729,13 @@
             $pedido = $empr->obtenerSegundo($dat);
             $requiredObjects = json_decode($pedido['empresas'][0]['objetos']);//los objetos que me piden tener
             $info = [];
-            $filtrado = $this->filtroObjetos($dat,$requiredObjects);
+            $filtrado = $this->validateObjects($dat);
             $rep_array = [];
-            for ($l=0; $l <sizeof($filtrado['pedido']) ; $l++) { 
-                array_push($rep_array,$filtrado['pedido'][$l]);
+            for ($l=0; $l <sizeof($filtrado['infoAnswer']) ; $l++) { 
+                array_push($rep_array,$filtrado['infoAnswer'][$l]['id']);
             }
 
-            $objetos = array_values(array_unique($rep_array));
+            $objetos = array_values(array_unique($requiredObjects));
             $auxi =[];  
             
             for ($i=0; $i < sizeof($objetos); $i++) { 
@@ -758,9 +763,9 @@
                 if($value['cantidad']>=$CodigosRequeridos){
                     array_push($cantidadCodigos, array("objeto"=>$value['objeto'],"codigos"=>$value['codigos']));
                 }
-            }      
-            for ($i=0; $i < sizeof($filtrado['pasaron']) ; $i++) { 
-                if($filtrado['pasaron'][$i]== $idEmpresa && $filtrado['cantidad_objetos'][$i]['nit'] == $idEmpresa && $filtrado['cantidad_objetos'][$i]['cantidad'] >= $requerido['empresas'][0]['nro_contratos']){
+            }                  
+            for ($i=0; $i < sizeof($filtrado['infoAnswer']) ; $i++) { 
+                if($filtrado['infoAnswer'][$i]['id'] == $idEmpresa && $filtrado['infoAnswer'][$i]['cantidad'] >= $requerido['empresas'][0]['nro_contratos']){
                     for ($p=0; $p < sizeof($objetos); $p++) { 
                         $data = $empresas->ObjetoEmpresa($objetos[$p]);
                         for ($l=0; $l < sizeof($cantidadCodigos); $l++) { 
