@@ -12,6 +12,8 @@
     $Servicios = array($Empresa->ObtenerServicios());
     $servicio = $Empresa->ObtenerServicios();
 
+    $Objetos = $busqueda->objetos();
+
 ?> 
 <script>
         var arrayConvert = <?php echo json_encode($Servicios[0]); ?>;
@@ -45,7 +47,7 @@
                 }
             }); 
         }
-    </script>
+</script>
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -66,6 +68,8 @@
     <link href="<?php echo ASSETS_URL."libs/jquery-steps/jquery.steps.css"?>" rel="stylesheet">
     <link href="<?php echo ASSETS_URL."libs/jquery-steps/steps.css"?>" rel="stylesheet">
     <link href="<?php echo ASSETS_URL."dist/css/style.min.css"?>" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -234,6 +238,35 @@
                                     
                                 </section>
 
+                                <h3>DATATABLE</h3>
+                                <section>
+                                    <table id="example" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($Objetos['objetos'] as $data) { ?>
+                                            <tr>
+                                                <td><?php echo $data['id']; ?></td>    
+                                                <td><?php echo $data['descripcion']; ?></td>                                        
+                                                <td><?php echo $data['tipo_objeto_actividad']; ?></td>                                        
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </section>
+
                                 <h3>Cumplimiento de Experiencia</h3>
                                 <section>
                                     <div class="form-group">
@@ -278,6 +311,7 @@
                                         <input type="text" class="form-control" name="patrimonio" placeholder="Digite el valor en smmlv, si no aplica digite 0">
                                     </div>
                                 </section>
+
                             </div>
                         </form>
                     </div>
@@ -285,7 +319,11 @@
             </div>
         </div>
     </div>
+    
+    <script src="cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo ASSETS_URL."libs/jquery/dist/jquery.min.js"?>"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?php echo ASSETS_URL."libs/popper.js/dist/umd/popper.min.js"?>"></script>
     <script src="<?php echo ASSETS_URL."libs/bootstrap/dist/js/bootstrap.min.js"?>"></script>
@@ -440,6 +478,19 @@
             esareType.remove();
             eraseButton.remove();
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable();
+
+            $('#example tbody').on('click', 'tr', function() {
+                $(this).toggleClass('selected');
+            });
+
+            $('#button').click(function() {
+                alert(table.rows('.selected').data().length + ' row(s) selected');
+            });
+        });
     </script>
 </body>
 

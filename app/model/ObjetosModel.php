@@ -27,9 +27,10 @@
 	    	return $response;
         }
         
-        /* public function ViewObject () {
+
+        public function objetos () {
             try {
-                $sql = "SELECT experiencias.nombre_contratante, objetos.* FROM objetos, experiencias WHERE experiencias.id_obj_experiencia=objetos.id_objeto ";
+                $sql = "SELECT experiencias.id, experiencias.descripcion, experiencias.tipo_objeto_actividad  FROM experiencias ";
                 $query = $this->DataBase->prepare($sql);
                 $query->execute();
                 $data = $query->fetchAll();
@@ -38,7 +39,7 @@
                 $response = ['status' => 0, 'error' => $e];
             }
             return $response;
-        } */
+        }
 
         public function Palabrita($data){
             try {
