@@ -240,7 +240,7 @@
 
                                 <h3>Cumplimiento Objeto</h3>
                                 <section>
-                                    <button id="buttonexample">Este es el maldito boton</button>
+                                    <div id="idValue"></div>
                                     <table id="example" class="display" style="width:100%">
                                         <thead>
                                             <tr>
@@ -374,7 +374,7 @@
         });
 
         // Add button delete
-       /*  var erase = document.getElementById('erase');
+        var erase = document.getElementById('erase');
         var contador = 0;
         
         crearInput.onclick = () => {
@@ -478,7 +478,7 @@
             eraseName.remove();
             esareType.remove();
             eraseButton.remove();
-        } */
+        }
     </script>
     <script>
         $(document).ready(function() {
@@ -488,16 +488,17 @@
             $('#example tbody').on('click', 'tr', function() {
                 var value = $(this).toggleClass('selected');
                 var data = value[0].innerText;
-                var dataId = trim(data.substr(0,3));
-                
-                console.log(dataId);
-
+                var dataId = data.substr(0,3);
+                Arraydatas.push(dataId.trim());
+                var s = document.getElementById('idValue');
+                s.innerHTML = "";
+                s.innerHTML += "<input type='text' name='objetos' value='"+Arraydatas+"'>";                
             });
 
-            $('#buttonexample').click(function(e) {
+            /* $('#buttonexample').click(function(e) {
                 e.preventDefault;
                 alert(table.rows('.selected').data().length + ' row(s) selected');
-            });
+            }); */
         });
     </script>
 </body>

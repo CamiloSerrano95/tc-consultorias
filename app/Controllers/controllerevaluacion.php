@@ -167,7 +167,8 @@
 
         public function agregar(){
             $empresas = new CumplimientosModel();
-            /* ----------------------------DATOS POR POST ------------------------ */
+            /* ----------------------------DATOS POR POST ------------------------ */            
+
             $Contratos = $_POST['num_contrato'];
             $CodigosRequeridos = $_POST['codigos_requeridos'];
             $PresupuestoOficial = $_POST['presupuesto_oficial'];
