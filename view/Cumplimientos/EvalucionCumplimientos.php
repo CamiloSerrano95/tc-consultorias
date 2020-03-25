@@ -199,7 +199,7 @@
                                     </div>
                                 </section>
 
-                                <h3>Cumplimiento Objeto</h3>
+                                <!-- <h3>Cumplimiento Objeto</h3>
                                 <section>
                                     <div class="form-group">
                                         <label class="mt-3">Palabra Clave Objeto</label>
@@ -223,23 +223,24 @@
 
                                     <div class="row">
                                         <div id="inputB" class="form-group col-sm-7">
-                                            <!-- input2 -->
+                                            input2 
                                         </div>
                                         <div id="inputC" class="form-group col-sm-3">
-                                            <!-- input3 -->
+                                            input3 
                                         </div>
                                         <div id="eraseTwo" class="form-group col-sm-2">
-                                            <!-- Button erase -->
+                                            Button erase 
                                         </div>
                                         <div id="inputA" class="form-group col-sm-1">
-                                            <!-- input1 -->
+                                            input1 
                                         </div>
                                     </div>
                                     
-                                </section>
+                                </section> -->
 
-                                <h3>DATATABLE</h3>
+                                <h3>Cumplimiento Objeto</h3>
                                 <section>
+                                    <button id="buttonexample">Este es el maldito boton</button>
                                     <table id="example" class="display" style="width:100%">
                                         <thead>
                                             <tr>
@@ -373,7 +374,7 @@
         });
 
         // Add button delete
-        var erase = document.getElementById('erase');
+       /*  var erase = document.getElementById('erase');
         var contador = 0;
         
         crearInput.onclick = () => {
@@ -477,17 +478,24 @@
             eraseName.remove();
             esareType.remove();
             eraseButton.remove();
-        }
+        } */
     </script>
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable();
+            var Arraydatas = [];
 
             $('#example tbody').on('click', 'tr', function() {
-                $(this).toggleClass('selected');
+                var value = $(this).toggleClass('selected');
+                var data = value[0].innerText;
+                var dataId = trim(data.substr(0,3));
+                
+                console.log(dataId);
+
             });
 
-            $('#button').click(function() {
+            $('#buttonexample').click(function(e) {
+                e.preventDefault;
                 alert(table.rows('.selected').data().length + ' row(s) selected');
             });
         });
