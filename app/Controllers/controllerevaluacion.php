@@ -180,7 +180,7 @@
             $RentabilidadActivos = $_POST['activos'];
             $Licitacion = $_POST['licitacion'];
             $codigos = $_POST['codigos'];
-            $objets = $_POST['objetos'];
+            $objets = explode(",",$_POST['objetos']);
             $objetos= array_values(array_unique($objets));
             $id=$empresas->AddLicitacion($Licitacion);
             $patrimonio = $_POST['patrimonio'];
