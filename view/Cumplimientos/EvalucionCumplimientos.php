@@ -241,12 +241,12 @@
                                 <h3>Cumplimiento Objeto</h3>
                                 <section>
                                     <div id="idValue"></div>
-                                    <table id="example" class="display" style="width:100%">
+                                    <table id="example" class="display text-center table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
+                                                <th>ID</th>
+                                                <th>OBJETOS</th>
+                                                <th>ACTIVIDAD</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -492,13 +492,8 @@
                 Arraydatas.push(dataId.trim());
                 var s = document.getElementById('idValue');
                 s.innerHTML = "";
-                s.innerHTML += "<input type='text' name='objetos' value='"+Arraydatas+"'>";                
+                s.innerHTML += "<input type='hidden' name='objetos' value='"+Arraydatas+"'>";                
             });
-
-            /* $('#buttonexample').click(function(e) {
-                e.preventDefault;
-                alert(table.rows('.selected').data().length + ' row(s) selected');
-            }); */
         });
     </script>
 </body>
