@@ -1,8 +1,8 @@
 <?php
     class Conexion{	
 		public function get_conexion(){
-		    $user = "alcaldiacovenas";
-            $pass = "Covenas2019";
+		    $user = "root";
+            $pass = "";
             $host = "localhost";
             $db = "tconsultorias";
             
