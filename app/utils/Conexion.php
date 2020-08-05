@@ -1,8 +1,8 @@
 <?php
     class Conexion{	
 		public function get_conexion(){
-		    $user = "root";
-            $pass = "";
+		    $user = "alcaldiacovenas";
+            $pass = "Covenas2019";
             $host = "localhost";
             $db = "tconsultorias";
             
@@ -19,4 +19,3 @@
 		}
     }
 ?>
-
