@@ -44,7 +44,13 @@ class SessionModel {
 
     public function ShowNotification() {
         @session_start();
-        echo $_SESSION['toastr'].$_SESSION['toastr']['type']."('". $_SESSION['toastr']['message'] ."', '". $_SESSION['toastr']['title'] ."')";
+        //echo $_SESSION['toastr'].$_SESSION['toastr']['type']."('". $_SESSION['toastr']['message'] ."', '". $_SESSION['toastr']['title'] ."')";
+        $toast = $_SESSION['toastr'];
+        $type = $_SESSION['toastr']['type'];
+        $message = $_SESSION['toastr']['message'];
+        $title = $_SESSION['toastr']['title'];
+
+        echo "$toast.$type.($message, $title)";
         unset($_SESSION['toastr']);
     }
 }

@@ -4,6 +4,7 @@
     require dirname(__FILE__).'/../home/header.php'; 
     $instancia = new AprobadosModel();
     $variable = $instancia->obtenerLicitacionesSolas();
+    $sec = new SessionesModel();
 ?>
 
 <div class="page-wrapper">
@@ -27,6 +28,7 @@
                                     <tr>
                                         <th>Objeto Contrato</th>
                                         <th>Ver Empresas</th>
+                                        <th>Procesos ContraActuales</th>
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
@@ -35,11 +37,15 @@
                                         foreach ($variable['empresas'] as $value) {
                                             $http = ABS_PATH."revision/TodoCumple/".$value['id'];
                                             $Eliminar = ABS_PATH."revision/eliminar/".$value['id'];
+                                            $Proceso = ABS_PATH."procesos/create/{$value['id']}";
                                     ?>
                                     <tr>
                                         <td><?php echo $value['nombre']; ?></td>
                                         <td>
                                             <a href="<?php echo $http; ?>" class="btn btn-link"><span style="font-size: 2em; color: orange;"><i class="fas fa-eye"></i></span></button>                                            
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo $Proceso; ?>" class="btn btn-link"><span style="font-size: 2em; color: purple;"><i class="fab fa-black-tie"></i></span></button>                                            
                                         </td>
                                         <td>
                                             <a href="<?php echo $Eliminar; ?>" class="btn btn-link"><span style="font-size: 2em; color: red;"><i class="fas fa-trash"></i></span></button>                                            
@@ -57,3 +63,7 @@
 </div>
 
 <?php require dirname(__FILE__).'/../home/footer.php';?>
+
+<script>
+    <?php $sec->ShowNotification() ?>
+</script>
