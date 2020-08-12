@@ -14,10 +14,98 @@
     </div>
 
     <div class="container-fluid">
-    <div class="card">
+        <div class="card">
+            <h4 class="card-title">Procesos ContraActuales</h4>
+            <div class="container text-center row mt-3">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>NOMENCLATURA : </strong></label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>ENTIDAD : </strong></label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>CONTRATO : </strong></label>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="mt-3 text-center">
+                <h5 class="text-center">PREPLIEGO</h5>
+                <div class="table-responsive text-center mt-5">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Valor</th>
+                                <th>Fecha presentar observaciones prepliego</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>               
+                                <td></td>              
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-3 text-center">
+                <h5 class="text-center">PLIEGO</h5>
+                <div class="table-responsive text-center mt-5">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Fecha de apertura</th>
+                                <th>Visita a obra o presentación de intencion</th>
+                                <th>Estado</th>
+                                <th>Fecha de observaciones definitivo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>               
+                                <td></td>              
+                                <td></td>               
+                                <td></td>  
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-3 text-center">
+                <h5 class="text-center">OFERTA</h5>
+                <div class="table-responsive text-center mt-5">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>fecha de presentar propuesta</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
             <form action="<?php echo ABS_PATH."procesos/store"?>" method="POST" class="form-horizontal">
                 <div class="card-body">
-                    <h4 class="card-title">Procesos ContraActuales</h4>
                     <input type="text" name="id_object" value="<?php echo $key; ?>">
                     <div class="form-group row mt-5">
                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">NOMENCLATURA</label>
