@@ -48,5 +48,38 @@
 
             return $response;
         }
+
+        public function getById($id) {
+          
+            try {
+                //$sql = "SELECT * FROM contractual_processes WHERE contract_id = ?";
+                $sql = "SELECT licitacion.nombre, contractual_processes.* FROM licitacion, contractual_processes 
+                    WHERE contractual_processes.contract_id = ?";
+                $query = $this->DataBase->prepare($sql);
+                $data = [$id];
+                $query->execute($data);
+                $infoProcesses = $query->fetch();
+                $response = ['status' => 1, 'processes' => $infoProcesses];
+            } catch (Exception $e) {
+                $response = ['status' => 0, 'Error'=>$e];
+            }
+            
+            return $response;
+        }
+
+        public function getStatus($date) {
+            $today = strtotime(date("Y-m-d"));
+            $date = strtotime($date);
+
+            if ($today > $date) {
+                $status = 'vencido';
+            } else if ($today < $date) {
+                $status = 'a tiempo';
+            } else {
+                $status = 'vence hoy';
+            }
+
+            return $status;
+        }
     }
 ?>

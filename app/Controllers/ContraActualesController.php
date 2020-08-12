@@ -4,7 +4,19 @@
     class ContraActualesController{
 
         public function create($id){
-            return Vista::crear("Procesos.ContraActuales", $id);
+            $PC = new ContractualProcessesModel();
+
+            $response = $PC->getById($id);
+
+            if ($response['processes']) {
+                $response['processes']['prepliego_status'] = $PC->getStatus($response['processes']['prepliego_date_presentation']);
+                $response['processes']['pliego_status'] = $PC->getStatus($response['processes']['pliego_date_presentation']);
+                $response['processes']['offer_status'] = $PC->getStatus($response['processes']['offer_date_presentation']);
+
+                return Vista::crear("Procesos.ContraActuales", $response);
+            } else {
+                return Vista::crear("Procesos.ContraActuales", $id);
+            }
         }
 
         public function store() {

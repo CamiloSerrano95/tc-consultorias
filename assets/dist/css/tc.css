@@ -1,0 +1,14 @@
+.success_status {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.alert_status {
+    background-color: red ;
+    color: white;
+}
+
+.warning_status {
+    background-color: yellow;
+    color: black;
+}
