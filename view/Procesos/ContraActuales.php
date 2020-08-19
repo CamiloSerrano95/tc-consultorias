@@ -106,7 +106,7 @@
             
                 <form action="<?php echo ABS_PATH."procesos/store"?>" method="POST" class="form-horizontal">
                     <div class="card-body">
-                        <input type="text" name="id_object" value="<?php echo $key; ?>">
+                        <input type="hidden" name="id_object" value="<?php echo $key; ?>">
                         <div class="form-group row mt-5">
                             <label for="fname" class="col-sm-3 text-right control-label col-form-label">NOMENCLATURA</label>
                             <div class="col-sm-9">

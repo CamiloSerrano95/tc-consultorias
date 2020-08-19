@@ -52,9 +52,8 @@
         public function getById($id) {
           
             try {
-                //$sql = "SELECT * FROM contractual_processes WHERE contract_id = ?";
                 $sql = "SELECT licitacion.nombre, contractual_processes.* FROM licitacion, contractual_processes 
-                    WHERE contractual_processes.contract_id = ?";
+                    WHERE licitacion.id = contractual_processes.contract_id AND contractual_processes.contract_id = ?";
                 $query = $this->DataBase->prepare($sql);
                 $data = [$id];
                 $query->execute($data);
